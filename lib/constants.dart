@@ -7,7 +7,8 @@ const kTitleTextStyle = TextStyle(
 
 const kMessageTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 60.0,
+  fontSize: 20.0,
+  color: kWhite,
 );
 
 const kButtonTextStyle = TextStyle(
@@ -18,6 +19,10 @@ const kButtonTextStyle = TextStyle(
 const kWhite = Color(0xccffffff);
 
 const kGray = Color(0xff292929);
+
+const kGraySelected = Color(0xff8C8C8C);
+
+const kGraySearch = Color(0xffD0D0D0);
 
 const kBlack = Color(0xff121212);
 
