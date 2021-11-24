@@ -1,3 +1,1 @@
-class button{
-
-}
+class button {}
