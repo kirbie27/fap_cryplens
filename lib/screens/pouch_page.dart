@@ -6,7 +6,8 @@ final NavBarContent navbar = new NavBarContent();
 
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
-    List.generate(0, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(100, (index) => {"id": index, "name": "Coin $index"})
+        .toList();
 
 class PouchPage extends StatefulWidget {
   const PouchPage({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _PouchPageState extends State<PouchPage> {
         ),
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+            padding: EdgeInsets.all(15.0),
             child: PouchContent(),
           ),
         ),
