@@ -31,3 +31,9 @@ const kBlue = Color(0xffb102A43);
 const kGreen = Color(0xff2abfa4);
 
 const kRed = Color(0xffdb4d4d);
+
+const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans');
+
+const detectiveCryptoPadding = EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);
+
+const detectiveCryptoIcon = Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
