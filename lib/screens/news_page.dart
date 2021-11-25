@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:cryplens/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/screens/manual_page.dart';
-import 'package:cryplens/widgets/SearchBar.dart';
 import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
@@ -15,66 +14,73 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
-  List<ArticleModel> articles = <ArticleModel>[];
-  bool _loading = true;
+  late List<ArticleModel> articles;
 
-  getNews() async {
+  Future<dynamic> getNews() async {
     News newsClass = News();
     await newsClass.getNews();
-    articles = newsClass.news;
     setState(() {
-      _loading = false;
+      articles = newsClass.news;
     });
+    return articles;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBlack,
-      body: Column(
-              children: [
-                Padding(padding: EdgeInsets.all(10.0)),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Find news about coin:',
-                          style: kMessageTextStyle, textAlign: TextAlign.left)),
-                ),
-                SafeArea(child: SearchBar()),
-                // SafeArea(
-                //   child: Container(
-                //     padding: EdgeInsets.all(100),
-                //     height: 150,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(20),
-                //       color: kWhite,
-                //     ),
-                //   ),
-                // ),
-                //ARTICLES
-                _loading
-                    ? SafeArea(
-                      child: Container(
-                  child: Container(child: CircularProgressIndicator()),
-                ),
-                    )
-                    :
-                Container(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        print(articles[index].title);
-                        return NewsTile(
-                          imageUrl: articles[index].urlToImage,
-                          title: articles[index].title,
-                          desc: articles[index].description,
-                        );
-                      }),
-                )
-              ],
+    return SafeArea(
+      child: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Find news about coin:',
+                      style: kMessageTextStyle, textAlign: TextAlign.left)),
             ),
+          ),
+
+          // SafeArea(
+          //   child: Container(
+          //     padding: EdgeInsets.all(100),
+          //     height: 150,
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(20),
+          //       color: kWhite,
+          //     ),
+          //   ),
+          // ),
+          //ARTICLES
+          FutureBuilder(
+            future: getNews(),
+            builder: (BuildContext context, AsyncSnapshot snap) {
+              if (snap.data != null) {
+                return Expanded(
+                  flex: 9,
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      for (var i in articles)
+                        NewsTile(
+                          imageUrl: i.urlToImage,
+                          title: i.title,
+                          desc: i.description,
+                        )
+                    ],
+                  )),
+                );
+              } else {
+                return Expanded(
+                  flex: 9,
+                  child: Center(
+                      child: Container(child: CircularProgressIndicator())),
+                );
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

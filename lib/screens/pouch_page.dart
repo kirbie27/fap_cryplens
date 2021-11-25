@@ -6,7 +6,7 @@ final NavBarContent navbar = new NavBarContent();
 
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
-    List.generate(0, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(5, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class PouchPage extends StatefulWidget {
   const PouchPage({Key? key}) : super(key: key);
@@ -18,29 +18,10 @@ class PouchPage extends StatefulWidget {
 class _PouchPageState extends State<PouchPage> {
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
-
-    void onTabTapped(int i) {
-      setState(() {
-        _currentIndex = i;
-      });
-    }
-
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: kBlack,
-        bottomNavigationBar: NavBar(
-          onTap: onTabTapped,
-        ),
-        appBar: AppBar(
-          backgroundColor: kGray,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-            child: PouchContent(),
-          ),
-        ),
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+        child: PouchContent(),
       ),
     );
   }
@@ -62,7 +43,7 @@ class _PouchContentState extends State<PouchContent> {
         child: Container(
           child: Center(
             child: Text(
-              'Hi',
+              'POUCH NI JECO',
               style: TextStyle(
                 color: kWhite,
                 fontFamily: 'Spartan MB',
