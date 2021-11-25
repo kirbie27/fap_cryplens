@@ -13,14 +13,13 @@ const kMessageTextStyle = TextStyle(
 
 const kArticleTitleTextStyle = TextStyle(
   fontFamily: 'Robotto',
-  fontSize: 15.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.bold,
   color: kWhite,
 );
 
 const kArticleTextStyle = TextStyle(
   fontFamily: 'Robotto',
-  fontSize: 12.0,
   color: kWhite,
 );
 
