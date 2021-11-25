@@ -7,7 +7,7 @@ class News {
 
   getNews() async {
     String url =
-        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=8e7a13b484d749b0ae127a968356a967";
+        "https://newsapi.org/v2/everything?q=blockchain&apiKey=8e7a13b484d749b0ae127a968356a967";
 
     var response = await http.get(Uri.parse(url));
 
@@ -30,7 +30,6 @@ class News {
           print('article added');
         }
         counter = counter + 1;
-        if (counter == 1) break;
         print(counter);
       }
 

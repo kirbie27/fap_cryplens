@@ -1,3 +1,4 @@
+import 'package:cryplens/constants.dart';
 import 'package:flutter/material.dart';
 
 class NewsTile extends StatelessWidget {
@@ -7,17 +8,23 @@ class NewsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
+      height: 325,
+      padding: EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         children: [
-          Image.network(imageUrl),
-          Text(
-            title,
-            style: TextStyle(color: Colors.white),
+          ClipRRect(borderRadius: BorderRadius.circular(20),child: Image.network(imageUrl, height: 200,)),
+          SizedBox(
+            height: 5,
           ),
           Text(
-            desc,
-            style: TextStyle(color: Colors.white),
+            title,
+            style: kArticleTitleTextStyle,
+          ),
+          Expanded(
+            child: Text(
+              desc,
+              style: kArticleTextStyle,
+            ),
           )
         ],
       ),

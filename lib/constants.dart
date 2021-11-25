@@ -11,6 +11,25 @@ const kMessageTextStyle = TextStyle(
   color: kWhite,
 );
 
+const kArticleTitleTextStyle = TextStyle(
+  fontFamily: 'Robotto',
+  fontSize: 15.0,
+  fontWeight: FontWeight.bold,
+  color: kWhite,
+);
+
+const kArticleTextStyle = TextStyle(
+  fontFamily: 'Robotto',
+  fontSize: 12.0,
+  color: kWhite,
+);
+
+const kManualTextStyle = TextStyle(
+  fontFamily: 'Robotto',
+  fontSize: 15.0,
+  color: kWhite,
+);
+
 const kButtonTextStyle = TextStyle(
   fontSize: 30.0,
   fontFamily: 'Spartan MB',
@@ -32,8 +51,19 @@ const kGreen = Color(0xff2abfa4);
 
 const kRed = Color(0xffdb4d4d);
 
+const rowSpacer = TableRow(children: [
+  SizedBox(
+    height: 20,
+  ),
+  SizedBox(
+    height: 15,
+  )
+]);
+
 const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans');
 
-const detectiveCryptoPadding = EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);
+const detectiveCryptoPadding =
+    EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);
 
-const detectiveCryptoIcon = Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
+const detectiveCryptoIcon =
+    Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
