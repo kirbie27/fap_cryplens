@@ -9,7 +9,7 @@ import 'dart:math' as math;
 import 'package:cryplens/screens/coin_page.dart';
 
 final List<Map> coins =
-    List.generate(10, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class CatalogPage extends StatefulWidget {
   _CatalogState createState() => _CatalogState();

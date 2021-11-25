@@ -4,7 +4,7 @@ import 'package:cryplens/widgets/NavBar.dart';
 import 'dart:math' as math;
 
 final List<Map> coins =
-    List.generate(1, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class CoinPage extends StatefulWidget {
   const CoinPage({Key? key}) : super(key: key);

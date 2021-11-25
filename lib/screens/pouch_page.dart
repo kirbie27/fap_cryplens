@@ -5,7 +5,7 @@ import 'package:cryplens/widgets/NavBar.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
-    List.generate(1, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class PouchPage extends StatefulWidget {
   const PouchPage({Key? key}) : super(key: key);
