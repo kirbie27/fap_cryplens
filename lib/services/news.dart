@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:cryplens/widgets/SearchBar.dart';
 
 class News {
   List<ArticleModel> news = [];
 
   getNews() async {
     String url =
-        "https://newsapi.org/v2/everything?q=blockchain&apiKey=8e7a13b484d749b0ae127a968356a967";
-
+        "https://newsapi.org/v2/everything?q=crypto&apiKey=08827c58e5d341d98840478ad934fcd8";
+    //08827c58e5d341d98840478ad934fcd8 - Extra API
+    //8e7a13b484d749b0ae127a968356a967"
     var response = await http.get(Uri.parse(url));
 
     print('here?');

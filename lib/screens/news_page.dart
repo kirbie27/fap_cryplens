@@ -1,8 +1,7 @@
+import 'package:cryplens/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:cryplens/screens/manual_page.dart';
 import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
@@ -36,21 +35,11 @@ class _NewsPageState extends State<NewsPage> {
               padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text('Find news about coin:',
+                  child: Text('Find news about crypto:',
                       style: kMessageTextStyle, textAlign: TextAlign.left)),
             ),
           ),
-
-          // SafeArea(
-          //   child: Container(
-          //     padding: EdgeInsets.all(100),
-          //     height: 150,
-          //     decoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(20),
-          //       color: kWhite,
-          //     ),
-          //   ),
-          // ),
+          //SearchBar(),
           //ARTICLES
           FutureBuilder(
             future: getNews(),
@@ -66,6 +55,7 @@ class _NewsPageState extends State<NewsPage> {
                           imageUrl: i.urlToImage,
                           title: i.title,
                           desc: i.description,
+                          url: i.url,
                         )
                     ],
                   )),
