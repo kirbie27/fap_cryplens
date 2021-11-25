@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 
-final NavBarContent navbar = new NavBarContent();
-
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
     List.generate(5, (index) => {"id": index, "name": "Coin $index"}).toList();
