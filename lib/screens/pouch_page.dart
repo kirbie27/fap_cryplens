@@ -1,10 +1,11 @@
+import 'package:cryplens/screens/coin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
-    List.generate(5, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(1, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class PouchPage extends StatefulWidget {
   const PouchPage({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _PouchPageState extends State<PouchPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+        padding: EdgeInsets.all(15.0),
         child: PouchContent(),
       ),
     );
@@ -41,11 +42,12 @@ class _PouchContentState extends State<PouchContent> {
         child: Container(
           child: Center(
             child: Text(
-              'POUCH NI JECO',
+              'Hi Agent, listed here are the contents of your pouch',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: kWhite,
                 fontFamily: 'Spartan MB',
-                fontSize: 30.0,
+                fontSize: 20.0,
               ),
             ),
           ),
@@ -87,17 +89,28 @@ class _CoinWidgetState extends State<CoinWidget> {
     } else {
       return Container(
         alignment: Alignment.center,
-        child: Text(
-          "Add new coins from the coin catalog",
-          style: TextStyle(
-            color: kWhite,
-            fontFamily: 'Spartan MB',
-            fontSize: 15.0,
+        child: InkWell(
+          onTap: () {
+            print('clicked');
+          },
+          child: Container(
+            width: 500,
+            height: 500,
+            child: Center(
+              child: Text(
+                "Add new coins from the coin catalog",
+                style: TextStyle(
+                  color: kWhite,
+                  fontFamily: 'Spartan MB',
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
           ),
-        ),
-        decoration: BoxDecoration(
-          color: kGray,
-          borderRadius: BorderRadius.circular(20),
         ),
       );
     }
@@ -119,17 +132,33 @@ class _CoinContainerState extends State<CoinContainer> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: Text(
-        coins[index]["name"],
-        style: TextStyle(
-          color: kWhite,
-          fontFamily: 'Spartan MB',
-          fontSize: 30.0,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CoinPage(),
+            ),
+          );
+        },
+        child: Container(
+          width: 500,
+          height: 500,
+          child: Center(
+            child: Text(
+              coins[index]["name"],
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 30.0,
+              ),
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: kGray,
+            borderRadius: BorderRadius.circular(20),
+          ),
         ),
-      ),
-      decoration: BoxDecoration(
-        color: kGray,
-        borderRadius: BorderRadius.circular(20),
       ),
     );
   }
