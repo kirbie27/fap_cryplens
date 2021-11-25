@@ -60,7 +60,7 @@ const rowSpacer = TableRow(children: [
   )
 ]);
 
-const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans');
+const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);
 
 const detectiveCryptoPadding =
     EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);

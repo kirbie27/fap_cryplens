@@ -9,6 +9,7 @@ import 'package:cryplens/screens/catalog_page.dart';
 import 'package:cryplens/screens/pouch_page.dart';
 import 'package:cryplens/screens/news_page.dart';
 import 'package:cryplens/screens/manual_page.dart';
+import 'package:cryplens/screens/detective_page.dart';
 
 class NavigatorPage extends StatefulWidget {
   _NavigatorState createState() => _NavigatorState();
@@ -26,7 +27,7 @@ class _NavigatorState extends State<NavigatorPage> {
   final pages = [
     CatalogPage(),
     PouchPage(),
-    checker(label: 'DETECTIVE CRYPTO'),
+    DetectiveCryptoPage1(),
     NewsPage(),
     checker(label: 'MANUAL')
   ];
