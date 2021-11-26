@@ -13,14 +13,13 @@ const kMessageTextStyle = TextStyle(
 
 const kArticleTitleTextStyle = TextStyle(
   fontFamily: 'Robotto',
-  fontSize: 15.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.bold,
   color: kWhite,
 );
 
 const kArticleTextStyle = TextStyle(
   fontFamily: 'Robotto',
-  fontSize: 12.0,
   color: kWhite,
 );
 
@@ -60,7 +59,7 @@ const rowSpacer = TableRow(children: [
   )
 ]);
 
-const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans');
+const detectiveCryptoText = TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);
 
 const detectiveCryptoPadding =
     EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);

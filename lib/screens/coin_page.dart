@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
-
-final NavBarContent navbar = new NavBarContent();
+import 'dart:math' as math;
 
 final List<Map> coins =
-    List.generate(10, (index) => {"id": index, "name": "Coin $index"}).toList();
+    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class CoinPage extends StatefulWidget {
   const CoinPage({Key? key}) : super(key: key);
@@ -17,32 +16,17 @@ class CoinPage extends StatefulWidget {
 class _CoinPageState extends State<CoinPage> {
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = 0;
-
-    void onTabTapped(int i) {
-      setState(() {
-        _currentIndex = i;
-      });
-    }
-
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: kBlack,
-        bottomNavigationBar: NavBar(
-          onTap: onTabTapped,
-        ),
-        appBar: AppBar(
-          backgroundColor: kGray,
-        ),
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: CoinContent(),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kGray,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: CoinContent(),
         ),
       ),
     );
-    ;
   }
 }
 
@@ -56,35 +40,188 @@ class CoinContent extends StatefulWidget {
 class _CoinContentState extends State<CoinContent> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Expanded(
-        flex: 1,
-        child: Container(),
-      ),
-      Expanded(
-        flex: 1,
-        child: Container(),
-      ),
-      Expanded(
-        flex: 4,
-        child: Container(
-          child: CoinListWidget(),
+    return Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "See Related News",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontFamily: 'Spartan MB',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: kGray,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Add to Pouch",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontFamily: 'Spartan MB',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: kGray,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    ]);
-  }
-}
-
-class CoinListWidget extends StatefulWidget {
-  const CoinListWidget({Key? key}) : super(key: key);
-
-  @override
-  _CoinListWidgetState createState() => _CoinListWidgetState();
-}
-
-class _CoinListWidgetState extends State<CoinListWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Description",
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 20.0,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Price",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontFamily: 'Spartan MB',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: kGray,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Trust Score",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontFamily: 'Spartan MB',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: kGray,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Volume",
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 20.0,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Market Cap",
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 20.0,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          flex: 5,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Graph",
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 30.0,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

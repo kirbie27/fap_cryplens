@@ -6,6 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
 import 'dart:math' as math;
+import 'package:cryplens/screens/coin_page.dart';
+
+final List<Map> coins =
+    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
 class CatalogPage extends StatefulWidget {
   _CatalogState createState() => _CatalogState();
@@ -15,7 +19,10 @@ class _CatalogState extends State<CatalogPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Center(
-        child: CatalogContent(),
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: CatalogContent(),
+        ),
       ),
     );
   }
@@ -36,12 +43,18 @@ class _CatalogContentState extends State<CatalogContent> {
         flex: 1,
         child: SearchBarWidget(),
       ),
+      SizedBox(
+        height: 20,
+      ),
       Expanded(
         flex: 1,
         child: SortWidget(),
       ),
+      SizedBox(
+        height: 20,
+      ),
       Expanded(
-        flex: 4,
+        flex: 5,
         child: CoinListWidget(),
       ),
     ]);
@@ -62,7 +75,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
   late AnimationController _con;
   TextEditingController _textEditingController = TextEditingController();
 
-  int _currentIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -84,7 +96,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
         width: (toggle == 0) ? 48.0 : 250.0,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kGray,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
@@ -114,7 +126,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
                   child: AnimatedBuilder(
                     child: Icon(
                       Icons.search,
-                      color: Colors.black,
+                      color: kWhite,
                       size: 20.0,
                     ),
                     builder: (context, widget) {
@@ -143,12 +155,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
                     controller: _textEditingController,
                     cursorRadius: Radius.circular(10.0),
                     cursorWidth: 2.0,
-                    cursorColor: Colors.black,
+                    cursorColor: kWhite,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
-                      labelText: 'Search...',
+                      labelText: 'Enter coin code...',
                       labelStyle: TextStyle(
-                        color: Color(0xff5B5B5B),
+                        color: Colors.white24,
                         fontSize: 17.0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -163,13 +175,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
               ),
             ),
             Material(
-              color: Colors.white,
+              color: kGray,
               borderRadius: BorderRadius.circular(30.0),
               child: IconButton(
                 splashRadius: 19.0,
                 icon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  color: kWhite,
                   size: 18.0,
                 ),
                 onPressed: () {
@@ -203,9 +215,120 @@ class SortWidget extends StatefulWidget {
 }
 
 class _SortWidgetState extends State<SortWidget> {
+  bool isFirstDropdownOpened = false;
+  bool isSecondDropdownOpened = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+        child: Column(
+      children: [
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text(
+                "Sort by:",
+                style: TextStyle(
+                  color: kWhite,
+                  fontFamily: 'Spartan MB',
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isFirstDropdownOpened = !isFirstDropdownOpened;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Text(
+                              "Market Cap",
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                                isFirstDropdownOpened
+                                    ? Icons.arrow_drop_up
+                                    : Icons.arrow_drop_down,
+                                color: kWhite),
+                          ],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: kGray,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isSecondDropdownOpened = !isSecondDropdownOpened;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                      ),
+                      child: Center(
+                        child: Row(
+                          children: [
+                            Text(
+                              "Ascending",
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                                isSecondDropdownOpened
+                                    ? Icons.arrow_drop_up
+                                    : Icons.arrow_drop_down,
+                                color: kWhite),
+                          ],
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: kGray,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ],
+    ));
   }
 }
 
@@ -219,6 +342,92 @@ class CoinListWidget extends StatefulWidget {
 class _CoinListWidgetState extends State<CoinListWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    if (coins.length > 0) {
+      return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          mainAxisSpacing: 15,
+          mainAxisExtent: 80,
+        ),
+        itemCount: coins.length,
+        itemBuilder: (BuildContext context, int index) {
+          return CoinContainer(index: index);
+        },
+      );
+    } else {
+      return Container(
+        alignment: Alignment.center,
+        child: InkWell(
+          onTap: () {
+            print('clicked');
+          },
+          child: Container(
+            width: 500,
+            height: 100,
+            child: Center(
+              child: Text(
+                "Add new coins from the coin catalog",
+                style: TextStyle(
+                  color: kWhite,
+                  fontFamily: 'Spartan MB',
+                  fontSize: 15.0,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: kGray,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+      );
+    }
+  }
+}
+
+class CoinContainer extends StatefulWidget {
+  const CoinContainer({Key? key, required this.index});
+  final int index;
+  @override
+  _CoinContainerState createState() => _CoinContainerState(index: index);
+}
+
+class _CoinContainerState extends State<CoinContainer> {
+  _CoinContainerState({Key? key, required this.index});
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CoinPage(),
+            ),
+          );
+        },
+        child: Container(
+          width: 500,
+          height: 500,
+          child: Center(
+            child: Text(
+              coins[index]["name"],
+              style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Spartan MB',
+                fontSize: 30.0,
+              ),
+            ),
+          ),
+          decoration: BoxDecoration(
+            color: kGray,
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+      ),
+    );
   }
 }
