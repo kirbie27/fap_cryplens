@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:cryplens/widgets/SearchBar.dart';
+//import 'package:cryplens/widgets/SearchBar.dart';
 
 class News {
   List<ArticleModel> news = [];
@@ -39,5 +39,9 @@ class News {
     } else {
       print('not ok');
     }
+  }
+
+  getList() {
+    return news;
   }
 }

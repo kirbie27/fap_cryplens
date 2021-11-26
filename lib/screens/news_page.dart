@@ -1,4 +1,4 @@
-import 'package:cryplens/widgets/SearchBar.dart';
+//import 'package:cryplens/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/constants.dart';
@@ -7,19 +7,23 @@ import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
 
 class NewsPage extends StatefulWidget {
-  NewsPage();
   @override
   _NewsPageState createState() => _NewsPageState();
 }
 
 class _NewsPageState extends State<NewsPage> {
-  late List<ArticleModel> articles;
+  late Future articles;
 
-  Future<dynamic> getNews() async {
-    News newsClass = News();
+  void initState() {
+    super.initState();
+    articles = getData();
+  }
+
+  getData() async {
+    final newsClass = News();
     await newsClass.getNews();
     setState(() {
-      articles = newsClass.news;
+      articles = Future.value(newsClass.getList());
     });
     return articles;
   }
@@ -42,15 +46,16 @@ class _NewsPageState extends State<NewsPage> {
           //SearchBar(),
           //ARTICLES
           FutureBuilder(
-            future: getNews(),
+            future: articles,
             builder: (BuildContext context, AsyncSnapshot snap) {
               if (snap.data != null) {
+                print(snap.data);
                 return Expanded(
                   flex: 9,
                   child: SingleChildScrollView(
                       child: Column(
                     children: [
-                      for (var i in articles)
+                      for (var i in snap.data)
                         NewsTile(
                           imageUrl: i.urlToImage,
                           title: i.title,
