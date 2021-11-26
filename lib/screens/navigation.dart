@@ -12,6 +12,7 @@ import 'package:cryplens/screens/manual_page.dart';
 import 'package:cryplens/screens/detective_page.dart';
 
 class NavigatorPage extends StatefulWidget {
+  NavigatorPage();
   _NavigatorState createState() => _NavigatorState();
 }
 
@@ -37,7 +38,7 @@ class _NavigatorState extends State<NavigatorPage> {
     PouchPage(),
     DetectiveCryptoPage1(),
     NewsPage(),
-    checker(label: 'MANUAL')
+    ManualPage()
   ];
 
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class _NavigatorState extends State<NavigatorPage> {
         backgroundColor: kGray,
       ),
       body: pages[_currentIndex],
-      bottomNavigationBar: NavBar(onTap: onTabTapped),
+      bottomNavigationBar: NavBar(selectedIndex:_currentIndex,onTap: onTabTapped),
     );
   }
 }
