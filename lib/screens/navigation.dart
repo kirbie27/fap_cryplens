@@ -24,6 +24,14 @@ class _NavigatorState extends State<NavigatorPage> {
     });
   }
 
+  final titles = [
+    'Coin Catalog',
+    'Coin Pouch',
+    'Detective Crypto',
+    'CryptoPages',
+    'Manual'
+  ];
+
   final pages = [
     CatalogPage(),
     PouchPage(),
@@ -31,9 +39,11 @@ class _NavigatorState extends State<NavigatorPage> {
     NewsPage(),
     checker(label: 'MANUAL')
   ];
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(titles[_currentIndex]),
         backgroundColor: kGray,
       ),
       body: pages[_currentIndex],

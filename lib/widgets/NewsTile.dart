@@ -5,15 +5,20 @@ import 'package:flutter/material.dart';
 
 class NewsTile extends StatelessWidget {
   final String imageUrl, title, desc, url;
-  NewsTile({required this.imageUrl, required this.title, required this.desc, required this.url});
+  NewsTile(
+      {required this.imageUrl,
+      required this.title,
+      required this.desc,
+      required this.url});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context)=> ArticleView(articleURL: url))
-        );
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleView(articleURL: url)));
       },
       child: Container(
         height: 325,
@@ -23,14 +28,20 @@ class NewsTile extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(7),
-                child: Image.network(imageUrl, height: 200,)
+                child: Image.network(
+                  imageUrl,
+                  height: 200,
+                )),
+            SizedBox(
+              height: 8,
             ),
-            SizedBox(height: 8,),
             Text(
               title,
               style: kArticleTitleTextStyle,
             ),
-            SizedBox(height: 8,),
+            SizedBox(
+              height: 8,
+            ),
             Expanded(
               child: Text(
                 desc,
