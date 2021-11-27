@@ -2,9 +2,17 @@ import 'package:cryplens/constants.dart';
 import 'package:cryplens/screens/article_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class NewsTile extends StatelessWidget {
   final String imageUrl, title, desc, url;
+
+  double computeHeight(int desc) {
+    //print('length $desc');
+    //dynamically computes the better fit height for each news article.
+    return 300 + 10 * (desc / 40.0);
+  }
+
   NewsTile(
       {required this.imageUrl,
       required this.title,
@@ -21,10 +29,12 @@ class NewsTile extends StatelessWidget {
                 builder: (context) => ArticleView(articleURL: url)));
       },
       child: Container(
-        height: 325,
+        color: kBlue,
+        height: computeHeight(desc.length),
         padding: EdgeInsets.symmetric(horizontal: 30),
         margin: EdgeInsets.only(bottom: 16, top: 10),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(7),
