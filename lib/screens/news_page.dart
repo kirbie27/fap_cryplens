@@ -14,6 +14,7 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future articles;
+  String test = '';
 
   void initState() {
     super.initState();

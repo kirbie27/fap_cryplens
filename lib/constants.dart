@@ -70,5 +70,5 @@ const detectiveCryptoIcon =
 
 const Loading = SpinKitFadingFour(
   color: Colors.white,
-  size: 80.0,
+  size: 50.0,
 );
