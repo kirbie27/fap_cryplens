@@ -5,6 +5,7 @@ import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
+import 'package:cryplens/services/database/DatabaseHelper.dart';
 
 class NewsPage extends StatefulWidget {
   @override
@@ -12,18 +13,19 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  DatabaseHelper dbHelper = DatabaseHelper();
   late Future articles;
 
   void initState() {
     super.initState();
-    articles = getData();
+    getData();
   }
 
   getData() async {
     final newsClass = News();
     await newsClass.getNews();
     setState(() {
-      articles = Future.value(newsClass.getList());
+      articles = dbHelper.getNewsTable();
     });
     return articles;
   }
@@ -57,10 +59,10 @@ class _NewsPageState extends State<NewsPage> {
                     children: [
                       for (var i in snap.data)
                         NewsTile(
-                          imageUrl: i.urlToImage,
-                          title: i.title,
-                          desc: i.description,
-                          url: i.url,
+                          imageUrl: i['urlToImage'],
+                          title: i['title'],
+                          desc: i['description'],
+                          url: i['url'],
                         )
                     ],
                   )),

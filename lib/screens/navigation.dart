@@ -43,12 +43,14 @@ class _NavigatorState extends State<NavigatorPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(titles[_currentIndex]),
         backgroundColor: kGray,
       ),
       body: pages[_currentIndex],
-      bottomNavigationBar: NavBar(selectedIndex:_currentIndex,onTap: onTabTapped),
+      bottomNavigationBar:
+          NavBar(selectedIndex: _currentIndex, onTap: onTabTapped),
     );
   }
 }

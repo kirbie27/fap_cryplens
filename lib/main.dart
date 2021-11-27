@@ -9,8 +9,10 @@ import 'package:cryplens/screens/start_page.dart';
 import 'package:cryplens/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cryplens/loadapp.dart';
+import 'package:cryplens/services/database/DatabaseHelper.dart';
+import 'package:cryplens/services/database/favoritesRecord.dart';
 
-void main() {
+void main() async {
   runApp(CryptoLens());
 }
 
