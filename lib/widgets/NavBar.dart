@@ -52,36 +52,39 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+
       type: BottomNavigationBarType.fixed,
       backgroundColor: kGray,
-      showSelectedLabels: true,
+      iconSize: 20,
+      showSelectedLabels: false,
       showUnselectedLabels: false,
-      selectedItemColor: kGraySelected,
-      unselectedItemColor: kWhite,
+      selectedItemColor: kWhite,
+      unselectedItemColor: kGraySelected,
       currentIndex: selectedIndex,
       onTap: onTap,
       items: [
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.book),
-          label: "Catalog",
-        ),
+            icon: FaIcon(FontAwesomeIcons.book),
+            label: "Catalog",
+            activeIcon: FaIcon(FontAwesomeIcons.book, size: 30)),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.wallet),
-          label: "Pouch",
-        ),
+            icon: FaIcon(FontAwesomeIcons.wallet),
+            label: "Pouch",
+            activeIcon: FaIcon(FontAwesomeIcons.wallet, size: 30)),
         BottomNavigationBarItem(
-          icon: Image.asset('assets/images/cryplensLOGO80.png',
-              width: 50, height: 50),
-          label: "Luna",
-        ),
+            icon: Image.asset('assets/images/cryplensLOGOGRAY.png',
+                width: 30, height: 30),
+            label: "Luna",
+            activeIcon: Image.asset('assets/images/cryplensLOGO80.png',
+                width: 32, height: 32)),
         BottomNavigationBarItem(
-          icon: FaIcon(FontAwesomeIcons.solidNewspaper),
-          label: "CryptoPaper",
-        ),
+            icon: FaIcon(FontAwesomeIcons.solidNewspaper),
+            label: "CryptoPaper",
+            activeIcon: FaIcon(FontAwesomeIcons.solidNewspaper, size: 30)),
         BottomNavigationBarItem(
-          icon: Icon(Icons.info_rounded),
-          label: "Manual",
-        ),
+            icon: FaIcon(FontAwesomeIcons.infoCircle),
+            label: "Manual",
+            activeIcon: FaIcon(FontAwesomeIcons.infoCircle, size: 30)),
       ],
     );
   }
