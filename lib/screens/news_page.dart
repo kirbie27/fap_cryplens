@@ -23,9 +23,9 @@ class _NewsPageState extends State<NewsPage> {
 
   getData() async {
     final newsClass = News();
-    await newsClass.getNews();
+    final holder = await dbHelper.getNewsTableAtLoad();
     setState(() {
-      articles = Future.value(dbHelper.getNewsTable());
+      articles = Future.value(holder);
     });
   }
 
@@ -69,8 +69,7 @@ class _NewsPageState extends State<NewsPage> {
               } else {
                 return Expanded(
                   flex: 9,
-                  child: Center(
-                      child: Container(child: Loading)),
+                  child: Center(child: Container(child: Loading)),
                 );
               }
             },

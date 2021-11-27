@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:cryplens/services/database/favoritesRecord.dart';
 import 'package:cryplens/services/database/articleRecord.dart';
+import 'package:cryplens/services/news.dart';
 
 //this class handles the functions related to the databas
 class DatabaseHelper {
@@ -62,27 +63,15 @@ class DatabaseHelper {
         'CREATE TABLE IF NOT EXISTS news(articleId INTEGER PRIMARY KEY, author TEXT, title TEXT, description TEXT,url TEXT, urlToImage TEXT,content TEXT,publishedAt TEXT )');
   }
 
-  getNewsTable() async {
+  getNewsTableAtLoad() async {
     final db = await getDatabase();
     await createNewsTable();
-    // List<Map<String, dynamic>> newsmap
-    return await db.query('news');
-    /*
-    return List.generate(
-        newsmap.length,
-        (index) => (i) {
-              return ArticleRecord(
-                  articleId: i,
-                  author: newsmap[i]['articleId'],
-                  title: newsmap[i]['title'],
-                  description: newsmap[i]['description'],
-                  url: newsmap[i]['url'],
-                  urlToImage: newsmap[i]['urlToImage'],
-                  content: newsmap[i]['content'],
-                  publishedAt: newsmap[i]['publishedAt']);
-            });
 
-     */
+    final newsClass = News();
+
+    var newsTable = await db.query('news');
+    if (newsTable.isEmpty) await newsClass.getNewsAtLoad();
+    return await db.query('news');
   }
 
   Future<void> insertNews(ArticleRecord article) async {

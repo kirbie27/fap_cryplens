@@ -2,6 +2,7 @@ import 'package:cryplens/screens/coin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
+import 'package:cryplens/user.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
 final List<Map> coins =
@@ -34,6 +35,7 @@ class PouchContent extends StatefulWidget {
 }
 
 class _PouchContentState extends State<PouchContent> {
+  User user = User();
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -42,7 +44,7 @@ class _PouchContentState extends State<PouchContent> {
         child: Container(
           child: Center(
             child: Text(
-              'Hi Agent, listed here are the contents of your pouch',
+              'Hi ${user.getName()}, listed here are the contents of your pouch',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: kWhite,

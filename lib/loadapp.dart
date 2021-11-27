@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:cryplens/screens/start_page.dart';
 import 'package:cryplens/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cryplens/user.dart';
 
 void main() {
   runApp(Load());
@@ -20,6 +21,8 @@ class _LoadState extends State<Load> {
   Future<bool> getName() async {
     final prefs = await SharedPreferences.getInstance();
     await Future.delayed(Duration(seconds: 5));
+    User user = User();
+    user.setName(await prefs.getString('name') ?? "Agent");
     return await prefs.containsKey('name');
   }
 

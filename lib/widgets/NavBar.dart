@@ -54,7 +54,7 @@ class NavBar extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       backgroundColor: kGray,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
       showUnselectedLabels: false,
       selectedItemColor: kGraySelected,
       unselectedItemColor: kWhite,
@@ -63,24 +63,24 @@ class NavBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.book),
-          label: "Home",
+          label: "Catalog",
         ),
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.wallet),
-          label: "Home",
+          label: "Pouch",
         ),
         BottomNavigationBarItem(
           icon: Image.asset('assets/images/cryplensLOGO80.png',
               width: 50, height: 50),
-          label: "Home",
+          label: "Luna",
         ),
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.solidNewspaper),
-          label: "Home",
+          label: "CryptoPaper",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.info_rounded),
-          label: "Home",
+          label: "Manual",
         ),
       ],
     );
