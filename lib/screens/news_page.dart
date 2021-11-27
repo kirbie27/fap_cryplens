@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/widgets/ArticleModel.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
@@ -18,16 +17,15 @@ class _NewsPageState extends State<NewsPage> {
 
   void initState() {
     super.initState();
-    getData();
+    articles = getData();
   }
 
   getData() async {
     final newsClass = News();
     await newsClass.getNews();
     setState(() {
-      articles = dbHelper.getNewsTable();
+      articles = Future.value(dbHelper.getNewsTable());
     });
-    return articles;
   }
 
   @override
@@ -51,7 +49,7 @@ class _NewsPageState extends State<NewsPage> {
             future: articles,
             builder: (BuildContext context, AsyncSnapshot snap) {
               if (snap.data != null) {
-                print(snap.data);
+                //print(snap.data);
                 return Expanded(
                   flex: 9,
                   child: SingleChildScrollView(
