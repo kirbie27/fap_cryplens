@@ -74,6 +74,20 @@ class DatabaseHelper {
     return await db.query('news');
   }
 
+  getNewsTableWithQuery(String query) async {
+    final db = await getDatabase();
+
+    //since this is a new query we would need to reload the table
+    await db.execute("DROP TABLE IF EXISTS news");
+
+    await createNewsTable();
+
+    final newsClass = News();
+    var newsTable = await db.query('news');
+    if (newsTable.isEmpty) await newsClass.getNewsWithSearch(query);
+    return await db.query('news');
+  }
+
   Future<void> insertNews(ArticleRecord article) async {
     // Get a reference to the database.
     final db = await getDatabase();

@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
+import 'package:cryplens/user.dart';
 
 class introPage extends StatefulWidget {
   _introState createState() => _introState();
@@ -25,6 +26,8 @@ class _introState extends State<introPage> {
   void setName(String name) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
+    User user = User();
+    user.setName(await prefs.getString('name') ?? "Agent");
     setState(() {
       Navigator.pushReplacementNamed(context, '/welcome');
     });
