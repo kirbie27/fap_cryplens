@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const kTitleTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
@@ -66,3 +67,8 @@ const detectiveCryptoPadding =
 
 const detectiveCryptoIcon =
     Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
+
+const Loading = SpinKitFadingFour(
+  color: Colors.white,
+  size: 80.0,
+);

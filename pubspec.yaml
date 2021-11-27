@@ -19,6 +19,7 @@ dependencies:
   shared_preferences: ^2.0.9 #for local data storing
   http: ^0.13.4
   webview_flutter: ^0.3.19+9
+  flutter_spinkit: ^5.1.0
   #add additional packages here
 dev_dependencies:
   flutter_test:

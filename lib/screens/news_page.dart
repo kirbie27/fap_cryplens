@@ -69,7 +69,7 @@ class _NewsPageState extends State<NewsPage> {
                 return Expanded(
                   flex: 9,
                   child: Center(
-                      child: Container(child: CircularProgressIndicator())),
+                      child: Container(child: Loading)),
                 );
               }
             },
