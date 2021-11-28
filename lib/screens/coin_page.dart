@@ -43,7 +43,7 @@ class _CoinContentState extends State<CoinContent> {
     return Column(
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Row(
             children: [
               Expanded(
@@ -89,31 +89,10 @@ class _CoinContentState extends State<CoinContent> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 15,
         ),
         Expanded(
-          flex: 1,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              "Description",
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 20.0,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: kGray,
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          flex: 1,
+          flex: 2,
           child: Row(
             children: [
               Expanded(
@@ -159,10 +138,10 @@ class _CoinContentState extends State<CoinContent> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 15,
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(
             alignment: Alignment.center,
             child: Text(
@@ -180,10 +159,10 @@ class _CoinContentState extends State<CoinContent> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 15,
         ),
         Expanded(
-          flex: 1,
+          flex: 2,
           child: Container(
             alignment: Alignment.center,
             child: Text(
@@ -201,10 +180,10 @@ class _CoinContentState extends State<CoinContent> {
           ),
         ),
         SizedBox(
-          height: 20,
+          height: 15,
         ),
         Expanded(
-          flex: 5,
+          flex: 7,
           child: Container(
             alignment: Alignment.center,
             child: Text(
@@ -218,6 +197,22 @@ class _CoinContentState extends State<CoinContent> {
             decoration: BoxDecoration(
               color: kGray,
               borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              "Powered by Coingecko",
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.4),
+                fontFamily: 'Spartan MB',
+                fontSize: 20.0,
+              ),
             ),
           ),
         ),
