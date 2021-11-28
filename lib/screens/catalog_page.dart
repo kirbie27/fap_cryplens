@@ -251,13 +251,7 @@ class _SortWidgetState extends State<SortWidget> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        countOne = countOne + 1;
-                        if (countOne == 3) countOne = 0;
-
-                        print(countOne);
-                      });
-
+                      countOne = countOne < 3 ? countOne++ : 0;
                       print("Marketcap change");
                     },
                     child: Container(
