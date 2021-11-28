@@ -57,7 +57,7 @@ class ManualTable extends StatelessWidget {
                         width: 70, height: 70),
                     Padding(
                         padding: EdgeInsets.all(5.0),
-                        child: Text('Detective Crypto', style: kArticleTitleTextStyle,))
+                        child: Text('Detective Luna', style: kArticleTitleTextStyle,))
                   ],
                 ),
                 Column(

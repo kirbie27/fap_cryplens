@@ -4,13 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter/rendering.dart';
+
 class NewsTile extends StatelessWidget {
   final String imageUrl, title, desc, url;
 
   double computeHeight(int desc) {
     //print('length $desc');
     //dynamically computes the better fit height for each news article.
-    return 300 + 10 * (desc / 40.0);
+    return 290 + 10 * (desc / 50.0);
   }
 
   NewsTile(
@@ -29,29 +31,31 @@ class NewsTile extends StatelessWidget {
                 builder: (context) => ArticleView(articleURL: url)));
       },
       child: Container(
-        color: kBlue,
+        decoration: BoxDecoration(
+          color: kBlue,
+          borderRadius: BorderRadius.circular(18),
+        ),
         height: computeHeight(desc.length),
         padding: EdgeInsets.symmetric(horizontal: 30),
-        margin: EdgeInsets.only(bottom: 16, top: 10),
+        margin: EdgeInsets.fromLTRB(15, 10, 15, 16),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisSize: MainAxisSize.max,
           children: [
+            SizedBox(height: 30),
             ClipRRect(
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(10.0),
                 child: Image.network(
                   imageUrl,
-                  height: 200,
+                  fit: BoxFit.fill,
+                  height: 170,
                 )),
-            SizedBox(
-              height: 8,
-            ),
+            SizedBox(height: 8),
             Text(
               title,
               style: kArticleTitleTextStyle,
             ),
-            SizedBox(
-              height: 8,
-            ),
+            SizedBox(height: 8),
             Expanded(
               child: Text(
                 desc,

@@ -5,6 +5,7 @@ import 'package:cryplens/constants.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
+import 'package:flutter/rendering.dart';
 
 class NewsPage extends StatefulWidget {
   @override
@@ -60,45 +61,73 @@ class _NewsPageState extends State<NewsPage> {
     return SafeArea(
       child: Column(
         children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20, 5, 20, 0),
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: TextField(
-                cursorColor: kBlue,
-                focusNode: fn,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-                controller: searchController,
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.adb),
-                    onPressed: () {
-                      setState(() {
-                        loading = true;
-                      });
-                      getDataWithQuery(searchController.text);
-                    },
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  height:45,
+                  padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
+                  margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: TextField(
+                    cursorColor: kBlue,
+                    focusNode: fn,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                    controller: searchController,
+                    textAlign: TextAlign.start,
+                    decoration: InputDecoration(
+                      // suffixIcon: IconButton(
+                      //   icon: Icon(Icons.adb),
+                      //   onPressed: () {
+                      //     setState(() {
+                      //       loading = true;
+                      //     });
+                      //     getDataWithQuery(searchController.text);
+                      //   },
+                      // ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 0, style: BorderStyle.none),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: kBlue, width: 1),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      hintText: 'Search about crypto here',
+                      contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                    ),
                   ),
-                  fillColor: Colors.white,
-                  filled: true,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kBlue, width: 1),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  hintText: 'Search about crypto here',
-                  contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
                 ),
               ),
-            ),
+              Container(
+                // margin: EdgeInsets.only(top: 2),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: CircleBorder(), primary: Colors.white),
+                  child: Container(
+                    height: 42,
+                    width: 42,
+                    child: Icon(
+                      Icons.search,
+                      color: kBlue,
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      loading = true;
+                    });
+                    getDataWithQuery(searchController.text);
+                  },
+                ),
+              )
+            ],
           ),
+
           //SearchBar(),
           //ARTICLES
           FutureBuilder(
@@ -119,9 +148,21 @@ class _NewsPageState extends State<NewsPage> {
                             url: i['url'],
                           )
                       else
-                        Text(
-                            'We couldn\'t find what you are looking for, Agent.',
-                            style: kMessageTextStyle)
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 50),
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                child: Text(
+                                    'We couldn\'t find what you are looking for, Agent.',
+                                    style: kMessageTextStyle, textAlign: TextAlign.center,),
+                              ),
+                              Image.asset("assets/images/cryplensLOGOWHITE.png", height: 200,)
+                            ],
+                          ),
+                        )
                     ],
                   )),
                 );
