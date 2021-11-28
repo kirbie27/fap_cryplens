@@ -76,6 +76,9 @@ class _NewsPageState extends State<NewsPage> {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.adb),
                     onPressed: () {
+                      setState(() {
+                        loading = true;
+                      });
                       getDataWithQuery(searchController.text);
                     },
                   ),
