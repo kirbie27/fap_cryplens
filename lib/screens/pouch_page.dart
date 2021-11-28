@@ -147,13 +147,60 @@ class _CoinContainerState extends State<CoinContainer> {
           width: 500,
           height: 500,
           child: Center(
-            child: Text(
-              coins[index]["name"],
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 30.0,
-              ),
+            child: Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        "BTC",
+                        style: TextStyle(
+                          color: kWhite,
+                          fontFamily: 'Spartan MB',
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Image(
+                        image:
+                            AssetImage("assets/images/cryplensLOGOWHITE.png"),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Container(
+                      width: 500,
+                      child: Center(
+                        child: Text(
+                          coins[index]["name"],
+                          style: TextStyle(
+                            color: kBlack,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 30.0,
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: kWhite,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           decoration: BoxDecoration(

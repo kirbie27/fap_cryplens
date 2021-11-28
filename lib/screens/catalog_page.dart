@@ -10,6 +10,10 @@ import 'package:cryplens/screens/coin_page.dart';
 final List<Map> coins =
     List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
 
+final List<String> sortList1 = ["Price", "Market Cap", "24h Volume"];
+
+final List<String> sortList2 = ["Ascending", "Descending"];
+
 class CatalogPage extends StatefulWidget {
   _CatalogState createState() => _CatalogState();
 }
@@ -214,32 +218,32 @@ class SortWidget extends StatefulWidget {
 }
 
 class _SortWidgetState extends State<SortWidget> {
-  bool isFirstDropdownOpened = false;
-  bool isSecondDropdownOpened = false;
+  int countOne = 0;
+  int countTwo = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text(
-                "Sort by:",
-                style: TextStyle(
-                  color: kWhite,
-                  fontFamily: 'Spartan MB',
-                  fontSize: 20.0,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: Text(
+                  "Sort by:",
+                  style: TextStyle(
+                    color: kWhite,
+                    fontFamily: 'Spartan MB',
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Expanded(
+          Expanded(
             flex: 1,
             child: Row(
               children: [
@@ -247,32 +251,21 @@ class _SortWidgetState extends State<SortWidget> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isFirstDropdownOpened = !isFirstDropdownOpened;
-                      });
+                      countOne = countOne < 3 ? countOne++ : 0;
+                      print("Marketcap change");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Center(
-                        child: Row(
-                          children: [
-                            Text(
-                              "Market Cap",
-                              style: TextStyle(
-                                color: kWhite,
-                                fontFamily: 'Spartan MB',
-                                fontSize: 20.0,
-                              ),
-                            ),
-                            Spacer(),
-                            Icon(
-                                isFirstDropdownOpened
-                                    ? Icons.arrow_drop_up
-                                    : Icons.arrow_drop_down,
-                                color: kWhite),
-                          ],
+                        child: Text(
+                          sortList1[countOne],
+                          style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -289,32 +282,20 @@ class _SortWidgetState extends State<SortWidget> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isSecondDropdownOpened = !isSecondDropdownOpened;
-                      });
+                      print("Ascending change");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
                       child: Center(
-                        child: Row(
-                          children: [
-                            Text(
-                              "Ascending",
-                              style: TextStyle(
-                                color: kWhite,
-                                fontFamily: 'Spartan MB',
-                                fontSize: 20.0,
-                              ),
-                            ),
-                            Spacer(),
-                            Icon(
-                                isSecondDropdownOpened
-                                    ? Icons.arrow_drop_up
-                                    : Icons.arrow_drop_down,
-                                color: kWhite),
-                          ],
+                        child: Text(
+                          "Ascending",
+                          style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 20.0,
+                          ),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -325,9 +306,11 @@ class _SortWidgetState extends State<SortWidget> {
                   ),
                 ),
               ],
-            )),
-      ],
-    ));
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -358,7 +341,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
         alignment: Alignment.center,
         child: InkWell(
           onTap: () {
-            print('clicked');
+            print('clicked empty coins');
           },
           child: Container(
             width: 500,
@@ -411,15 +394,52 @@ class _CoinContainerState extends State<CoinContainer> {
         child: Container(
           width: 500,
           height: 500,
-          child: Center(
-            child: Text(
-              coins[index]["name"],
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 30.0,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image(
+                      image: AssetImage("assets/images/cryplensLOGOWHITE.png"),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Expanded(
+                flex: 2,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      coins[index]["name"],
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 30.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "\$100000",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           decoration: BoxDecoration(
             color: kGray,
