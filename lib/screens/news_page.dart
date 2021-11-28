@@ -20,6 +20,7 @@ class _NewsPageState extends State<NewsPage> {
   void initState() {
     super.initState();
     print('nasa init state!');
+    print('test');
     loading = true;
     loader = getData();
     //articles = getData();
