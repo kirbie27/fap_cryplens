@@ -11,7 +11,7 @@ class DatabaseHelper {
   static var _database;
   static String _databaseName = 'cryptolens.db';
   static var dbversion = 1;
-
+  late List news;
   //database connection methods
   Future<Database> getDatabase() async {
     if (_database == null) _database = await connectDatabase();
@@ -71,20 +71,24 @@ class DatabaseHelper {
 
     var newsTable = await db.query('news');
     if (newsTable.isEmpty) await newsClass.getNewsAtLoad();
+    news = await db.query('news');
     return await db.query('news');
   }
 
   getNewsTableWithQuery(String query) async {
     final db = await getDatabase();
-
+    //print('anditoo!');
     //since this is a new query we would need to reload the table
     await db.execute("DROP TABLE IF EXISTS news");
-
     await createNewsTable();
+    var newsTable = await db.query('news');
+    //print('wala pa lamana: $news');
 
     final newsClass = News();
-    var newsTable = await db.query('news');
-    if (newsTable.isEmpty) await newsClass.getNewsWithSearch(query);
+
+    await newsClass.getNewsWithSearch(query);
+    news = await db.query('news');
+    // print('dapat may laman na dito: $news');
     return await db.query('news');
   }
 
@@ -93,7 +97,7 @@ class DatabaseHelper {
     final db = await getDatabase();
     //try to create table if it doesn't exist
     await createNewsTable();
-    //insert the favorite coin object, by replacing the similar occurence.
+    //insert the news object, by replacing the similar occurence.
     await db.insert(
       'news', //table name
       article.mapArticles(), //specific favcoin object

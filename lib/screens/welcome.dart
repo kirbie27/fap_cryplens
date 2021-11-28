@@ -2,12 +2,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cryplens/constants.dart';
+import 'package:cryplens/user.dart';
 
 class welcomePage extends StatefulWidget {
   _welcomeState createState() => _welcomeState();
 }
 
 class _welcomeState extends State<welcomePage> {
+  String message = 'Welcome to Cryplens, Agent!';
+
+  _welcomeState() {
+    User user = User();
+    message = 'Welcome to Cryplens, Agent ${user.getName()}!';
+  }
+
   Future<String> getName() async {
     final prefs = await SharedPreferences.getInstance();
     await Future.delayed(Duration(seconds: 3));
@@ -26,28 +34,16 @@ class _welcomeState extends State<welcomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    FutureBuilder(
-                      future: getName(),
-                      builder: (BuildContext context, AsyncSnapshot snap) {
-                        if (snap.hasData) {
-                          return Text(
-                            'Welcome to CrypLens, Agent ${snap.data}!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Spartan MB',
-                              fontSize: 35.0,
-                              height: 1.5,
-                            ),
-                            textAlign: TextAlign.center,
-                          );
-                        } else {
-                          return Container(
-                              height: 100,
-                              width: 100,
-                              child: CircularProgressIndicator());
-                        }
-                      },
-                    ),
+                    Text(
+                      message,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 35.0,
+                        height: 1.5,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
                   ],
                 ),
               ),

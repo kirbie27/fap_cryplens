@@ -13,31 +13,32 @@ class NewsPage extends StatefulWidget {
 
 class _NewsPageState extends State<NewsPage> {
   DatabaseHelper dbHelper = DatabaseHelper();
-  bool searching = false;
-  late Future articles;
-  String test = '';
+  late Future loader;
+  late var articles;
 
   void initState() {
     super.initState();
-    if (!searching) articles = getData();
-
-    searching = false;
+    print('nasa init state!');
+    loader = getData();
+    //articles = getData();
   }
 
   getData() async {
-    final newsClass = News();
     final holder = await dbHelper.getNewsTableAtLoad();
+
     setState(() {
-      articles = Future.value(holder);
+      articles = dbHelper.news;
+      loader = Future.value(holder);
     });
   }
 
   getDataWithQuery(String query) async {
-    final newsClass = News();
+    print('magsesearch!');
     final holder = await dbHelper.getNewsTableWithQuery(query);
+
     setState(() {
-      searching = true;
-      articles = Future.value(holder);
+      articles = dbHelper.news;
+      loader = Future.value(holder);
     });
   }
 
@@ -93,22 +94,25 @@ class _NewsPageState extends State<NewsPage> {
           //SearchBar(),
           //ARTICLES
           FutureBuilder(
-            future: articles,
+            future: loader,
             builder: (BuildContext context, AsyncSnapshot snap) {
               if (snap.data != null) {
-                //print(snap.data);
                 return Expanded(
                   flex: 9,
                   child: SingleChildScrollView(
                       child: Column(
                     children: [
-                      for (var i in snap.data)
-                        NewsTile(
-                          imageUrl: i['urlToImage'],
-                          title: i['title'],
-                          desc: i['description'],
-                          url: i['url'],
-                        )
+                      if (!articles.isEmpty)
+                        for (var i in articles)
+                          NewsTile(
+                            imageUrl: i['urlToImage'],
+                            title: i['title'],
+                            desc: i['description'],
+                            url: i['url'],
+                          )
+                      else
+                        Text('Magsearch kapa ulol',
+                            style: TextStyle(color: Colors.white))
                     ],
                   )),
                 );

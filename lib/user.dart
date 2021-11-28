@@ -1,8 +1,8 @@
 class User {
-  static String _name = "Agent"; //default name
+  static String _name = "C"; //default name
 
   setName(String name) {
-    _name = name;
+    if (!name.isEmpty) _name = name;
   }
 
   String getName() {

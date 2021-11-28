@@ -27,7 +27,7 @@ class _introState extends State<introPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
     User user = User();
-    user.setName(await prefs.getString('name') ?? "Agent");
+    user.setName(await prefs.getString('name') ?? "C");
     setState(() {
       Navigator.pushReplacementNamed(context, '/welcome');
     });
