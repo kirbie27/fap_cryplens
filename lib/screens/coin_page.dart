@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 import 'dart:math' as math;
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
 
 class CoinPage extends StatefulWidget {
   CoinPage({required this.coin});
@@ -187,19 +189,18 @@ class _CoinContentState extends State<CoinContent> {
         ),
         Expanded(
           flex: 7,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              "Graph",
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 30.0,
+          child: Center(
+            child: Container(
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 20.0, 20.0, 0.0),
+                  child: Graph(),
+                ),
               ),
-            ),
-            decoration: BoxDecoration(
-              color: kGray,
-              borderRadius: BorderRadius.circular(20),
+              decoration: BoxDecoration(
+                color: kGray,
+                borderRadius: BorderRadius.circular(20),
+              ),
             ),
           ),
         ),
@@ -222,4 +223,109 @@ class _CoinContentState extends State<CoinContent> {
       ],
     );
   }
+}
+
+class Graph extends StatefulWidget {
+  const Graph({Key? key}) : super(key: key);
+
+  @override
+  _GraphState createState() => _GraphState();
+}
+
+class _GraphState extends State<Graph> {
+  late List<ChartSampleData> _chartData;
+  late TrackballBehavior _trackballBehavior;
+
+  @override
+  void initState() {
+    _chartData = getChartData();
+    _trackballBehavior = TrackballBehavior(
+        enable: true, activationMode: ActivationMode.singleTap);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SfCartesianChart(
+      series: <HiloOpenCloseSeries>[
+        HiloOpenCloseSeries<ChartSampleData, DateTime>(
+            dataSource: _chartData,
+            xValueMapper: (ChartSampleData coinChartData, _) =>
+                coinChartData.time,
+            lowValueMapper: (ChartSampleData coinChartData, _) =>
+                coinChartData.low,
+            highValueMapper: (ChartSampleData coinChartData, _) =>
+                coinChartData.high,
+            openValueMapper: (ChartSampleData coinChartData, _) =>
+                coinChartData.open,
+            closeValueMapper: (ChartSampleData coinChartData, _) =>
+                coinChartData.close),
+      ],
+      primaryXAxis: DateTimeAxis(
+        dateFormat: DateFormat.MMM(),
+        majorGridLines: MajorGridLines(width: 0),
+      ),
+      primaryYAxis: NumericAxis(
+          minimum: 70,
+          maximum: 130,
+          interval: 10,
+          numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+    );
+  }
+
+  List<ChartSampleData> getChartData() {
+    return <ChartSampleData>[
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635552000000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635566400000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635580800000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635595200000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635609600000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+      ChartSampleData(
+        time: DateTime.fromMillisecondsSinceEpoch(1635624000000),
+        open: 115.8,
+        high: 117.5,
+        low: 115.59,
+        close: 116.52,
+      ),
+    ];
+  }
+}
+
+class ChartSampleData {
+  ChartSampleData({this.time, this.open, this.close, this.low, this.high});
+  final DateTime? time;
+  final num? open;
+  final num? close;
+  final num? low;
+  final num? high;
 }
