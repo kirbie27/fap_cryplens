@@ -33,7 +33,7 @@ class News {
               publishedAt: element["publishedAt"]);
 
           counter = counter + 1;
-          dbHelper.insertNews(articleModel);
+          await dbHelper.insertNews(articleModel);
           print(counter);
         }
       }

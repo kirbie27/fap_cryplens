@@ -66,11 +66,11 @@ class DatabaseHelper {
   getNewsTableAtLoad() async {
     final db = await getDatabase();
     await createNewsTable();
-
-    final newsClass = News();
-
+    await db.execute("DROP TABLE IF EXISTS news");
+    await createNewsTable();
     var newsTable = await db.query('news');
-    if (newsTable.isEmpty) await newsClass.getNewsAtLoad();
+    final newsClass = News();
+    await newsClass.getNewsAtLoad();
     news = await db.query('news');
     return await db.query('news');
   }

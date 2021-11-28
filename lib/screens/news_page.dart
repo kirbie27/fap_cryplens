@@ -15,10 +15,12 @@ class _NewsPageState extends State<NewsPage> {
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
   late var articles;
+  bool loading = true;
 
   void initState() {
     super.initState();
     print('nasa init state!');
+    loading = true;
     loader = getData();
     //articles = getData();
   }
@@ -28,6 +30,7 @@ class _NewsPageState extends State<NewsPage> {
 
     setState(() {
       articles = dbHelper.news;
+      loading = false;
       loader = Future.value(holder);
     });
   }
@@ -38,6 +41,7 @@ class _NewsPageState extends State<NewsPage> {
 
     setState(() {
       articles = dbHelper.news;
+      loading = false;
       loader = Future.value(holder);
     });
   }
@@ -96,7 +100,7 @@ class _NewsPageState extends State<NewsPage> {
           FutureBuilder(
             future: loader,
             builder: (BuildContext context, AsyncSnapshot snap) {
-              if (snap.data != null) {
+              if (!loading) {
                 return Expanded(
                   flex: 9,
                   child: SingleChildScrollView(
@@ -111,8 +115,9 @@ class _NewsPageState extends State<NewsPage> {
                             url: i['url'],
                           )
                       else
-                        Text('Magsearch kapa ulol',
-                            style: TextStyle(color: Colors.white))
+                        Text(
+                            'We couldn\'t find what you are looking for, Agent.',
+                            style: kMessageTextStyle)
                     ],
                   )),
                 );
