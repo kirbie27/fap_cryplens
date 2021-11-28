@@ -8,7 +8,7 @@ const kTitleTextStyle = TextStyle(
 
 const kMessageTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
-  fontSize: 20.0,
+  fontSize: 25.0,
   color: kWhite,
 );
 
@@ -74,3 +74,9 @@ const Loading = SpinKitFadingFour(
   color: Colors.white,
   size: 50.0,
 );
+
+const startupLoad = SpinKitFadingCube(
+  color: kWhite,
+  size: 50.0,
+);
+
