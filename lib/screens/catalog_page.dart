@@ -368,6 +368,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
             coinName: coins[index]['coinName'],
             coinPrice: coins[index]['coinPrice'],
             imageUrl: coins[index]['imageUrl'],
+            coinPriceChange: coins[index]['coinPriceChange'],
           );
         },
       );
@@ -407,32 +408,48 @@ class CoinContainer extends StatefulWidget {
       {required this.index,
       required this.imageUrl,
       required this.coinPrice,
-      required this.coinName});
+      required this.coinName,
+      required this.coinPriceChange});
   int index;
   String imageUrl;
   double coinPrice;
   String coinName;
+  double coinPriceChange;
   @override
   _CoinContainerState createState() => _CoinContainerState(
-      index: index,
-      imageUrl: imageUrl,
-      coinPrice: coinPrice,
-      coinName: coinName);
+        index: index,
+        imageUrl: imageUrl,
+        coinPrice: coinPrice,
+        coinName: coinName,
+        coinPriceChange: coinPriceChange,
+      );
 }
 
 class _CoinContainerState extends State<CoinContainer> {
-  _CoinContainerState(
-      {required this.index,
-      required this.imageUrl,
-      required this.coinPrice,
-      required this.coinName});
+  _CoinContainerState({
+    required this.index,
+    required this.imageUrl,
+    required this.coinPrice,
+    required this.coinName,
+    required this.coinPriceChange,
+  });
   int index;
   String imageUrl;
   double coinPrice;
   String coinName;
+  double coinPriceChange;
+  var coinPriceColor;
 
   @override
   Widget build(BuildContext context) {
+    if (coinPriceChange > 0) {
+      coinPriceColor = kGreen;
+    } else if (coinPriceChange < 0) {
+      coinPriceColor = kRed;
+    } else {
+      coinPriceColor = kWhite;
+    }
+
     return Container(
       alignment: Alignment.center,
       child: InkWell(
@@ -450,7 +467,7 @@ class _CoinContainerState extends State<CoinContainer> {
           child: Row(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
@@ -461,32 +478,36 @@ class _CoinContainerState extends State<CoinContainer> {
                 ),
               ),
               Expanded(
-                flex: 2,
+                flex: 4,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       coinName,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',
-                        fontSize: 30.0,
+                        fontSize: 18.0,
                       ),
                     ),
                   ),
                 ),
               ),
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
                       "\$${coinPrice}",
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: kWhite,
+                        color: coinPriceColor,
                         fontFamily: 'Spartan MB',
-                        fontSize: 25.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
