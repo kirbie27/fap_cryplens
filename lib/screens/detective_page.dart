@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:math';
 import 'package:cryplens/widgets/NavBar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+import 'detective_crypto_models.dart';
+import 'detective_crypto_data_service.dart';
+
 
 class DetectiveCryptoPage1 extends StatefulWidget {
   DetectiveCryptoPage1();
@@ -16,6 +22,10 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     with SingleTickerProviderStateMixin {
   late AnimationController _con;
   TextEditingController _textEditingController = TextEditingController();
+
+  final _cityTextController = TextEditingController();
+  final _dataService = DataService();
+
 
   @override
   void initState() {
@@ -105,7 +115,7 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                             height: 23.0,
                             width: 180.0,
                             child: TextField(
-                              controller: _textEditingController,
+                              controller: _cityTextController,
                               cursorRadius: Radius.circular(10.0),
                               cursorWidth: 2.0,
                               cursorColor: Colors.black,
@@ -139,7 +149,8 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                             size: 18.0,
                           ),
                           onPressed: () {
-                            setState(
+                            _search();
+                          /*setState(
                                   () {
                                 if (toggle == 0) {
                                   toggle = 1;
@@ -150,7 +161,7 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                                   _con.reverse();
                                 }
                               },
-                            );
+                            ); */
                           },
                         ),
                       ),
@@ -225,4 +236,14 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
           ),
         ));
   }
+  void _search() async { //Asynchronous code lets us fetch data over a network
+    //await provides a declarative way to define asynchronous functions and use their result
+    final response = await _dataService.getCoin(_cityTextController.text);
+    print(_cityTextController.text);
+    print(response.id); //prints the cityname, temp, and description
+    //print(response.currentPriceInfo.current_price);
+    print(response.coinInfo.sentiment_votes_up_percentage);
+    print(response.coinInfo1.sentiment_votes_down_percentage);
+  }
 }
+
