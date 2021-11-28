@@ -129,7 +129,7 @@ class CoinContainer extends StatefulWidget {
 class _CoinContainerState extends State<CoinContainer> {
   _CoinContainerState({Key? key, required this.index});
   final int index;
-
+  Map coin = {};
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -139,7 +139,7 @@ class _CoinContainerState extends State<CoinContainer> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CoinPage(),
+              builder: (context) => CoinPage(coin: coin),
             ),
           );
         },
