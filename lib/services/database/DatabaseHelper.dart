@@ -146,7 +146,7 @@ class DatabaseHelper {
     //insert the news object, by replacing the similar occurence.
     await db.insert(
       'coins', //table name
-      coin.mapCoins(), //specific favcoin object
+      coin.mapCoins(), //specific
       conflictAlgorithm:
           ConflictAlgorithm.replace, //replaces that entry if in conflict
     );

@@ -31,7 +31,8 @@ class Crypto {
           coinTotalVolume: element['total_volume'].toDouble(),
           coinPriceChange: element['price_change_24h'].toDouble());
       await dbHelper.insertCoins(coin);
-      print('Crypto # $counter: ${coin.toString()}');
+      print(counter);
+      //print('Crypto # $counter: ${coin.toString()}');
     }
 
     print('success crypto');

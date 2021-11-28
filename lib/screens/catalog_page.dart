@@ -8,7 +8,7 @@ import 'dart:math' as math;
 import 'package:cryplens/screens/coin_page.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 
-late final List<dynamic> coins;
+late List<dynamic> coins;
 
 final List<String> sortList1 = ["Price", "Market Cap", "24h Volume"];
 
@@ -40,18 +40,23 @@ class CatalogContent extends StatefulWidget {
 
 class _CatalogContentState extends State<CatalogContent> {
   DatabaseHelper dbHelper = DatabaseHelper();
+  bool loading = true;
   late Future loader;
   void initState() {
     super.initState();
+    loading = true;
     loader = getData();
   }
 
   getData() async {
     final holder = await dbHelper.getCoinsTableAtLoad();
-
+    print('whute');
     setState(() {
+      print('wew');
       coins = dbHelper.coins;
       loader = Future.value(holder);
+      loading = false;
+      print('changed to loading');
     });
   }
 
@@ -77,7 +82,7 @@ class _CatalogContentState extends State<CatalogContent> {
         child: FutureBuilder(
             future: loader,
             builder: (BuildContext context, AsyncSnapshot snap) {
-              if (snap.data != null) {
+              if (!loading) {
                 return CoinListWidget();
               } else {
                 return Column(
@@ -365,10 +370,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
         itemBuilder: (BuildContext context, int index) {
           return CoinContainer(
             index: index,
-            coinName: coins[index]['coinName'],
-            coinPrice: coins[index]['coinPrice'],
-            imageUrl: coins[index]['imageUrl'],
-            coinPriceChange: coins[index]['coinPriceChange'],
+            coin: coins[index],
           );
         },
       );
@@ -384,7 +386,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
             height: 100,
             child: Center(
               child: Text(
-                "Add new coins from the coin catalog",
+                "No Coins found",
                 style: TextStyle(
                   color: kWhite,
                   fontFamily: 'Spartan MB',
@@ -404,47 +406,27 @@ class _CoinListWidgetState extends State<CoinListWidget> {
 }
 
 class CoinContainer extends StatefulWidget {
-  CoinContainer(
-      {required this.index,
-      required this.imageUrl,
-      required this.coinPrice,
-      required this.coinName,
-      required this.coinPriceChange});
+  CoinContainer({required this.index, required this.coin});
   int index;
-  String imageUrl;
-  double coinPrice;
-  String coinName;
-  double coinPriceChange;
+  Map coin;
+
   @override
   _CoinContainerState createState() => _CoinContainerState(
         index: index,
-        imageUrl: imageUrl,
-        coinPrice: coinPrice,
-        coinName: coinName,
-        coinPriceChange: coinPriceChange,
+        coin: coin,
       );
 }
 
 class _CoinContainerState extends State<CoinContainer> {
-  _CoinContainerState({
-    required this.index,
-    required this.imageUrl,
-    required this.coinPrice,
-    required this.coinName,
-    required this.coinPriceChange,
-  });
+  _CoinContainerState({required this.index, required this.coin});
   int index;
-  String imageUrl;
-  double coinPrice;
-  String coinName;
-  double coinPriceChange;
+  Map coin;
   var coinPriceColor;
-
   @override
   Widget build(BuildContext context) {
-    if (coinPriceChange > 0) {
+    if (coin['coinPriceChange'] > 0) {
       coinPriceColor = kGreen;
-    } else if (coinPriceChange < 0) {
+    } else if (coin['coinPriceChange'] < 0) {
       coinPriceColor = kRed;
     } else {
       coinPriceColor = kWhite;
@@ -472,7 +454,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image(
-                      image: NetworkImage(imageUrl),
+                      image: NetworkImage(coin['imageUrl']),
                     ),
                   ),
                 ),
@@ -483,7 +465,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      coinName,
+                      coin['coinName'],
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -501,7 +483,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "\$${coinPrice}",
+                      "\$${coin['coinPrice']}",
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       style: TextStyle(
