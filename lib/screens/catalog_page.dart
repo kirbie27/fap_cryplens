@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
 import 'dart:math' as math;
 import 'package:cryplens/screens/coin_page.dart';
+import 'package:cryplens/services/database/DatabaseHelper.dart';
 
-final List<Map> coins =
-    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
+late final List<dynamic> coins;
 
 final List<String> sortList1 = ["Price", "Market Cap", "24h Volume"];
 
@@ -39,6 +39,22 @@ class CatalogContent extends StatefulWidget {
 }
 
 class _CatalogContentState extends State<CatalogContent> {
+  DatabaseHelper dbHelper = DatabaseHelper();
+  late Future loader;
+  void initState() {
+    super.initState();
+    loader = getData();
+  }
+
+  getData() async {
+    final holder = await dbHelper.getCoinsTableAtLoad();
+
+    setState(() {
+      coins = dbHelper.coins;
+      loader = Future.value(holder);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -58,7 +74,18 @@ class _CatalogContentState extends State<CatalogContent> {
       ),
       Expanded(
         flex: 5,
-        child: CoinListWidget(),
+        child: FutureBuilder(
+            future: loader,
+            builder: (BuildContext context, AsyncSnapshot snap) {
+              if (snap.data != null) {
+                return CoinListWidget();
+              } else {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [CircularProgressIndicator()],
+                );
+              }
+            }),
       ),
     ]);
   }
@@ -320,8 +347,6 @@ class _SortWidgetState extends State<SortWidget> {
 }
 
 class CoinListWidget extends StatefulWidget {
-  const CoinListWidget({Key? key}) : super(key: key);
-
   @override
   _CoinListWidgetState createState() => _CoinListWidgetState();
 }
@@ -338,7 +363,12 @@ class _CoinListWidgetState extends State<CoinListWidget> {
         ),
         itemCount: coins.length,
         itemBuilder: (BuildContext context, int index) {
-          return CoinContainer(index: index);
+          return CoinContainer(
+            index: index,
+            coinName: coins[index]['coinName'],
+            coinPrice: coins[index]['coinPrice'],
+            imageUrl: coins[index]['imageUrl'],
+          );
         },
       );
     } else {
@@ -373,15 +403,33 @@ class _CoinListWidgetState extends State<CoinListWidget> {
 }
 
 class CoinContainer extends StatefulWidget {
-  const CoinContainer({Key? key, required this.index});
-  final int index;
+  CoinContainer(
+      {required this.index,
+      required this.imageUrl,
+      required this.coinPrice,
+      required this.coinName});
+  int index;
+  String imageUrl;
+  double coinPrice;
+  String coinName;
   @override
-  _CoinContainerState createState() => _CoinContainerState(index: index);
+  _CoinContainerState createState() => _CoinContainerState(
+      index: index,
+      imageUrl: imageUrl,
+      coinPrice: coinPrice,
+      coinName: coinName);
 }
 
 class _CoinContainerState extends State<CoinContainer> {
-  _CoinContainerState({Key? key, required this.index});
-  final int index;
+  _CoinContainerState(
+      {required this.index,
+      required this.imageUrl,
+      required this.coinPrice,
+      required this.coinName});
+  int index;
+  String imageUrl;
+  double coinPrice;
+  String coinName;
 
   @override
   Widget build(BuildContext context) {
@@ -407,7 +455,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Image(
-                      image: AssetImage("assets/images/cryplensLOGOWHITE.png"),
+                      image: NetworkImage(imageUrl),
                     ),
                   ),
                 ),
@@ -418,7 +466,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      coins[index]["name"],
+                      coinName,
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',
@@ -434,7 +482,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "\$100000",
+                      "\$${coinPrice}",
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',

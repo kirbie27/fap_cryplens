@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:cryplens/services/database/coinRecord.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:cryplens/services/database/favoritesRecord.dart';
 import 'package:cryplens/services/database/articleRecord.dart';
 import 'package:cryplens/services/news.dart';
+import 'package:cryplens/services/crypto.dart';
 
 //this class handles the functions related to the databas
 class DatabaseHelper {
@@ -12,6 +14,7 @@ class DatabaseHelper {
   static String _databaseName = 'cryptolens.db';
   static var dbversion = 1;
   late List news;
+  late List coins;
   //database connection methods
   Future<Database> getDatabase() async {
     if (_database == null) _database = await connectDatabase();
@@ -110,7 +113,43 @@ class DatabaseHelper {
   //database methods for the coins
   createCoinsTable() async {
     final db = await getDatabase();
+    await db.execute('CREATE TABLE IF NOT EXISTS coins('
+        'coinID TEXT PRIMARY KEY, '
+        'coinSymbol TEXT, '
+        'coinName TEXT, '
+        'imageUrl TEXT,'
+        'coinPrice REAL,'
+        'coinMarketCap REAL,'
+        'coinMarketCapRank INTEGER , '
+        'coinTotalVolume REAL, '
+        'coinPriceChange REAL)');
     //return await db.query();
+  }
+
+  getCoinsTableAtLoad() async {
+    final db = await getDatabase();
+    await createCoinsTable();
+    await db.execute("DROP TABLE IF EXISTS coins");
+    await createCoinsTable();
+    var coinsTable = await db.query('coins');
+    final coin = Crypto();
+    await coin.getCryptoAtLoad();
+    coins = await db.query('coins');
+    return await db.query('coins');
+  }
+
+  Future<void> insertCoins(CoinRecord coin) async {
+    // Get a reference to the database.
+    final db = await getDatabase();
+    //try to create table if it doesn't exist
+    await createCoinsTable();
+    //insert the news object, by replacing the similar occurence.
+    await db.insert(
+      'coins', //table name
+      coin.mapCoins(), //specific favcoin object
+      conflictAlgorithm:
+          ConflictAlgorithm.replace, //replaces that entry if in conflict
+    );
   }
   // coins database methods end.
 

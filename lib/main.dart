@@ -11,9 +11,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cryplens/loadapp.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:cryplens/services/database/favoritesRecord.dart';
+import 'package:cryplens/services/news.dart';
+import 'package:cryplens/services/crypto.dart';
 
 void main() async {
   runApp(CryptoLens());
+  //Crypto testapi = Crypto();
+  //DatabaseHelper db = DatabaseHelper();
+
+  //final coins = await db.getCoinsTableAtLoad();
+  //print(coins);
 }
 
 class CryptoLens extends StatelessWidget {
