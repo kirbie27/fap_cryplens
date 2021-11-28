@@ -3,27 +3,28 @@ import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 import 'dart:math' as math;
 
-final List<Map> coins =
-    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
-
 class CoinPage extends StatefulWidget {
-  const CoinPage({Key? key}) : super(key: key);
-
+  CoinPage({required this.coin});
+  Map coin;
   @override
-  _CoinPageState createState() => _CoinPageState();
+  _CoinPageState createState() => _CoinPageState(coin: coin);
 }
 
 class _CoinPageState extends State<CoinPage> {
+  _CoinPageState({required this.coin});
+  Map coin;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('${coin['coinName']}'),
         backgroundColor: kGray,
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(15.0),
-          child: CoinContent(),
+          child: CoinContent(coin: coin),
         ),
       ),
     );
@@ -31,13 +32,15 @@ class _CoinPageState extends State<CoinPage> {
 }
 
 class CoinContent extends StatefulWidget {
-  const CoinContent({Key? key}) : super(key: key);
-
+  CoinContent({required this.coin});
+  Map coin;
   @override
-  _CoinContentState createState() => _CoinContentState();
+  _CoinContentState createState() => _CoinContentState(coin: coin);
 }
 
 class _CoinContentState extends State<CoinContent> {
+  _CoinContentState({required this.coin});
+  Map coin;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -100,7 +103,7 @@ class _CoinContentState extends State<CoinContent> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Price",
+                    coin['coinPrice'].toString(),
                     style: TextStyle(
                       color: kWhite,
                       fontFamily: 'Spartan MB',
@@ -121,7 +124,7 @@ class _CoinContentState extends State<CoinContent> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Trust Score",
+                    coin['coinMarketCapRank'].toString(),
                     style: TextStyle(
                       color: kWhite,
                       fontFamily: 'Spartan MB',
@@ -145,7 +148,7 @@ class _CoinContentState extends State<CoinContent> {
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              "Volume",
+              coin['coinTotalVolume'].toString(),
               style: TextStyle(
                 color: kWhite,
                 fontFamily: 'Spartan MB',
@@ -166,7 +169,7 @@ class _CoinContentState extends State<CoinContent> {
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              "Market Cap",
+              coin['coinMarketCap'].toString(),
               style: TextStyle(
                 color: kWhite,
                 fontFamily: 'Spartan MB',
@@ -201,7 +204,7 @@ class _CoinContentState extends State<CoinContent> {
           ),
         ),
         SizedBox(
-          height: 15,
+          height: 20,
         ),
         Expanded(
           flex: 1,

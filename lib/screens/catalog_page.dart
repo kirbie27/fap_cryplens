@@ -439,7 +439,7 @@ class _CoinContainerState extends State<CoinContainer> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => CoinPage(),
+              builder: (context) => CoinPage(coin: coin),
             ),
           );
         },
