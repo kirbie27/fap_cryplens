@@ -252,11 +252,8 @@ class _SortWidgetState extends State<SortWidget> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        countOne = countOne < 3 ? countOne++ : 0;
-                        countOne = countOne + 1;
-                        if (countOne == 3) countOne = 0;
+                        countOne = countOne < 2 ? countOne + 1 : 0;
                       });
-
                       print("Marketcap change");
                     },
                     child: Container(
@@ -287,6 +284,9 @@ class _SortWidgetState extends State<SortWidget> {
                   flex: 1,
                   child: GestureDetector(
                     onTap: () {
+                      setState(() {
+                        countTwo = countTwo < 1 ? countTwo + 1 : 0;
+                      });
                       print("Ascending change");
                     },
                     child: Container(
@@ -295,7 +295,7 @@ class _SortWidgetState extends State<SortWidget> {
                       ),
                       child: Center(
                         child: Text(
-                          "Ascending",
+                          sortList2[countTwo],
                           style: TextStyle(
                             color: kWhite,
                             fontFamily: 'Spartan MB',
