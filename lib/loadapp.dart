@@ -8,6 +8,7 @@ import 'package:cryplens/screens/start_page.dart';
 import 'package:cryplens/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cryplens/user.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 void main() {
   runApp(Load());
@@ -86,7 +87,7 @@ class _LoadState extends State<Load> {
                                 Container(
                                     height: 80,
                                     width: 80,
-                                    child: LinearProgressIndicator()),
+                                    child: startupLoad),
                               ],
                             ),
                           );
