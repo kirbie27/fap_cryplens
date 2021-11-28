@@ -10,35 +10,18 @@ import 'package:cryplens/services/database/DatabaseHelper.dart';
 
 late List<dynamic> coins;
 
-final List<String> sortList1 = ["Price", "Market Cap", "24h Volume"];
+final List<String> sortList1 = ["Market Cap", "Volume", "ID"];
+final List<String> sortUrl = ["market_cap_desc", "volume_desc", " id_desc"];
 
-final List<String> sortList2 = ["Ascending", "Descending"];
+final List<String> sortList2 = ["Descending", "Ascending"];
 
 class CatalogPage extends StatefulWidget {
-  _CatalogState createState() => _CatalogState();
+  _CatalogPageState createState() => _CatalogPageState();
 }
 
-class _CatalogState extends State<CatalogPage> {
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(15.0),
-          child: CatalogContent(),
-        ),
-      ),
-    );
-  }
-}
-
-class CatalogContent extends StatefulWidget {
-  const CatalogContent({Key? key}) : super(key: key);
-
-  @override
-  _CatalogContentState createState() => _CatalogContentState();
-}
-
-class _CatalogContentState extends State<CatalogContent> {
+class _CatalogPageState extends State<CatalogPage> {
+  final GlobalKey<_SortWidgetState> _sortkey = GlobalKey();
+  String parent = 'parent';
   DatabaseHelper dbHelper = DatabaseHelper();
   bool loading = true;
   late Future loader;
@@ -48,9 +31,40 @@ class _CatalogContentState extends State<CatalogContent> {
     loader = getData();
   }
 
+  reverseCoins() {
+    setState(() {
+      loading = true;
+      coins = List.from(coins.reversed);
+    });
+    print(coins);
+    delay();
+  }
+
+  changeSort(String sort) {
+    setState(() {
+      loading = true;
+    });
+    sortCoins(sort);
+  }
+
+  sortCoins(String sort) async {
+    final holder = await dbHelper.getCoinsTableWithSort(sort);
+    setState(() {
+      coins = holder;
+      loading = false;
+    });
+  }
+
+  delay() async {
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      loading = false;
+    });
+  }
+
   getData() async {
     final holder = await dbHelper.getCoinsTableAtLoad();
-    print('whute');
+    print('whut');
     setState(() {
       print('wew');
       coins = dbHelper.coins;
@@ -62,37 +76,45 @@ class _CatalogContentState extends State<CatalogContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Expanded(
-        flex: 1,
-        child: SearchBarWidget(),
+    return SafeArea(
+      child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Column(children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: SearchBarWidget(),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              flex: 1,
+              child: SortWidget(
+                  key: _sortkey, ascdesc: reverseCoins, sorting: changeSort),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              flex: 5,
+              child: FutureBuilder(
+                  future: loader,
+                  builder: (BuildContext context, AsyncSnapshot snap) {
+                    if (!loading) {
+                      return CoinListWidget();
+                    } else {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [CircularProgressIndicator()],
+                      );
+                    }
+                  }),
+            ),
+          ]),
+        ),
       ),
-      SizedBox(
-        height: 20,
-      ),
-      Expanded(
-        flex: 1,
-        child: SortWidget(),
-      ),
-      SizedBox(
-        height: 20,
-      ),
-      Expanded(
-        flex: 5,
-        child: FutureBuilder(
-            future: loader,
-            builder: (BuildContext context, AsyncSnapshot snap) {
-              if (!loading) {
-                return CoinListWidget();
-              } else {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [CircularProgressIndicator()],
-                );
-              }
-            }),
-      ),
-    ]);
+    );
   }
 }
 
@@ -243,8 +265,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
 }
 
 class SortWidget extends StatefulWidget {
-  const SortWidget({Key? key}) : super(key: key);
-
+  final Function ascdesc;
+  final Function sorting;
+  SortWidget({required Key key, required this.ascdesc, required this.sorting})
+      : super(key: key);
   @override
   _SortWidgetState createState() => _SortWidgetState();
 }
@@ -286,6 +310,7 @@ class _SortWidgetState extends State<SortWidget> {
                       setState(() {
                         countOne = countOne < 2 ? countOne + 1 : 0;
                       });
+                      widget.sorting(sortUrl[countOne]);
                       print("Marketcap change");
                     },
                     child: Container(
@@ -319,6 +344,8 @@ class _SortWidgetState extends State<SortWidget> {
                       setState(() {
                         countTwo = countTwo < 1 ? countTwo + 1 : 0;
                       });
+
+                      widget.ascdesc();
                       print("Ascending change");
                     },
                     child: Container(

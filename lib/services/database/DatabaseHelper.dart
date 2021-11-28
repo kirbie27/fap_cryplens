@@ -138,6 +138,18 @@ class DatabaseHelper {
     return await db.query('coins');
   }
 
+  getCoinsTableWithSort(String sort) async {
+    final db = await getDatabase();
+    await createCoinsTable();
+    await db.execute("DROP TABLE IF EXISTS coins");
+    await createCoinsTable();
+    var coinsTable = await db.query('coins');
+    final coin = Crypto();
+    await coin.getCryptoWithSort(sort);
+    coins = await db.query('coins');
+    return await db.query('coins');
+  }
+
   Future<void> insertCoins(CoinRecord coin) async {
     // Get a reference to the database.
     final db = await getDatabase();
