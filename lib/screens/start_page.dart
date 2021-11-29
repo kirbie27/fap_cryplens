@@ -155,7 +155,7 @@ class _introState extends State<introPage> {
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(kBlue),
+                            MaterialStateProperty.all<Color>(kGreen),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
