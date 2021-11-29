@@ -358,8 +358,9 @@ class _GraphState extends State<Graph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      series: <HiloOpenCloseSeries>[
-        HiloOpenCloseSeries<ChartSampleData, DateTime>(
+      trackballBehavior: _trackballBehavior,
+      series: <CandleSeries>[
+        CandleSeries<ChartSampleData, DateTime>(
             dataSource: _chartData,
             xValueMapper: (ChartSampleData coinChartData, _) =>
                 coinChartData.time,
