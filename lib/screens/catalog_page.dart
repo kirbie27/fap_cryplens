@@ -258,15 +258,31 @@ class _SortWidgetState extends State<SortWidget> {
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                       ),
-                      child: Center(
-                        child: Text(
-                          SortByLabel[sortCount],
-                          style: TextStyle(
-                            color: kWhite,
-                            fontFamily: 'Spartan MB',
-                            fontSize: 18.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text(
+                              SortByLabel[sortCount],
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 18.0,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            SortByLabel[sortCount] == 'Price'
+                                ? Icons.monetization_on
+                                : SortByLabel[sortCount] == 'Volume'
+                                    ? Icons.bar_chart
+                                    : Icons.show_chart,
+                            color: kWhite,
+                          )
+                        ],
                       ),
                       decoration: BoxDecoration(
                         color: kGray,

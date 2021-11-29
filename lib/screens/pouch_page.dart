@@ -10,7 +10,7 @@ import 'package:cryplens/screens/navigation.dart';
 late List<dynamic> favcoins = [
   {
     'id': 0,
-    'name': 'add coins',
+    'name': '+',
     'title': '',
     'image': 'assets/images/cryplensLOGOWHITE.png'
   }
@@ -41,7 +41,7 @@ class _PouchPageState extends State<PouchPage> {
       favcoins = [
         {
           'id': 0,
-          'name': 'add coins',
+          'name': 'Add Coin',
           'title': '',
           'image': 'assets/images/cryplensLOGOWHITE.png'
         }
@@ -237,7 +237,7 @@ class _CoinContainerState extends State<CoinContainer> {
                           style: TextStyle(
                             color: kBlack,
                             fontFamily: 'Spartan MB',
-                            fontSize: 30.0,
+                            fontSize: 20.0,
                           ),
                         ),
                       ),
