@@ -23,7 +23,20 @@ class _CoinPageState extends State<CoinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${coin['coinName']}'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              coin['imageUrl'],
+              height: 35,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+                '${coin['coinName']} (${coin['coinSymbol'].toString().toUpperCase()})'),
+          ],
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () {
@@ -40,7 +53,10 @@ class _CoinPageState extends State<CoinPage> {
                     arguments: {'index': 0});
               }
             },
-            child: Text("CLOSE"),
+            child: Icon(
+              Icons.close,
+              color: kWhite,
+            ),
           ),
         ],
         backgroundColor: kGray,
@@ -305,9 +321,7 @@ class CoinContentState extends State<CoinContent> {
               ],
             );
           } else {
-            return Container(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator());
+            return Container(alignment: Alignment.center, child: Loading);
           }
         });
   }

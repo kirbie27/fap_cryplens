@@ -85,7 +85,7 @@ class _PouchPageState extends State<PouchPage> {
                   } else {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [CircularProgressIndicator()],
+                      children: [Loading],
                     );
                   }
                 }),

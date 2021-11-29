@@ -116,7 +116,7 @@ class _CatalogPageState extends State<CatalogPage> {
                     } else {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [CircularProgressIndicator()],
+                        children: [Loading],
                       );
                     }
                   }),
@@ -161,7 +161,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         height: 48.0,
-        width: (toggle == 0) ? 48.0 : 250.0,
+        width: 300.0,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
           color: kGray,
@@ -523,16 +523,32 @@ class _CoinContainerState extends State<CoinContainer> {
                 flex: 4,
                 child: Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      coin['coinName'],
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: kWhite,
-                        fontFamily: 'Spartan MB',
-                        fontSize: 18.0,
-                      ),
+                    padding: const EdgeInsets.all(5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          coin['coinName'],
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 18.0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 3,
+                        ),
+                        Text(coin['coinSymbol'].toString().toUpperCase(),
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: kWhite,
+                              fontFamily: 'Spartan MB',
+                              fontSize: 15.0,
+                            ))
+                      ],
                     ),
                   ),
                 ),
