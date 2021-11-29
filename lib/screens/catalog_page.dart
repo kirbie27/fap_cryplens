@@ -10,10 +10,14 @@ import 'package:cryplens/services/database/DatabaseHelper.dart';
 
 late List<dynamic> coins;
 
-final List<String> sortList1 = ["Market Cap", "Volume", "ID"];
-final List<String> sortUrl = ["market_cap_desc", "volume_desc", " id_desc"];
-
-final List<String> sortList2 = ["Descending", "Ascending"];
+final List<String> SortByLabel = ["Market Cap", "Volume", "Price"];
+final List<String> OrderByLabel = ["Descending", "Ascending"];
+final List<String> SortByUrl = [
+  "coinMarketCap",
+  "coinTotalVolume",
+  " coinPrice"
+];
+final List<String> OrderByUrl = ["desc", "asc"];
 
 class CatalogPage extends StatefulWidget {
   _CatalogPageState createState() => _CatalogPageState();
@@ -31,33 +35,19 @@ class _CatalogPageState extends State<CatalogPage> {
     loader = getData();
   }
 
-  reverseCoins() {
-    setState(() {
-      loading = true;
-      coins = List.from(coins.reversed);
-    });
-    print(coins);
-    delay();
-  }
-
-  changeSort(String sort) {
+  changeSort(String sort, String order) {
+    print(order);
     setState(() {
       loading = true;
     });
-    sortCoins(sort);
+    sortCoins(sort, order);
   }
 
-  sortCoins(String sort) async {
-    final holder = await dbHelper.getCoinsTableWithSort(sort);
-    setState(() {
-      coins = holder;
-      loading = false;
-    });
-  }
-
-  delay() async {
+  sortCoins(String sort, String order) async {
+    final holder = await dbHelper.getCoinsTableWithSort(sort, order);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
+      coins = holder;
       loading = false;
     });
   }
@@ -90,8 +80,7 @@ class _CatalogPageState extends State<CatalogPage> {
             ),
             Expanded(
               flex: 1,
-              child: SortWidget(
-                  key: _sortkey, ascdesc: reverseCoins, sorting: changeSort),
+              child: SortWidget(key: _sortkey, sorting: changeSort),
             ),
             SizedBox(
               height: 20,
@@ -265,17 +254,15 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
 }
 
 class SortWidget extends StatefulWidget {
-  final Function ascdesc;
   final Function sorting;
-  SortWidget({required Key key, required this.ascdesc, required this.sorting})
-      : super(key: key);
+  SortWidget({required Key key, required this.sorting}) : super(key: key);
   @override
   _SortWidgetState createState() => _SortWidgetState();
 }
 
 class _SortWidgetState extends State<SortWidget> {
-  int countOne = 0;
-  int countTwo = 0;
+  int sortCount = 0;
+  int orderCount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -308,9 +295,11 @@ class _SortWidgetState extends State<SortWidget> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        countOne = countOne < 2 ? countOne + 1 : 0;
+                        sortCount = sortCount < 2 ? sortCount + 1 : 0;
+                        orderCount = 0;
                       });
-                      widget.sorting(sortUrl[countOne]);
+                      widget.sorting(
+                          SortByUrl[sortCount], OrderByUrl[orderCount]);
                       print("Marketcap change");
                     },
                     child: Container(
@@ -319,7 +308,7 @@ class _SortWidgetState extends State<SortWidget> {
                       ),
                       child: Center(
                         child: Text(
-                          sortList1[countOne],
+                          SortByLabel[sortCount],
                           style: TextStyle(
                             color: kWhite,
                             fontFamily: 'Spartan MB',
@@ -342,11 +331,12 @@ class _SortWidgetState extends State<SortWidget> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        countTwo = countTwo < 1 ? countTwo + 1 : 0;
+                        orderCount = orderCount < 1 ? orderCount + 1 : 0;
                       });
 
-                      widget.ascdesc();
-                      print("Ascending change");
+                      widget.sorting(
+                          SortByUrl[sortCount], OrderByUrl[orderCount]);
+                      print("Order change");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -354,7 +344,7 @@ class _SortWidgetState extends State<SortWidget> {
                       ),
                       child: Center(
                         child: Text(
-                          sortList2[countTwo],
+                          OrderByLabel[orderCount],
                           style: TextStyle(
                             color: kWhite,
                             fontFamily: 'Spartan MB',
