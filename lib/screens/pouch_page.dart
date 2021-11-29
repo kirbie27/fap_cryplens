@@ -170,12 +170,12 @@ class _CoinContainerState extends State<CoinContainer> {
       child: InkWell(
         onTap: () {
           if (index != 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CoinPage(coin: favcoin[index]),
-              ),
-            );
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CoinPage(coin: favcoin[index]),
+                ),
+                (route) => false);
           } else {
             NavigatorPage.fromSearch = true;
             Navigator.of(context).pushNamedAndRemoveUntil(

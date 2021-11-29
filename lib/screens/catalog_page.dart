@@ -496,12 +496,12 @@ class _CoinContainerState extends State<CoinContainer> {
       alignment: Alignment.center,
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CoinPage(coin: coin),
-            ),
-          );
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CoinPage(coin: coin),
+              ),
+              (route) => false);
         },
         child: Container(
           width: 500,

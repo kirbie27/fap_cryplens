@@ -24,6 +24,25 @@ class _CoinPageState extends State<CoinPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${coin['coinName']}'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              if (coin['favCoinID'] != null) //nasa pouch page nanggaling
+              {
+                NavigatorPage.fromSearch = true;
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    NavigatorPage.routeName, (route) => false,
+                    arguments: {'index': 1});
+              } else {
+                NavigatorPage.fromSearch = true;
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    NavigatorPage.routeName, (route) => false,
+                    arguments: {'index': 0});
+              }
+            },
+            child: Text("CLOSE"),
+          ),
+        ],
         backgroundColor: kGray,
       ),
       body: SafeArea(
