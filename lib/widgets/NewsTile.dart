@@ -9,10 +9,11 @@ import 'package:flutter/rendering.dart';
 class NewsTile extends StatelessWidget {
   final String imageUrl, title, desc, url;
 
-  double computeHeight(int desc) {
+  double computeHeight(int desc, int title) {
     //print('length $desc');
     //dynamically computes the better fit height for each news article.
-    return 290 + 10 * (desc / 50.0);
+    return (250 + 10 * (desc / 50.0).ceil() + 15 * (title / 30.0).ceil())
+        .toDouble();
   }
 
   NewsTile(
@@ -35,7 +36,7 @@ class NewsTile extends StatelessWidget {
           color: kBlue,
           borderRadius: BorderRadius.circular(18),
         ),
-        height: computeHeight(desc.length),
+        height: computeHeight(desc.length, title.length),
         padding: EdgeInsets.symmetric(horizontal: 30),
         margin: EdgeInsets.fromLTRB(15, 10, 15, 16),
         child: Column(

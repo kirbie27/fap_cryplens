@@ -6,6 +6,7 @@ import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/rendering.dart';
+import 'package:cryplens/search.dart';
 
 class NewsPage extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class NewsPage extends StatefulWidget {
 }
 
 class _NewsPageState extends State<NewsPage> {
+  Search search = Search();
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
   late var articles;
@@ -23,7 +25,14 @@ class _NewsPageState extends State<NewsPage> {
     print('nasa init state!');
     print('test');
     loading = true;
-    loader = getData();
+
+    String s = search.getSearch();
+    if (s == null)
+      loader = getData();
+    else {
+      loader = getDataWithQuery(s);
+      search.resetSearch();
+    }
     //articles = getData();
   }
 
@@ -66,7 +75,7 @@ class _NewsPageState extends State<NewsPage> {
               Expanded(
                 flex: 1,
                 child: Container(
-                  height:45,
+                  height: 45,
                   padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
                   margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
                   child: TextField(
@@ -156,10 +165,15 @@ class _NewsPageState extends State<NewsPage> {
                               Container(
                                 padding: EdgeInsets.all(20),
                                 child: Text(
-                                    'We couldn\'t find what you are looking for, Agent.',
-                                    style: kMessageTextStyle, textAlign: TextAlign.center,),
+                                  'We couldn\'t find what you are looking for, Agent.',
+                                  style: kMessageTextStyle,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              Image.asset("assets/images/cryplensLOGOWHITE.png", height: 200,)
+                              Image.asset(
+                                "assets/images/cryplensLOGOWHITE.png",
+                                height: 200,
+                              )
                             ],
                           ),
                         )

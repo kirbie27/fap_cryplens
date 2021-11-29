@@ -10,18 +10,30 @@ import 'package:cryplens/screens/pouch_page.dart';
 import 'package:cryplens/screens/news_page.dart';
 import 'package:cryplens/screens/manual_page.dart';
 import 'package:cryplens/screens/detective_page.dart';
+import 'package:cryplens/screens/coin_page.dart';
 
 class NavigatorPage extends StatefulWidget {
+  static const routeName = '/home';
+  static bool fromSearch = false;
   NavigatorPage();
   _NavigatorState createState() => _NavigatorState();
 }
 
 class _NavigatorState extends State<NavigatorPage> {
-  int _currentIndex = 0;
+  void initState() {
+    super.initState();
+  }
 
+  int _currentIndex = 0;
   void onTabTapped(int i) {
     setState(() {
       _currentIndex = i;
+    });
+  }
+
+  goToSearch(int index) {
+    setState(() {
+      _currentIndex = index;
     });
   }
 
@@ -42,6 +54,11 @@ class _NavigatorState extends State<NavigatorPage> {
   ];
 
   Widget build(BuildContext context) {
+    dynamic searchIndex = ModalRoute.of(context)!.settings.arguments;
+    if (NavigatorPage.fromSearch == true && searchIndex != null) {
+      _currentIndex = searchIndex['index'];
+      NavigatorPage.fromSearch = false;
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(

@@ -4,6 +4,8 @@ import 'package:cryplens/widgets/NavBar.dart';
 import 'dart:math' as math;
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
+import 'package:cryplens/search.dart';
+import 'package:cryplens/screens/navigation.dart';
 
 class CoinPage extends StatefulWidget {
   CoinPage({required this.coin});
@@ -37,11 +39,11 @@ class CoinContent extends StatefulWidget {
   CoinContent({required this.coin});
   Map coin;
   @override
-  _CoinContentState createState() => _CoinContentState(coin: coin);
+  CoinContentState createState() => CoinContentState(coin: coin);
 }
 
-class _CoinContentState extends State<CoinContent> {
-  _CoinContentState({required this.coin});
+class CoinContentState extends State<CoinContent> {
+  CoinContentState({required this.coin});
   Map coin;
   @override
   Widget build(BuildContext context) {
@@ -53,19 +55,30 @@ class _CoinContentState extends State<CoinContent> {
             children: [
               Expanded(
                 flex: 3,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "See Related News",
-                    style: TextStyle(
-                      color: kWhite,
-                      fontFamily: 'Spartan MB',
-                      fontSize: 20.0,
+                child: GestureDetector(
+                  onTap: () {
+                    print('Search: ${coin['coinName']}');
+                    Search search = Search();
+                    search.setSearch(coin['coinName']);
+                    NavigatorPage.fromSearch = true;
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        NavigatorPage.routeName, (route) => false,
+                        arguments: {'index': 3});
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "See Related News",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 20.0,
+                      ),
                     ),
-                  ),
-                  decoration: BoxDecoration(
-                    color: kGray,
-                    borderRadius: BorderRadius.circular(20),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ),
