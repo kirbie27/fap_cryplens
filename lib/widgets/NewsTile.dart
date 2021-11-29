@@ -12,7 +12,7 @@ class NewsTile extends StatelessWidget {
   double computeHeight(int desc, int title) {
     //print('length $desc');
     //dynamically computes the better fit height for each news article.
-    return (250 + 10 * (desc / 50.0).ceil() + 15 * (title / 30.0).ceil())
+    return (250 + 15 * (desc / 50.0).ceil() + 15 * (title / 30.0).ceil())
         .toDouble();
   }
 

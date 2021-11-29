@@ -155,6 +155,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               onSubmitted: (value) {
                 widget.searchCrypto(
                     SortByUrl[sortCount], OrderByUrl[orderCount], value);
+                setState(() {
+                  _textEditingController.clear();
+                });
               },
               style: TextStyle(color: kWhite),
               enabled: !loading,
@@ -190,6 +193,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               onPressed: () {
                 widget.searchCrypto(SortByUrl[sortCount],
                     OrderByUrl[orderCount], _textEditingController.text);
+                setState(() {
+                  _textEditingController.clear();
+                });
               },
             ),
           ),

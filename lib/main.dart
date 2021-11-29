@@ -13,20 +13,17 @@ import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:cryplens/services/database/favoritesRecord.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/services/crypto.dart';
+import 'package:cryplens/search.dart';
 
 void main() async {
   runApp(CryptoLens());
-  //Crypto testapi = Crypto();
-  //DatabaseHelper db = DatabaseHelper();
-
-  //final coins = await db.getCoinsTableAtLoad();
-  //print(coins);
 }
 
 class CryptoLens extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Lato'),
         appBarTheme: AppBarTheme(
@@ -40,7 +37,7 @@ class CryptoLens extends StatelessWidget {
         '/introduction': (context) => hello(), //showcasing features
         '/getname': (context) => introPage(), //getting the name
         '/welcome': (context) => welcomePage(), //testing the input name
-        '/home': (context) => NavigatorPage(),
+        NavigatorPage.routeName: (context) => NavigatorPage(),
         '/loader': (context) => Load(),
       },
     );

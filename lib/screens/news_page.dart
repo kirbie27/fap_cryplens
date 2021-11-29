@@ -88,6 +88,9 @@ class _NewsPageState extends State<NewsPage> {
                         loading = true;
                       });
                       getDataWithQuery(searchController.text);
+                      setState(() {
+                        searchController.clear();
+                      });
                     },
                     style: TextStyle(color: kWhite),
                     enabled: !loading,
@@ -126,6 +129,9 @@ class _NewsPageState extends State<NewsPage> {
                         loading = true;
                       });
                       getDataWithQuery(searchController.text);
+                      setState(() {
+                        searchController.clear();
+                      });
                     },
                   ),
                 ),
