@@ -10,7 +10,7 @@ import 'package:cryplens/search.dart';
 import 'package:cryplens/screens/navigation.dart';
 import 'package:cryplens/services/crypto.dart';
 
-String title = "";
+String title = "Hourly Chart";
 DateFormat date = DateFormat.Hm();
 
 class CoinPage extends StatefulWidget {
@@ -317,24 +317,26 @@ class CoinContentState extends State<CoinContent> {
                     child: GestureDetector(
                       onTap: () {
                         if (counter == 0) {
-                          range = rangeList[counter];
-                          title = titleList[counter];
-                          date = dateList[counter];
+                          range = rangeList[counter + 1];
+                          title = titleList[counter + 1];
+                          date = dateList[counter + 1];
                           counter++;
                         } else if (counter == 1) {
-                          range = rangeList[counter];
-                          title = titleList[counter];
-                          date = dateList[counter];
+                          range = rangeList[counter + 1];
+                          title = titleList[counter + 1];
+                          date = dateList[counter + 1];
                           counter++;
                         } else if (counter == 2) {
-                          range = rangeList[counter];
-                          title = titleList[counter];
-                          date = dateList[counter];
-                          counter++;
-                        } else {
+                          range = rangeList[counter - 2];
+                          title = titleList[counter - 2];
+                          date = dateList[counter - 2];
                           counter = 0;
+                        } else {
+                          print("tapped but no output");
                         }
-                        loading = true;
+                        setState(() {
+                          loading = true;
+                        });
                         getData();
                         print("nice tap");
                       },
@@ -395,7 +397,14 @@ class _GraphState extends State<Graph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      title: ChartTitle(text: title),
+      title: ChartTitle(
+        text: title,
+        textStyle: TextStyle(
+          color: kWhite,
+          fontFamily: 'Spartan MB',
+          fontSize: 15.0,
+        ),
+      ),
       trackballBehavior: _trackballBehavior,
       series: <CandleSeries>[
         CandleSeries<ChartSampleData, DateTime>(
