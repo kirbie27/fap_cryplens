@@ -91,6 +91,15 @@ class CoinContentState extends State<CoinContent> {
   late Future loader;
   bool loading = true;
 
+  @override
+  /*
+  void setState(VoidCallback fn) {
+   range = dats na gusto mo;
+   loading = true;
+  }
+  getData();
+  */
+
   void initState() {
     super.initState();
     print('nasa init state!');
