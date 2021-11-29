@@ -15,6 +15,7 @@ class DatabaseHelper {
   static var dbversion = 1;
   late List news;
   late List coins;
+  late List favs;
   //database connection methods
   Future<Database> getDatabase() async {
     if (_database == null) _database = await connectDatabase();
@@ -37,19 +38,30 @@ class DatabaseHelper {
   createFavCoinsTable() async {
     final db = await getDatabase();
     await db.execute(
-        'CREATE TABLE IF NOT EXISTS favcoins(favCoinId INTEGER PRIMARY KEY, favCoinName TEXT, favCoinKey TEXT, favCoinSymbol TEXT)');
+        'CREATE TABLE IF NOT EXISTS favcoins(favCoinID TEXT PRIMARY KEY)');
   }
 
   getFavCoinsTable() async {
     final db = await getDatabase();
     await createFavCoinsTable();
-    return await db.query('favcoins');
+    favs = await db.rawQuery(
+        "SELECT * FROM coins INNER JOIN favcoins on coins.coinID = favcoins.favCoinID");
+    return await db.rawQuery(
+        "SELECT * FROM coins INNER JOIN favcoins on coins.coinID = favcoins.favCoinID");
+  }
+
+  deleteFavCoin(String favCoinID) async {
+    final db = await getDatabase();
+    await createFavCoinsTable();
+    await db
+        .rawDelete('DELETE FROM favcoins WHERE favCoinID = ?', ['$favCoinID']);
+    print('nadelete si $favCoinID');
   }
 
   Future<void> insertFavCoin(FavoriteCoin fav) async {
     // Get a reference to the database.
     final db = await getDatabase();
-    //insert the favorite coin object, by replacing the similar occurence.
+    await createFavCoinsTable();
     await db.insert(
       'favcoins', //table name
       fav.mapFavorites(), //specific favcoin object

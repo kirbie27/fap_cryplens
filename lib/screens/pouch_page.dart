@@ -3,65 +3,96 @@ import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 import 'package:cryplens/user.dart';
+import 'package:cryplens/services/database/DatabaseHelper.dart';
+import 'package:cryplens/screens/navigation.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
-final List<Map> coins =
-    List.generate(2, (index) => {"id": index, "name": "Coin $index"}).toList();
+late List<dynamic> favcoins = [
+  {
+    'id': 0,
+    'name': 'add coins',
+    'title': '',
+    'image': 'assets/images/cryplensLOGOWHITE.png'
+  }
+];
 
 class PouchPage extends StatefulWidget {
-  const PouchPage({Key? key}) : super(key: key);
-
   @override
   _PouchPageState createState() => _PouchPageState();
 }
 
+bool loading = true;
+
 class _PouchPageState extends State<PouchPage> {
+  User user = User();
+  DatabaseHelper dbHelper = DatabaseHelper();
+  late Future loader;
+
+  void initState() {
+    super.initState();
+    loading = true;
+    loader = getData();
+  }
+
+  getData() async {
+    final holder = await dbHelper.getFavCoinsTable();
+    print('hello pouch');
+    setState(() {
+      favcoins = [
+        {
+          'id': 0,
+          'name': 'add coins',
+          'title': '',
+          'image': 'assets/images/cryplensLOGOWHITE.png'
+        }
+      ];
+      favcoins.addAll(holder);
+      print(holder);
+      loader = Future.value(holder);
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.all(15.0),
-        child: PouchContent(),
-      ),
-    );
-  }
-}
-
-class PouchContent extends StatefulWidget {
-  const PouchContent({Key? key}) : super(key: key);
-
-  @override
-  _PouchContentState createState() => _PouchContentState();
-}
-
-class _PouchContentState extends State<PouchContent> {
-  User user = User();
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Expanded(
-        flex: 1,
-        child: Container(
-          child: Center(
-            child: Text(
-              'Hi ${user.getName()}, listed here are the contents of your pouch',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 20.0,
+        child: Column(children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Center(
+                child: Text(
+                  'Hi ${user.getName()}, I listed here the contents of your pouch',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: kWhite,
+                    fontFamily: 'Spartan MB',
+                    fontSize: 20.0,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          Expanded(
+            flex: 4,
+            child: FutureBuilder(
+                future: loader,
+                builder: (BuildContext context, AsyncSnapshot snap) {
+                  if (!loading) {
+                    return CoinWidget();
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [CircularProgressIndicator()],
+                    );
+                  }
+                }),
+          ),
+        ]),
       ),
-      Expanded(
-        flex: 3,
-        child: Container(
-          child: CoinWidget(),
-        ),
-      ),
-    ]);
+    );
   }
 }
 
@@ -75,7 +106,7 @@ class CoinWidget extends StatefulWidget {
 class _CoinWidgetState extends State<CoinWidget> {
   @override
   Widget build(BuildContext context) {
-    if (coins.length > 0) {
+    if (favcoins.length > 0) {
       return GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -83,9 +114,9 @@ class _CoinWidgetState extends State<CoinWidget> {
           mainAxisSpacing: 20,
           mainAxisExtent: 250,
         ),
-        itemCount: coins.length,
+        itemCount: favcoins.length,
         itemBuilder: (BuildContext context, int index) {
-          return CoinContainer(index: index);
+          return CoinContainer(index: index, favcoin: favcoins);
         },
       );
     } else {
@@ -120,28 +151,37 @@ class _CoinWidgetState extends State<CoinWidget> {
 }
 
 class CoinContainer extends StatefulWidget {
-  const CoinContainer({Key? key, required this.index});
+  CoinContainer({required this.index, required this.favcoin});
   final int index;
+  final List favcoin;
   @override
-  _CoinContainerState createState() => _CoinContainerState(index: index);
+  _CoinContainerState createState() =>
+      _CoinContainerState(index: index, favcoin: favcoin);
 }
 
 class _CoinContainerState extends State<CoinContainer> {
-  _CoinContainerState({Key? key, required this.index});
+  _CoinContainerState({required this.index, required this.favcoin});
   final int index;
-  Map coin = {};
+  final List favcoin;
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CoinPage(coin: coin),
-            ),
-          );
+          if (index != 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CoinPage(coin: favcoin[index]),
+              ),
+            );
+          } else {
+            NavigatorPage.fromSearch = true;
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                NavigatorPage.routeName, (route) => false,
+                arguments: {'index': 0});
+          }
         },
         child: Container(
           width: 500,
@@ -155,7 +195,11 @@ class _CoinContainerState extends State<CoinContainer> {
                     padding: EdgeInsets.all(10.0),
                     child: Center(
                       child: Text(
-                        "BTC",
+                        index == 0
+                            ? favcoins[index]['title']
+                            : favcoins[index]['coinSymbol']
+                                .toString()
+                                .toUpperCase(),
                         style: TextStyle(
                           color: kWhite,
                           fontFamily: 'Spartan MB',
@@ -171,8 +215,10 @@ class _CoinContainerState extends State<CoinContainer> {
                     padding: EdgeInsets.all(10.0),
                     child: Center(
                       child: Image(
-                        image:
-                            AssetImage("assets/images/cryplensLOGOWHITE.png"),
+                        image: index == 0
+                            ? AssetImage(favcoins[index]['image'])
+                            : NetworkImage(favcoins[index]['imageUrl'])
+                                as ImageProvider,
                       ),
                     ),
                   ),
@@ -185,7 +231,9 @@ class _CoinContainerState extends State<CoinContainer> {
                       width: 500,
                       child: Center(
                         child: Text(
-                          coins[index]["name"],
+                          index == 0
+                              ? favcoins[index]["name"]
+                              : favcoins[index]['coinName'],
                           style: TextStyle(
                             color: kBlack,
                             fontFamily: 'Spartan MB',
