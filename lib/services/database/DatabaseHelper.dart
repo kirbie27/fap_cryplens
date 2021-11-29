@@ -58,13 +58,20 @@ class DatabaseHelper {
     print('nadelete si $favCoinID');
   }
 
-  Future<void> insertFavCoin(FavoriteCoin fav) async {
+  searchFavCoin(String favCoinID) async {
+    final db = await getDatabase();
+    await createFavCoinsTable();
+    return await db
+        .rawQuery("SELECT * FROM favcoins WHERE favCoinID = '$favCoinID'");
+  }
+
+  Future<void> insertFavCoin(Map<String, String> fav) async {
     // Get a reference to the database.
     final db = await getDatabase();
     await createFavCoinsTable();
     await db.insert(
       'favcoins', //table name
-      fav.mapFavorites(), //specific favcoin object
+      fav, //specific favcoin object
       conflictAlgorithm:
           ConflictAlgorithm.replace, //replaces that entry if in conflict
     );

@@ -1,3 +1,4 @@
+import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
 import 'package:cryplens/widgets/NavBar.dart';
@@ -45,30 +46,173 @@ class CoinContent extends StatefulWidget {
 class CoinContentState extends State<CoinContent> {
   CoinContentState({required this.coin});
   Map coin;
+  bool favorite = false;
+  Search search = Search();
+  DatabaseHelper dbHelper = DatabaseHelper();
+  late Future loader;
+  bool loading = true;
+
+  void initState() {
+    super.initState();
+    print('nasa init state!');
+    print('test');
+    loading = true;
+    loader = getData();
+  }
+
+  getData() async {
+    final holder = await dbHelper.searchFavCoin(coin['coinID']);
+    print(holder);
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      if (!holder.isEmpty) {
+        favorite = true;
+      } else {
+        favorite = false;
+      }
+      loader = Future.value(holder);
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: GestureDetector(
-                  onTap: () {
-                    print('Search: ${coin['coinName']}');
-                    Search search = Search();
-                    search.setSearch(coin['coinName']);
-                    NavigatorPage.fromSearch = true;
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        NavigatorPage.routeName, (route) => false,
-                        arguments: {'index': 3});
-                  },
+    return FutureBuilder(
+        future: loader,
+        builder: (BuildContext context, AsyncSnapshot snap) {
+          if (!loading) {
+            return Column(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: () {
+                            print('Search: ${coin['coinName']}');
+                            Search search = Search();
+                            search.setSearch(coin['coinName']);
+                            NavigatorPage.fromSearch = true;
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                NavigatorPage.routeName, (route) => false,
+                                arguments: {'index': 3});
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "See Related News",
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: kGray,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: GestureDetector(
+                          onTap: () {
+                            print(favorite);
+                            if (favorite) {
+                              dbHelper.deleteFavCoin(coin['coinID']);
+                            } else {
+                              dbHelper
+                                  .insertFavCoin({'favCoinID': coin['coinID']});
+                            }
+                            setState(() {
+                              loading = true;
+                            });
+                            getData();
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              !favorite ? 'Add to Pouch' : 'Added',
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                              color: !favorite ? kGray : kBlue,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            coin['coinPrice'].toString(),
+                            style: TextStyle(
+                              color: kWhite,
+                              fontFamily: 'Spartan MB',
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: kGray,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            coin['coinMarketCapRank'].toString(),
+                            style: TextStyle(
+                              color: kWhite,
+                              fontFamily: 'Spartan MB',
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                            color: kGray,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  flex: 2,
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "See Related News",
+                      coin['coinTotalVolume'].toString(),
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',
@@ -81,160 +225,72 @@ class CoinContentState extends State<CoinContent> {
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Add to Pouch",
-                    style: TextStyle(
-                      color: kWhite,
-                      fontFamily: 'Spartan MB',
-                      fontSize: 20.0,
+                SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      coin['coinMarketCap'].toString(),
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    color: kGray,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          flex: 2,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    coin['coinPrice'].toString(),
-                    style: TextStyle(
-                      color: kWhite,
-                      fontFamily: 'Spartan MB',
-                      fontSize: 20.0,
+                SizedBox(
+                  height: 15,
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Center(
+                    child: Container(
+                      child: Container(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(0.0, 20.0, 20.0, 0.0),
+                          child: Graph(),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: kGray,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    color: kGray,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    coin['coinMarketCapRank'].toString(),
-                    style: TextStyle(
-                      color: kWhite,
-                      fontFamily: 'Spartan MB',
-                      fontSize: 20.0,
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Text(
+                      "Powered by Coingecko",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.4),
+                        fontFamily: 'Spartan MB',
+                        fontSize: 20.0,
+                      ),
                     ),
                   ),
-                  decoration: BoxDecoration(
-                    color: kGray,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              coin['coinTotalVolume'].toString(),
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 20.0,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: kGray,
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            alignment: Alignment.center,
-            child: Text(
-              coin['coinMarketCap'].toString(),
-              style: TextStyle(
-                color: kWhite,
-                fontFamily: 'Spartan MB',
-                fontSize: 20.0,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: kGray,
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        Expanded(
-          flex: 7,
-          child: Center(
-            child: Container(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 20.0, 20.0, 0.0),
-                  child: Graph(),
-                ),
-              ),
-              decoration: BoxDecoration(
-                color: kGray,
-                borderRadius: BorderRadius.circular(20),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(
-              "Powered by Coingecko",
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.4),
-                fontFamily: 'Spartan MB',
-                fontSize: 20.0,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+              ],
+            );
+          } else {
+            return Container(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator());
+          }
+        });
   }
 }
 

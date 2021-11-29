@@ -79,6 +79,13 @@ class _NewsPageState extends State<NewsPage> {
                   padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
                   margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
                   child: TextField(
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (value) {
+                      setState(() {
+                        loading = true;
+                      });
+                      getDataWithQuery(value);
+                    },
                     cursorColor: kBlue,
                     focusNode: fn,
                     style: TextStyle(
