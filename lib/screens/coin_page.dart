@@ -8,6 +8,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:cryplens/search.dart';
 import 'package:cryplens/screens/navigation.dart';
+import 'package:cryplens/services/crypto.dart';
 
 class CoinPage extends StatefulWidget {
   CoinPage({required this.coin});
@@ -372,62 +373,30 @@ class _GraphState extends State<Graph> {
                 coinChartData.close),
       ],
       primaryXAxis: DateTimeAxis(
-        dateFormat: DateFormat.MMM(),
+        dateFormat: DateFormat.Hm(),
         majorGridLines: MajorGridLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
-          minimum: 70,
-          maximum: 130,
-          interval: 10,
+          axisLine: const AxisLine(width: 0),
+          majorTickLines: const MajorTickLines(size: 0),
           numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
     );
   }
 
   List<ChartSampleData> getChartData() {
-    return <ChartSampleData>[
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635552000000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635566400000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635580800000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635595200000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635609600000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-      ChartSampleData(
-        time: DateTime.fromMillisecondsSinceEpoch(1635624000000),
-        open: 115.8,
-        high: 117.5,
-        low: 115.59,
-        close: 116.52,
-      ),
-    ];
+    List<ChartSampleData> chart = [];
+    for (int i = 0; i < coinChart.length; i++) {
+      chart.add(
+        ChartSampleData(
+          time: DateTime.fromMillisecondsSinceEpoch(coinChart[i]['unix']),
+          open: coinChart[i]['O'],
+          high: coinChart[i]['H'],
+          low: coinChart[i]['L'],
+          close: coinChart[i]['C'],
+        ),
+      );
+    }
+    return chart;
   }
 }
 
