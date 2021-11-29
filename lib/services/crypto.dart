@@ -44,7 +44,7 @@ class Crypto {
     int counter = 0;
 
     String url =
-        "https://api.coingecko.com/api/v3/coins/$coinID/ohlc?vs_currency=usd&days=1";
+        "https://api.coingecko.com/api/v3/coins/$coinID/ohlc?vs_currency=usd&days=$range";
 
     var response = await http.get(Uri.parse(url));
     print('here at crypto charts?');
