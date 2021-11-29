@@ -1,3 +1,4 @@
+import 'package:cryplens/services/crypto.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
@@ -78,6 +79,8 @@ class CoinContent extends StatefulWidget {
   CoinContentState createState() => CoinContentState(coin: coin);
 }
 
+late List coinChart;
+
 class CoinContentState extends State<CoinContent> {
   CoinContentState({required this.coin});
   Map coin;
@@ -96,7 +99,9 @@ class CoinContentState extends State<CoinContent> {
   }
 
   getData() async {
+    final crypto = Crypto();
     final holder = await dbHelper.searchFavCoin(coin['coinID']);
+    await crypto.getCryptoChart(coin['coinID'], 1.toString());
     print(holder);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
@@ -105,9 +110,12 @@ class CoinContentState extends State<CoinContent> {
       } else {
         favorite = false;
       }
+      coinChart = crypto.chartOHLC;
+      print(coinChart);
       loader = Future.value(holder);
       loading = false;
     });
+    print(coinChart);
   }
 
   @override
