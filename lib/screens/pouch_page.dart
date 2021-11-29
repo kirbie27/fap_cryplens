@@ -8,12 +8,7 @@ import 'package:cryplens/screens/navigation.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
 late List<dynamic> favcoins = [
-  {
-    'id': 0,
-    'name': '+',
-    'title': '',
-    'image': 'assets/images/cryplensLOGOWHITE.png'
-  }
+  {'id': 0, 'name': '+', 'title': '', 'image': 'assets/images/AddIcon.png'}
 ];
 
 class PouchPage extends StatefulWidget {
@@ -43,7 +38,7 @@ class _PouchPageState extends State<PouchPage> {
           'id': 0,
           'name': 'Add Coin',
           'title': '',
-          'image': 'assets/images/cryplensLOGOWHITE.png'
+          'image': 'assets/images/AddIcon.png'
         }
       ];
       favcoins.addAll(holder);
@@ -233,16 +228,20 @@ class _CoinContainerState extends State<CoinContainer> {
                         child: Text(
                           index == 0
                               ? favcoins[index]["name"]
-                              : favcoins[index]['coinName'],
+                              : '\$ ${favcoins[index]['coinPrice'].toString()}',
                           style: TextStyle(
-                            color: kBlack,
+                            color: index == 0
+                                ? kWhite
+                                : favcoins[index]['coinPriceChange'] < 0
+                                    ? kRed
+                                    : kGreen,
                             fontFamily: 'Spartan MB',
                             fontSize: 20.0,
                           ),
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: kWhite,
+                        color: kBlack,
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),

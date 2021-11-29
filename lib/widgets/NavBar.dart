@@ -52,11 +52,11 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-
       type: BottomNavigationBarType.fixed,
       backgroundColor: kGray,
       iconSize: 20,
-      showSelectedLabels: false,
+      showSelectedLabels: true,
+      selectedFontSize: 12,
       showUnselectedLabels: false,
       selectedItemColor: kWhite,
       unselectedItemColor: kGraySelected,
