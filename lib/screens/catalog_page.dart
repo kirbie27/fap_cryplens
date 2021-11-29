@@ -96,9 +96,9 @@ class _CatalogPageState extends State<CatalogPage> {
               flex: 1,
               child: SearchBarWidget(key: _searchkey, searchCrypto: searchCoin),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
             Expanded(
               flex: 1,
               child: SortWidget(key: _sortkey, sorting: changeSort),
@@ -136,161 +136,64 @@ class SearchBarWidget extends StatefulWidget {
   _SearchBarWidgetState createState() => _SearchBarWidgetState();
 }
 
-int toggle = 1;
-
-class _SearchBarWidgetState extends State<SearchBarWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _con;
+class _SearchBarWidgetState extends State<SearchBarWidget> {
   TextEditingController _textEditingController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _con = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
-      width: 250.0,
-      alignment: Alignment(-1.0, 0.0),
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        height: 48.0,
-        width: 300.0,
-        curve: Curves.easeOut,
-        decoration: BoxDecoration(
-          color: kGray,
-          borderRadius: BorderRadius.circular(30.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              spreadRadius: -10.0,
-              blurRadius: 10.0,
-              offset: Offset(0.0, 10.0),
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 300),
-              top: 6.0,
-              left: 7.0,
-              curve: Curves.easeOut,
-              child: AnimatedOpacity(
-                opacity: (toggle == 0) ? 0.0 : 1.0,
-                duration: Duration(milliseconds: 300),
-                child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: Color(0xfff2f3f7),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: AnimatedBuilder(
-                    child: Icon(
-                      Icons.search,
-                      color: kWhite,
-                      size: 20.0,
-                    ),
-                    builder: (context, widget) {
-                      return Transform.rotate(
-                        angle: _con.value * 2.0 * math.pi,
-                        child: widget,
-                      );
-                    },
-                    animation: _con,
-                  ),
+      //color: Colors.green,
+      alignment: Alignment.center,
+      child: Stack(
+        children: [
+          Container(
+            height: 50,
+            width: 500.0,
+            alignment: Alignment.center,
+            child: TextField(
+              textInputAction: TextInputAction.search,
+              onSubmitted: (value) {
+                widget.searchCrypto(
+                    SortByUrl[sortCount], OrderByUrl[orderCount], value);
+              },
+              style: TextStyle(color: kWhite),
+              enabled: !loading,
+              controller: _textEditingController,
+              cursorWidth: 2.0,
+              cursorColor: Colors.lightGreenAccent,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                contentPadding: EdgeInsets.only(left: 55.0),
+                labelText: 'Enter coin code...',
+                labelStyle: TextStyle(
+                  color: Colors.white24,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 375),
-              left: (toggle == 0) ? 20.0 : 40.0,
-              curve: Curves.easeOut,
-              top: 11.0,
-              child: AnimatedOpacity(
-                opacity: (toggle == 0) ? 0.0 : 1.0,
-                duration: Duration(milliseconds: 200),
-                child: Container(
-                  height: 23.0,
-                  width: 180.0,
-                  child: TextField(
-                    textInputAction: TextInputAction.search,
-                    onSubmitted: (value) {
-                      setState(
-                        () {
-                          if (toggle == 0) {
-                            //toggle = 1;
-                            //_con.forward();
-                          } else {
-                            //toggle = 0;
-                            //_textEditingController.clear();
-                            //_con.reverse();
-                          }
-                        },
-                      );
-                      widget.searchCrypto(
-                          SortByUrl[sortCount], OrderByUrl[orderCount], value);
-                    },
-                    style: TextStyle(color: kWhite),
-                    enabled: !loading,
-                    controller: _textEditingController,
-                    cursorRadius: Radius.circular(10.0),
-                    cursorWidth: 2.0,
-                    cursorColor: Colors.lightGreenAccent,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      labelText: 'Enter coin code...',
-                      labelStyle: TextStyle(
-                        color: Colors.white24,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      alignLabelWithHint: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0), color: kGray),
+          ),
+          Material(
+            color: kGray,
+            borderRadius: BorderRadius.circular(30.0),
+            child: IconButton(
+              // splashRadius: 19.0,
+              icon: Icon(
+                Icons.search,
+                color: kWhite,
               ),
+              onPressed: () {
+                widget.searchCrypto(SortByUrl[sortCount],
+                    OrderByUrl[orderCount], _textEditingController.text);
+              },
             ),
-            Material(
-              color: kGray,
-              borderRadius: BorderRadius.circular(30.0),
-              child: IconButton(
-                splashRadius: 19.0,
-                icon: Icon(
-                  Icons.search,
-                  color: kWhite,
-                  size: 18.0,
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      if (toggle == 0) {
-                        //toggle = 1;
-                        //_con.forward();
-                      } else {
-                        //toggle = 0;
-                        //_textEditingController.clear();
-                        //_con.reverse();
-                      }
-                    },
-                  );
-                  widget.searchCrypto(SortByUrl[sortCount],
-                      OrderByUrl[orderCount], _textEditingController.text);
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -317,7 +220,7 @@ class _SortWidgetState extends State<SortWidget> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 20.0),
+                padding: EdgeInsets.only(left: 20.0, bottom: 5),
                 child: Text(
                   "Sort by:",
                   style: TextStyle(
@@ -355,7 +258,7 @@ class _SortWidgetState extends State<SortWidget> {
                           style: TextStyle(
                             color: kWhite,
                             fontFamily: 'Spartan MB',
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                           ),
                         ),
                       ),
@@ -382,18 +285,32 @@ class _SortWidgetState extends State<SortWidget> {
                       print("Order change");
                     },
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      child: Center(
-                        child: Text(
-                          OrderByLabel[orderCount],
-                          style: TextStyle(
-                            color: kWhite,
-                            fontFamily: 'Spartan MB',
-                            fontSize: 20.0,
+                      // padding: const EdgeInsets.symmetric(
+                      //   horizontal: 20,
+                      // ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text(
+                              OrderByLabel[orderCount],
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 18.0,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            OrderByLabel[orderCount] == 'Ascending'
+                                ? Icons.arrow_drop_up
+                                : Icons.arrow_drop_down,
+                            color: kWhite,
+                          )
+                        ],
                       ),
                       decoration: BoxDecoration(
                         color: kGray,

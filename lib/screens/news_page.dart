@@ -70,81 +70,69 @@ class _NewsPageState extends State<NewsPage> {
     return SafeArea(
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  height: 45,
-                  padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-                  margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
+          //Search Bar
+          Container(
+            //color: Colors.green,
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(10.0),
+            child: Stack(
+              children: [
+                Container(
+                  height: 50,
+                  width: 500.0,
+                  alignment: Alignment.center,
                   child: TextField(
                     textInputAction: TextInputAction.search,
                     onSubmitted: (value) {
                       setState(() {
                         loading = true;
                       });
-                      getDataWithQuery(value);
+                      getDataWithQuery(searchController.text);
                     },
-                    cursorColor: kBlue,
-                    focusNode: fn,
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                    style: TextStyle(color: kWhite),
+                    enabled: !loading,
                     controller: searchController,
-                    textAlign: TextAlign.start,
+                    cursorWidth: 2.0,
+                    cursorColor: Colors.lightGreenAccent,
+                    focusNode: fn,
                     decoration: InputDecoration(
-                      // suffixIcon: IconButton(
-                      //   icon: Icon(Icons.adb),
-                      //   onPressed: () {
-                      //     setState(() {
-                      //       loading = true;
-                      //     });
-                      //     getDataWithQuery(searchController.text);
-                      //   },
-                      // ),
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(width: 0, style: BorderStyle.none),
-                        borderRadius: BorderRadius.circular(50.0),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      contentPadding: EdgeInsets.only(left: 55.0),
+                      labelText: 'Search about crypto here',
+                      labelStyle: TextStyle(
+                        color: Colors.white24,
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w500,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kBlue, width: 1),
-                        borderRadius: BorderRadius.circular(50.0),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
                       ),
-                      hintText: 'Search about crypto here',
-                      contentPadding: EdgeInsets.fromLTRB(30, 0, 0, 0),
                     ),
                   ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.0), color: kGray),
                 ),
-              ),
-              Container(
-                // margin: EdgeInsets.only(top: 2),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      shape: CircleBorder(), primary: Colors.white),
-                  child: Container(
-                    height: 42,
-                    width: 42,
-                    child: Icon(
+                Material(
+                  color: kGray,
+                  borderRadius: BorderRadius.circular(30.0),
+                  child: IconButton(
+                    // splashRadius: 19.0,
+                    icon: Icon(
                       Icons.search,
-                      color: kBlue,
+                      color: kWhite,
                     ),
+                    onPressed: () {
+                      setState(() {
+                        loading = true;
+                      });
+                      getDataWithQuery(searchController.text);
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      loading = true;
-                    });
-                    getDataWithQuery(searchController.text);
-                  },
                 ),
-              )
-            ],
+              ],
+            ),
           ),
 
-          //SearchBar(),
           //ARTICLES
           FutureBuilder(
             future: loader,
