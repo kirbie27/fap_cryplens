@@ -10,6 +10,9 @@ import 'package:cryplens/search.dart';
 import 'package:cryplens/screens/navigation.dart';
 import 'package:cryplens/services/crypto.dart';
 
+String title = "";
+DateFormat date = DateFormat.Hm();
+
 class CoinPage extends StatefulWidget {
   CoinPage({required this.coin});
   Map coin;
@@ -81,6 +84,7 @@ class CoinContent extends StatefulWidget {
 }
 
 late List coinChart;
+late int range = 1;
 
 class CoinContentState extends State<CoinContent> {
   CoinContentState({required this.coin});
@@ -90,16 +94,17 @@ class CoinContentState extends State<CoinContent> {
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
   bool loading = true;
+  NumberFormat numberFormat = NumberFormat();
+  List<int> rangeList = [1, 7, 90];
+  List<String> titleList = ["Hourly Chart", "Daily Chart", "Monthly Chart"];
+  List<DateFormat> dateList = [
+    DateFormat.Hm(),
+    DateFormat.d(),
+    DateFormat.MMM()
+  ];
+  int counter = 0;
 
   @override
-  /*
-  void setState(VoidCallback fn) {
-   range = dats na gusto mo;
-   loading = true;
-  }
-  getData();
-  */
-
   void initState() {
     super.initState();
     print('nasa init state!');
@@ -111,7 +116,7 @@ class CoinContentState extends State<CoinContent> {
   getData() async {
     final crypto = Crypto();
     final holder = await dbHelper.searchFavCoin(coin['coinID']);
-    await crypto.getCryptoChart(coin['coinID'], 1.toString());
+    await crypto.getCryptoChart(coin['coinID'], range.toString());
     print(holder);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
@@ -156,6 +161,7 @@ class CoinContentState extends State<CoinContent> {
                             alignment: Alignment.center,
                             child: Text(
                               "See Related News",
+                              maxLines: 2,
                               style: TextStyle(
                                 color: kWhite,
                                 fontFamily: 'Spartan MB',
@@ -192,6 +198,7 @@ class CoinContentState extends State<CoinContent> {
                             alignment: Alignment.center,
                             child: Text(
                               !favorite ? 'Add to Pouch' : 'Added',
+                              maxLines: 2,
                               style: TextStyle(
                                 color: kWhite,
                                 fontFamily: 'Spartan MB',
@@ -220,7 +227,7 @@ class CoinContentState extends State<CoinContent> {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            coin['coinPrice'].toString(),
+                            "\$" + coin['coinPrice'].toString(),
                             style: TextStyle(
                               color: kWhite,
                               fontFamily: 'Spartan MB',
@@ -265,7 +272,8 @@ class CoinContentState extends State<CoinContent> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      coin['coinTotalVolume'].toString(),
+                      "Total Volume: \$" +
+                          numberFormat.format(coin['coinTotalVolume']),
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',
@@ -286,7 +294,8 @@ class CoinContentState extends State<CoinContent> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      coin['coinMarketCap'].toString(),
+                      "Market Cap: \$" +
+                          numberFormat.format(coin['coinMarketCap']),
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',
@@ -305,17 +314,36 @@ class CoinContentState extends State<CoinContent> {
                 Expanded(
                   flex: 7,
                   child: Center(
-                    child: Container(
+                    child: GestureDetector(
+                      onTap: () {
+                        if (counter == 0) {
+                          range = rangeList[counter];
+                          title = titleList[counter];
+                          date = dateList[counter];
+                          counter++;
+                        } else if (counter == 1) {
+                          range = rangeList[counter];
+                          title = titleList[counter];
+                          date = dateList[counter];
+                          counter++;
+                        } else if (counter == 2) {
+                          range = rangeList[counter];
+                          title = titleList[counter];
+                          date = dateList[counter];
+                          counter++;
+                        } else {
+                          counter = 0;
+                        }
+                        loading = true;
+                        getData();
+                        print("nice tap");
+                      },
                       child: Container(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(0.0, 20.0, 20.0, 0.0),
-                          child: Graph(),
+                        child: Graph(),
+                        decoration: BoxDecoration(
+                          color: kGray,
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: kGray,
-                        borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                   ),
@@ -367,6 +395,7 @@ class _GraphState extends State<Graph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
+      title: ChartTitle(text: title),
       trackballBehavior: _trackballBehavior,
       series: <CandleSeries>[
         CandleSeries<ChartSampleData, DateTime>(
@@ -383,7 +412,7 @@ class _GraphState extends State<Graph> {
                 coinChartData.close),
       ],
       primaryXAxis: DateTimeAxis(
-        dateFormat: DateFormat.Hm(),
+        dateFormat: date,
         majorGridLines: MajorGridLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
