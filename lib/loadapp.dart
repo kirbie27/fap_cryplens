@@ -30,6 +30,7 @@ class _LoadState extends State<Load> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -85,9 +86,7 @@ class _LoadState extends State<Load> {
                                     style: kMessageTextStyle),
                                 SizedBox(height: 50),
                                 Container(
-                                    height: 80,
-                                    width: 80,
-                                    child: startupLoad),
+                                    height: 80, width: 80, child: startupLoad),
                               ],
                             ),
                           );

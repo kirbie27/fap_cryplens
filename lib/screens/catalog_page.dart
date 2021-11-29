@@ -23,16 +23,37 @@ class CatalogPage extends StatefulWidget {
   _CatalogPageState createState() => _CatalogPageState();
 }
 
+bool loading = true;
+
 class _CatalogPageState extends State<CatalogPage> {
   final GlobalKey<_SortWidgetState> _sortkey = GlobalKey();
+  final GlobalKey<_SearchBarWidgetState> _searchkey = GlobalKey();
   String parent = 'parent';
   DatabaseHelper dbHelper = DatabaseHelper();
-  bool loading = true;
+
   late Future loader;
   void initState() {
     super.initState();
     loading = true;
     loader = getData();
+  }
+
+  searchCoin(String sort, String order, String search) {
+    print(order);
+    setState(() {
+      loading = true;
+    });
+    updateCoinBySearch(sort, order, search);
+  }
+
+  updateCoinBySearch(String sort, String order, String search) async {
+    final holder = await dbHelper.getCoinsTableWithSearch(sort, order, search);
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      coins = dbHelper.coins;
+      ;
+      loading = false;
+    });
   }
 
   changeSort(String sort, String order) {
@@ -47,7 +68,7 @@ class _CatalogPageState extends State<CatalogPage> {
     final holder = await dbHelper.getCoinsTableWithSort(sort, order);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
-      coins = holder;
+      coins = dbHelper.coins;
       loading = false;
     });
   }
@@ -73,7 +94,7 @@ class _CatalogPageState extends State<CatalogPage> {
           child: Column(children: <Widget>[
             Expanded(
               flex: 1,
-              child: SearchBarWidget(),
+              child: SearchBarWidget(key: _searchkey, searchCrypto: searchCoin),
             ),
             SizedBox(
               height: 20,
@@ -108,8 +129,9 @@ class _CatalogPageState extends State<CatalogPage> {
 }
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({Key? key}) : super(key: key);
-
+  Function searchCrypto;
+  SearchBarWidget({required Key key, required this.searchCrypto})
+      : super(key: key);
   @override
   _SearchBarWidgetState createState() => _SearchBarWidgetState();
 }
@@ -198,10 +220,29 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
                   height: 23.0,
                   width: 180.0,
                   child: TextField(
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (value) {
+                      setState(
+                        () {
+                          if (toggle == 0) {
+                            //toggle = 1;
+                            //_con.forward();
+                          } else {
+                            //toggle = 0;
+                            //_textEditingController.clear();
+                            //_con.reverse();
+                          }
+                        },
+                      );
+                      widget.searchCrypto(
+                          SortByUrl[sortCount], OrderByUrl[orderCount], value);
+                    },
+                    style: TextStyle(color: kWhite),
+                    enabled: !loading,
                     controller: _textEditingController,
                     cursorRadius: Radius.circular(10.0),
                     cursorWidth: 2.0,
-                    cursorColor: kWhite,
+                    cursorColor: Colors.lightGreenAccent,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelText: 'Enter coin code...',
@@ -234,15 +275,17 @@ class _SearchBarWidgetState extends State<SearchBarWidget>
                   setState(
                     () {
                       if (toggle == 0) {
-                        toggle = 1;
-                        _con.forward();
+                        //toggle = 1;
+                        //_con.forward();
                       } else {
-                        toggle = 0;
-                        _textEditingController.clear();
-                        _con.reverse();
+                        //toggle = 0;
+                        //_textEditingController.clear();
+                        //_con.reverse();
                       }
                     },
                   );
+                  widget.searchCrypto(SortByUrl[sortCount],
+                      OrderByUrl[orderCount], _textEditingController.text);
                 },
               ),
             ),
@@ -260,10 +303,10 @@ class SortWidget extends StatefulWidget {
   _SortWidgetState createState() => _SortWidgetState();
 }
 
-class _SortWidgetState extends State<SortWidget> {
-  int sortCount = 0;
-  int orderCount = 0;
+int sortCount = 0;
+int orderCount = 0;
 
+class _SortWidgetState extends State<SortWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -393,7 +436,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
       );
     } else {
       return Container(
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         child: InkWell(
           onTap: () {
             print('clicked empty coins');

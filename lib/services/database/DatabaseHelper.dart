@@ -144,6 +144,15 @@ class DatabaseHelper {
     return await db.rawQuery('SELECT *  FROM coins order by $sort $order');
   }
 
+  getCoinsTableWithSearch(String sort, String order, String search) async {
+    final db = await getDatabase();
+
+    coins = await db.rawQuery(
+        "SELECT * FROM coins WHERE coinID LIKE '%$search%' OR coinSymbol LIKE '%$search%' OR coinName LIKE '%$search%'");
+    return await db.rawQuery(
+        "SELECT * FROM coins WHERE coinID LIKE '%$search%' OR coinSymbol LIKE '%$search%' OR coinName LIKE '%$search%'");
+  }
+
   Future<void> insertCoins(CoinRecord coin) async {
     // Get a reference to the database.
     final db = await getDatabase();
