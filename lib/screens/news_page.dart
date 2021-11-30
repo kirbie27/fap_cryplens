@@ -45,14 +45,17 @@ class NewsPageState extends State<NewsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'CryptoPages Instructions',
+            'How to Use CryptoPages',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies:'
-              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
-              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              '1. The cryptopages shows the top 25 headlines about cryptocurrencies.'
+              '\n\n2. You can search for news about a specific coin using the search bar. '
+              '\n\n3. You can also tap on the specific news tile in order'
+              ' to see more details about the articles.'
+              '\n\n4. Lastly, this is where you will be redirected when you tap the See Related News'
+              ' of a specific coin page from the catalog.',
               textAlign: TextAlign.justify,
             ),
           ),

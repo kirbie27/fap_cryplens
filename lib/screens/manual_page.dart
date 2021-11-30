@@ -17,14 +17,12 @@ class ManualPageState extends State<ManualPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'About Manual',
+            'The Manual',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies:'
-              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
-              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              'This shows a more descriptive information about each feature of Cryplens',
               textAlign: TextAlign.justify,
             ),
           ),
