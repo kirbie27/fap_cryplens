@@ -24,121 +24,58 @@ class ResultsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final _cityTextController = TextEditingController();
-    final _dataService = DataService();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Detective Crypto', style: detectiveCryptoText),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
+      body: Padding(
             padding: EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Expanded(
-                  child: Text(
-                      id.toUpperCase(),
-                      style: detectiveCryptoText,
-                      textAlign: TextAlign.left),
+                Column(
+                  children: <Widget>[
+                    Text(
+                        id.toUpperCase(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        liquidityScore.toString(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        developerScore.toString(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        communityScore.toString(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        coingeckoScore.toString(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        coingeckoRank.toString(),
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        symbol,
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        sentimentVoteUpPercentage.toString() + '%',
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                    Text(
+                        sentimentVoteDownPercentage.toString() + '%',
+                        style: detectiveCryptoText,
+                        textAlign: TextAlign.left),
+                  ],
                 ),
               ],
             ),
           ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                liquidityScore.toString(),
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                developerScore.toString(),
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                communityScore.toString(),
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                coingeckoScore.toString(),
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                coingeckoRank.toString(),
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                symbol,
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                sentimentVoteUpPercentage.toString() + '%',
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              padding: EdgeInsets.all(15.0),
-              alignment: Alignment.bottomLeft,
-              child: Text(
-                sentimentVoteDownPercentage.toString() + '%',
-                style: detectiveCryptoText,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
