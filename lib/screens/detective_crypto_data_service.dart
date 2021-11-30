@@ -15,7 +15,13 @@ class DataService{
 
     final response = await http.get(uri);
 
-    print(response.body);
+    if(response.statusCode == 200){
+      print('gumana');
+      print(response.body);
+    } else {
+      print('hindi 200 status code');
+    }
+
     final json = jsonDecode(response.body);
     return CoinResponse.fromJson(json);
   }

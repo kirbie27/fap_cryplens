@@ -1,19 +1,5 @@
 /* EXAMPLE of JSON
 {
-  "weather": [
-    {
-      "description": "clear sky",
-      "icon": "01d"
-    }
-  ],
-  "main": {
-    "temp": 282.55,
-  },
-
-  "name": "Mountain View",
-}
-
-{
   "id": "bitcoin",
   "symbol": "btc",
   "name": "Bitcoin",
@@ -51,54 +37,38 @@
   "developer_score": 98.883,
   "community_score": 70.995,
   "liquidity_score": 100.264,
-
 */
 
-class CoinInfo{
-  final double sentiment_votes_up_percentage;
-  final double sentiment_votes_down_percentage;
-
-  CoinInfo({required this.sentiment_votes_up_percentage, required this.sentiment_votes_down_percentage});
-
-  factory CoinInfo.fromJson(Map<String, dynamic> json){ //JSON is a map, and in this case, it is a map of String and dynamic
-    //dynamic can change type and value later
-    final sentimentVotesUpPercentage = json['sentiment_votes_up_percentage'];
-    final sentimentVotesDownPercentage = json['sentiment_votes_down_percentage'];
-    return CoinInfo(sentiment_votes_up_percentage: sentimentVotesUpPercentage, sentiment_votes_down_percentage: sentimentVotesDownPercentage);
-  }
-}
-
-class CurrentPriceInfo{
-  final String current_price;
-
-  CurrentPriceInfo({required this.current_price});
-
-  factory CurrentPriceInfo.fromJson(Map<String, dynamic> json){
-    final currentPrice = json['current_price'];
-    return CurrentPriceInfo(current_price: currentPrice);
-  }
-}
-
 class CoinResponse {
+  final String name;
   final String id;
-  final CurrentPriceInfo currentPriceInfo;
-  final CoinInfo coinInfo;
-  final CoinInfo coinInfo1;
+  final String symbol;
+  final double liquidityScore;
+  final double developerScore;
+  final double communityScore;
+  final double coingeckoScore;
+  final int coingeckoRank;
+  final double sentimentVoteUpPercentage;
+  final double sentimentVoteDownPercentage;
 
-  CoinResponse({required this.id, required this.currentPriceInfo, required this.coinInfo, required this.coinInfo1}); //
+  CoinResponse({required this.name, required this.id, required this.liquidityScore, required this.developerScore,
+  required this.communityScore, required this.coingeckoScore, required this.coingeckoRank, required this.symbol,
+  required this.sentimentVoteUpPercentage, required this.sentimentVoteDownPercentage});
 
   factory CoinResponse.fromJson(Map<String, dynamic> json){ //Factory is a custom constructor with codes to create that constructor
+    final name = json['name'];
     final id = json['id'];
+    final liquidityScore = json['liquidity_score'];
+    final developerScore = json['developer_score'];
+    final communityScore = json['community_score'];
+    final coingeckoScore = json['coingecko_score'];
+    final coingeckoRank = json['coingecko_rank'];
+    final symbol = json['symbol'];
+    final sentimentVoteUpPercentage = json['sentiment_votes_up_percentage'];
+    final sentimentVoteDownPercentage = json['sentiment_votes_down_percentage'];
 
-    final currentPriceInfoJson = json['market_data'];
-    final currentPriceInfo = CurrentPriceInfo.fromJson(currentPriceInfoJson);
-
-    final coinInfoJson = json['sentiment_votes_up_percentage'];
-    final coinInfo = CoinInfo.fromJson(coinInfoJson);
-
-    final coinInfoJson1 = json['sentiment_votes_down_percentage'];
-    final coinInfo1 = CoinInfo.fromJson(coinInfoJson1);
-
-    return CoinResponse(id: id, currentPriceInfo: currentPriceInfo, coinInfo: coinInfo, coinInfo1: coinInfo1); //
+    return CoinResponse(name: name, id: id, liquidityScore : liquidityScore, developerScore : developerScore, communityScore : communityScore,
+    coingeckoScore : coingeckoScore, coingeckoRank : coingeckoRank, symbol : symbol, sentimentVoteUpPercentage: sentimentVoteUpPercentage,
+    sentimentVoteDownPercentage : sentimentVoteDownPercentage);
   }
 }

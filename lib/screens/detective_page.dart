@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'detective_crypto_models.dart';
 import 'detective_crypto_data_service.dart';
+import 'detective_page_result.dart';
 
 
 class DetectiveCryptoPage1 extends StatefulWidget {
@@ -150,6 +151,7 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                           ),
                           onPressed: () {
                             _search();
+
                           /*setState(
                                   () {
                                 if (toggle == 0) {
@@ -239,11 +241,34 @@ class _DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
   void _search() async { //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
     final response = await _dataService.getCoin(_cityTextController.text);
-    print(_cityTextController.text);
-    print(response.id); //prints the cityname, temp, and description
-    //print(response.currentPriceInfo.current_price);
-    print(response.coinInfo.sentiment_votes_up_percentage);
-    print(response.coinInfo1.sentiment_votes_down_percentage);
+    // print(_cityTextController.text);
+    print('Coin Name: ' + response.id);
+    print('Liquidity Score: ' + response.liquidityScore.toString());
+    print('Developer Score: ' + response.developerScore.toString());
+    print('Community Score: ' + response.communityScore.toString());
+    print('Coingecko Score: ' + response.coingeckoScore.toString());
+    print('Coingecko Rank: ' + response.coingeckoRank.toString());
+    print('Symbol: ' + response.symbol);
+    print('Vote Up Percentage: ' + response.sentimentVoteUpPercentage.toString());
+    print('Vote Down Percentage: ' + response.sentimentVoteDownPercentage.toString());
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultsPage(
+          name: response.name,
+          id: response.id,
+          liquidityScore: response.liquidityScore,
+          developerScore: response.developerScore,
+          communityScore: response.communityScore,
+          coingeckoScore: response.coingeckoScore,
+          coingeckoRank: response.coingeckoRank,
+          symbol: response.symbol,
+          sentimentVoteUpPercentage: response.sentimentVoteUpPercentage,
+          sentimentVoteDownPercentage: response.sentimentVoteDownPercentage,
+        ),
+      ),
+    );
   }
 }
 
