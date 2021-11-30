@@ -13,9 +13,9 @@ class DatabaseHelper {
   static var _database;
   static String _databaseName = 'cryptolens.db';
   static var dbversion = 1;
-  late List news;
-  late List coins;
-  late List favs;
+  static late List news;
+  static late List coins;
+  static late List favs;
   //database connection methods
   Future<Database> getDatabase() async {
     if (_database == null) _database = await connectDatabase();

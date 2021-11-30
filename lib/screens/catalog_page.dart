@@ -34,8 +34,15 @@ class _CatalogPageState extends State<CatalogPage> {
   late Future loader;
   void initState() {
     super.initState();
-    loading = true;
-    loader = getData();
+    loading = false;
+    coins = DatabaseHelper.coins;
+    loader = start();
+  }
+
+  start() async {
+    setState(() {
+      loader = Future.value('started');
+    });
   }
 
   searchCoin(String sort, String order, String search) {
@@ -50,8 +57,7 @@ class _CatalogPageState extends State<CatalogPage> {
     final holder = await dbHelper.getCoinsTableWithSearch(sort, order, search);
     await Future.delayed(Duration(seconds: 2));
     setState(() {
-      coins = dbHelper.coins;
-      ;
+      coins = DatabaseHelper.coins;
       loading = false;
     });
   }
@@ -68,18 +74,20 @@ class _CatalogPageState extends State<CatalogPage> {
     final holder = await dbHelper.getCoinsTableWithSort(sort, order);
     await Future.delayed(Duration(seconds: 1));
     setState(() {
-      coins = dbHelper.coins;
+      coins = DatabaseHelper.coins;
       loading = false;
     });
   }
 
   getData() async {
+    setState(() {
+      loading = true;
+    });
     final holder = await dbHelper.getCoinsTableAtLoad();
     print('whut');
     setState(() {
       print('wew');
-      coins = dbHelper.coins;
-      loader = Future.value(holder);
+      coins = DatabaseHelper.coins;
       loading = false;
       print('changed to loading');
     });
@@ -101,7 +109,8 @@ class _CatalogPageState extends State<CatalogPage> {
             // ),
             Expanded(
               flex: 1,
-              child: SortWidget(key: _sortkey, sorting: changeSort),
+              child: SortWidget(
+                  key: _sortkey, sorting: changeSort, refresh: getData),
             ),
             SizedBox(
               height: 20,
@@ -207,7 +216,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 
 class SortWidget extends StatefulWidget {
   final Function sorting;
-  SortWidget({required Key key, required this.sorting}) : super(key: key);
+  final Function refresh;
+  SortWidget({required Key key, required this.sorting, required this.refresh})
+      : super(key: key);
   @override
   _SortWidgetState createState() => _SortWidgetState();
 }
@@ -223,19 +234,33 @@ class _SortWidgetState extends State<SortWidget> {
         children: [
           Expanded(
             flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 20.0, bottom: 5),
-                child: Text(
-                  "Sort by:",
-                  style: TextStyle(
-                    color: kWhite,
-                    fontFamily: 'Spartan MB',
-                    fontSize: 20.0,
+            child: Row(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 20.0, bottom: 5),
+                    child: Text(
+                      "Sort by:",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 20.0,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(width: 30),
+                Container(
+                    color: kRed,
+                    child: TextButton(
+                        onPressed: () {
+                          print('Refresh Catalog page!');
+                          widget.refresh();
+                        },
+                        child: Text('REFRESH BITCH!',
+                            style: TextStyle(color: kBlack)))),
+              ],
             ),
           ),
           Expanded(

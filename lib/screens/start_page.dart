@@ -18,8 +18,6 @@ class _introState extends State<introPage> {
   }
 
   _introState() {
-    //redirect();
-    //clearPreferences();
     print('Time to get the name!');
   }
   late String input;
@@ -27,7 +25,7 @@ class _introState extends State<introPage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name', name);
     User user = User();
-    user.setName(await prefs.getString('name') ?? "C");
+    user.setName(await prefs.getString('name') ?? 'C');
     setState(() {
       Navigator.pushReplacementNamed(context, '/welcome');
     });
@@ -35,7 +33,7 @@ class _introState extends State<introPage> {
 
   String answer = 'no';
 
-  Future<void> _showMyDialog() async {
+  Future<void> _confirmInput() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -53,7 +51,7 @@ class _introState extends State<introPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Icon(FontAwesomeIcons.thumbsUp),
+              child: Icon(FontAwesomeIcons.smile),
               onPressed: () {
                 setState(() {
                   answer = 'yes';
@@ -63,7 +61,39 @@ class _introState extends State<introPage> {
               },
             ),
             TextButton(
-              child: Icon(FontAwesomeIcons.thumbsDown),
+              child: Icon(FontAwesomeIcons.sadCry),
+              onPressed: () {
+                setState(() {
+                  answer = 'no';
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _blankInput() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'INVALID INPUT!',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            child: Text(
+              'Please enter your agent name.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Icon(FontAwesomeIcons.thumbsUp),
               onPressed: () {
                 setState(() {
                   answer = 'no';
@@ -113,6 +143,14 @@ class _introState extends State<introPage> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(60, 30, 60, 0),
                     child: TextField(
+                      textInputAction: TextInputAction.search,
+                      onSubmitted: (value) {
+                        input = value;
+                        if (input != '')
+                          _confirmInput();
+                        else
+                          _blankInput();
+                      },
                       cursorColor: kBlue,
                       focusNode: fn,
                       style: TextStyle(
@@ -165,7 +203,10 @@ class _introState extends State<introPage> {
                       ),
                       onPressed: () {
                         input = nameController.text;
-                        _showMyDialog();
+                        if (input != '')
+                          _confirmInput();
+                        else
+                          _blankInput();
                       },
                     ),
                   ),

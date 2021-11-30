@@ -40,7 +40,7 @@ class _NewsPageState extends State<NewsPage> {
     final holder = await dbHelper.getNewsTableAtLoad();
 
     setState(() {
-      articles = dbHelper.news;
+      articles = DatabaseHelper.news;
       loading = false;
       loader = Future.value(holder);
     });
@@ -51,7 +51,7 @@ class _NewsPageState extends State<NewsPage> {
     final holder = await dbHelper.getNewsTableWithQuery(query);
 
     setState(() {
-      articles = dbHelper.news;
+      articles = DatabaseHelper.news;
       loading = false;
       loader = Future.value(holder);
     });

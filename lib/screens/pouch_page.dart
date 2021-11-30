@@ -59,7 +59,7 @@ class _PouchPageState extends State<PouchPage> {
             child: Container(
               child: Center(
                 child: Text(
-                  'Hi ${user.getName()}, I listed here the contents of your pouch',
+                  'Hi ${User.name}, I listed here the contents of your pouch',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: kWhite,

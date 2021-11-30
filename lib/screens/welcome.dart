@@ -12,13 +12,12 @@ class _welcomeState extends State<welcomePage> {
   String message = 'Welcome to Cryplens, Agent!';
 
   _welcomeState() {
-    User user = User();
-    message = 'Welcome to Cryplens, Agent ${user.getName()}!';
+    message = 'Welcome to Cryplens, Agent ${User.name}!';
   }
 
   Future<String> getName() async {
     final prefs = await SharedPreferences.getInstance();
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 1));
     return await prefs.getString('name') ?? '';
   }
 
