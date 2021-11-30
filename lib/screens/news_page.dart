@@ -45,23 +45,34 @@ class NewsPageState extends State<NewsPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'News Instructions',
+            'CryptoPages Instructions',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can see news about crypto...',
-              textAlign: TextAlign.center,
+              'Here you can see a list of Crypto Currencies:'
+              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
+              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              textAlign: TextAlign.justify,
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: Icon(FontAwesomeIcons.thumbsUp),
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 setState(() {
                   Navigator.of(context).pop();
                 });
               },
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: kGreen,
+                child: Text('OK',
+                    style: TextStyle(
+                        color: kWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
           ],
         );
@@ -107,7 +118,7 @@ class NewsPageState extends State<NewsPage> {
           Container(
             //color: Colors.green,
             alignment: Alignment.center,
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(15.0),
             child: Stack(
               children: [
                 Container(

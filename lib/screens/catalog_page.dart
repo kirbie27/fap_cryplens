@@ -54,18 +54,29 @@ class CatalogPageState extends State<CatalogPage> {
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies, and you can search ekek...',
-              textAlign: TextAlign.center,
+              'Here you can see a list of Crypto Currencies:'
+              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
+              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              textAlign: TextAlign.justify,
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: Icon(FontAwesomeIcons.thumbsUp),
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 setState(() {
                   Navigator.of(context).pop();
                 });
               },
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: kGreen,
+                child: Text('OK',
+                    style: TextStyle(
+                        color: kWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
           ],
         );

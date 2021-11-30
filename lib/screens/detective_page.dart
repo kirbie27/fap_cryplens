@@ -44,23 +44,34 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Detective Instructions',
+            'How to Use Detective Luna',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can search for rugs...',
-              textAlign: TextAlign.center,
+              'Here you can see a list of Crypto Currencies:'
+              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
+              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              textAlign: TextAlign.justify,
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: Icon(FontAwesomeIcons.thumbsUp),
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 setState(() {
                   Navigator.of(context).pop();
                 });
               },
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: kGreen,
+                child: Text('OK',
+                    style: TextStyle(
+                        color: kWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold)),
+              ),
             ),
           ],
         );
