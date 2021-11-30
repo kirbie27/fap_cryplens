@@ -29,6 +29,7 @@ bool loading = true;
 
 class CatalogPageState extends State<CatalogPage> {
   final GlobalKey<_SortWidgetState> _sortkey = GlobalKey();
+
   final GlobalKey<_SearchBarWidgetState> _searchkey = GlobalKey();
   String parent = 'parent';
   DatabaseHelper dbHelper = DatabaseHelper();
@@ -49,14 +50,19 @@ class CatalogPageState extends State<CatalogPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Catalog Instructions',
+            'How to use the Coin Catalog',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies:'
-              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
-              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              '1. The catalog shows the top 250 coins from coin gecko.'
+              '\n\n2. You can search for a specific coin using the search bar, '
+              'and you can specify the sort type by tapping the sort buttons.'
+              '\n\n3. You can also scroll through the different coins and tap on them '
+              'to be redirected to their specific page that contains additional information.'
+              '\n\n4. On the coin page, you can see the related news, additional coin info, and charts. '
+              'You may also tap on the chart title to change the timeframe of the charts.'
+              '\n\n5. Lastly, you can update the price by tapping on the refresh button.',
               textAlign: TextAlign.justify,
             ),
           ),

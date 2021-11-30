@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:cryplens/search.dart';
 import 'package:cryplens/screens/navigation.dart';
 import 'package:cryplens/services/crypto.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 String title = "Hourly Chart";
 DateFormat date = DateFormat.Hm();

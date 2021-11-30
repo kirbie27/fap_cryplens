@@ -38,14 +38,17 @@ class PouchPageState extends State<PouchPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(
-            'Pouch Instructions',
+            'How to use the Pouch',
             textAlign: TextAlign.center,
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies:'
-              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
-              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              '1. The pouch contains your favorite coins for easy access.'
+              '\n\n2. You can tap the add coin button to be redirected to the catalog page '
+              'where you can find more coins to add to your pouch.'
+              '\n\n3. After adding some coins to your pouch, the coins will appear on this page, and you can tap on them '
+              'to go to their specific coin page.'
+              '\n\n4. You can also remove coins from your pouch by going to their coin page and tapping on the added button',
               textAlign: TextAlign.justify,
             ),
           ),

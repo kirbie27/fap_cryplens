@@ -49,9 +49,11 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
           ),
           content: Container(
             child: Text(
-              'Here you can see a list of Crypto Currencies:'
-              '\n1. skdfhsjkdfhkshfkdshfksdhjkfhsd'
-              '\n2. akdhaskjdhjkashdkashdkashdjkas',
+              '1. The Detective Luna retrieves a coin or token you want to check, and returns information about them that you can use '
+              'for your checklist.'
+              '\n\n2. You can search for a specific coin using the search bar, and you can tap on the search'
+              'button or simply press search on the keypad, and to be redirected to another page if you'
+              'searched a coin that is in the connected apis.',
               textAlign: TextAlign.justify,
             ),
           ),
