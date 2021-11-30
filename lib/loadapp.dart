@@ -24,7 +24,7 @@ class _LoadState extends State<Load> {
     super.initState();
     loading = true;
     gettingCrypto = false;
-    setPreferences();
+    // for debugging only setPreferences();
     loader = getData();
   }
 
