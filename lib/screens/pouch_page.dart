@@ -5,6 +5,7 @@ import 'package:cryplens/widgets/NavBar.dart';
 import 'package:cryplens/user.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:cryplens/screens/navigation.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //dummy list of coins before api, you may change the number of generated coins
 late List<dynamic> favcoins = [
@@ -12,13 +13,14 @@ late List<dynamic> favcoins = [
 ];
 
 class PouchPage extends StatefulWidget {
+  PouchPage({required Key key}) : super(key: key);
   @override
-  _PouchPageState createState() => _PouchPageState();
+  PouchPageState createState() => PouchPageState();
 }
 
 bool loading = true;
 
-class _PouchPageState extends State<PouchPage> {
+class PouchPageState extends State<PouchPage> {
   User user = User();
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
@@ -27,6 +29,37 @@ class _PouchPageState extends State<PouchPage> {
     super.initState();
     loading = true;
     loader = getData();
+  }
+
+  Future<void> PouchInstructions() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Pouch Instructions',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            child: Text(
+              'Here you can see a list of your favorite Crypo Currencies...',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Icon(FontAwesomeIcons.thumbsUp),
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   getData() async {

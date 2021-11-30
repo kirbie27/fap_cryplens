@@ -7,13 +7,15 @@ import 'package:cryplens/widgets/NewsTile.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/rendering.dart';
 import 'package:cryplens/search.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsPage extends StatefulWidget {
+  NewsPage({required Key key}) : super(key: key);
   @override
-  _NewsPageState createState() => _NewsPageState();
+  NewsPageState createState() => NewsPageState();
 }
 
-class _NewsPageState extends State<NewsPage> {
+class NewsPageState extends State<NewsPage> {
   Search search = Search();
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
@@ -34,6 +36,37 @@ class _NewsPageState extends State<NewsPage> {
       search.resetSearch();
     }
     //articles = getData();
+  }
+
+  Future<void> NewsInstructions() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'News Instructions',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            child: Text(
+              'Here you can see news about crypto...',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Icon(FontAwesomeIcons.thumbsUp),
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   getData() async {

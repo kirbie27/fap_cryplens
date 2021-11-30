@@ -35,11 +35,11 @@ class _LoadState extends State<Load> {
   }
 
   getData() async {
+    User user = User();
     final prefs = await SharedPreferences.getInstance();
 
     bool nameExists = await prefs.containsKey('name');
     if (nameExists) {
-      User user = User();
       user.setName(await prefs.getString('name') ?? "Agent");
     }
     await Future.delayed(Duration(seconds: 2));

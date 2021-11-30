@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cryplens/user.dart';
 import 'package:cryplens/widgets/NavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,12 +21,13 @@ final List<String> SortByUrl = [
 final List<String> OrderByUrl = ["desc", "asc"];
 
 class CatalogPage extends StatefulWidget {
-  _CatalogPageState createState() => _CatalogPageState();
+  CatalogPage({required Key key}) : super(key: key);
+  CatalogPageState createState() => CatalogPageState();
 }
 
 bool loading = true;
 
-class _CatalogPageState extends State<CatalogPage> {
+class CatalogPageState extends State<CatalogPage> {
   final GlobalKey<_SortWidgetState> _sortkey = GlobalKey();
   final GlobalKey<_SearchBarWidgetState> _searchkey = GlobalKey();
   String parent = 'parent';
@@ -34,9 +36,41 @@ class _CatalogPageState extends State<CatalogPage> {
   late Future loader;
   void initState() {
     super.initState();
+
     loading = false;
     coins = DatabaseHelper.coins;
     loader = start();
+  }
+
+  Future<void> CatalogInstructions() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Catalog Instructions',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            child: Text(
+              'Here you can see a list of Crypto Currencies, and you can search ekek...',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Icon(FontAwesomeIcons.thumbsUp),
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   start() async {
