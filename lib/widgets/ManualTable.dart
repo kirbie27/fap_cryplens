@@ -13,96 +13,132 @@ class ManualTable extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(0.0, 30.0, 32.0, 30.0),
       child: Table(
         children: [
-          TableRow(
+          TableRow(children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    FaIcon(FontAwesomeIcons.book, color: kWhite, size: 40,),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text('Card Catalog', style: kArticleTitleTextStyle,))
-                  ],
+                FaIcon(
+                  FontAwesomeIcons.book,
+                  color: kWhite,
+                  size: 40,
                 ),
-                Column(
-                  children: [
-                    Text('This page contains different Cryocurrencies with its corresponding information and prices.', style: kManualTextStyle,),
-                  ],
-                )
-              ]
-          ),
+                Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Card Catalog',
+                      style: kArticleTitleTextStyle,
+                    ))
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'This page contains a list of the top 250 Cryptocurrencies with their basic information.',
+                  style: kManualTextStyle,
+                ),
+              ],
+            )
+          ]),
           rowSpacer,
-          TableRow(
+          TableRow(children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    FaIcon(FontAwesomeIcons.wallet, color: kWhite, size: 40,),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text('Pouch', style: kArticleTitleTextStyle,))
-                  ],
+                FaIcon(
+                  FontAwesomeIcons.wallet,
+                  color: kWhite,
+                  size: 40,
                 ),
-                Column(
-                  children: [
-                    Text('This page contains the favorite coins.', style: kManualTextStyle,),
-                  ],
-                )
-              ]
-          ),
+                Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Pouch',
+                      style: kArticleTitleTextStyle,
+                    ))
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'This page contains your favorite coins for easy access.',
+                  style: kManualTextStyle,
+                ),
+              ],
+            )
+          ]),
           rowSpacer,
-          TableRow(
+          TableRow(children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    Image.asset('assets/images/cryplensLOGO80.png',
-                        width: 70, height: 70),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text('Detective Luna', style: kArticleTitleTextStyle,))
-                  ],
+                Image.asset('assets/images/cryplensLOGO80.png',
+                    width: 70, height: 70),
+                Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Detective Luna',
+                      style: kArticleTitleTextStyle,
+                    ))
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'This is page checks your specified token/coin to see if it is malicious or not.',
+                  style: kManualTextStyle,
                 ),
-                Column(
-                  children: [
-                    Text('This is the Rugpull checker specifically for ETH tokens to see if a coin is maliscious or not.', style: kManualTextStyle,),
-                  ],
-                )
-              ]
-          ),
+              ],
+            )
+          ]),
           rowSpacer,
-          TableRow(
+          TableRow(children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    FaIcon(FontAwesomeIcons.solidNewspaper, color: kWhite, size: 40,),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text('CryptoNews', style: kArticleTitleTextStyle,))
-                  ],
+                FaIcon(
+                  FontAwesomeIcons.solidNewspaper,
+                  color: kWhite,
+                  size: 40,
                 ),
-                Column(
-                  children: [
-                    Text('This page contains articles about cryptocurrencies and other coins', style: kManualTextStyle,),
-                  ],
-                )
-              ]
-          ),
+                Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'CryptoNews',
+                      style: kArticleTitleTextStyle,
+                    ))
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'This page contains news articles about Cryptocurrencies and other related information.',
+                  style: kManualTextStyle,
+                ),
+              ],
+            )
+          ]),
           rowSpacer,
-          TableRow(
+          TableRow(children: [
+            Column(
               children: [
-                Column(
-                  children: [
-                    Icon(Icons.info_rounded, color: kWhite, size: 40,),
-                    Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: Text('Manual', style: kArticleTitleTextStyle,))
-                  ],
+                Icon(
+                  Icons.info_rounded,
+                  color: kWhite,
+                  size: 40,
                 ),
-                Column(
-                  children: [
-                    Text('This page explains the features of the application, particularly the functions of the icons in the navigation bar.', style: kManualTextStyle,),
-                  ],
-                )
-              ]
-          )
+                Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Manual',
+                      style: kArticleTitleTextStyle,
+                    ))
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'This page explains the features of the application, particularly the functions of the icons in the navigation bar.',
+                  style: kManualTextStyle,
+                ),
+              ],
+            )
+          ])
         ],
       ),
     );
