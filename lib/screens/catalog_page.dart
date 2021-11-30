@@ -284,16 +284,22 @@ class _SortWidgetState extends State<SortWidget> {
                     ),
                   ),
                 ),
-                SizedBox(width: 30),
-                Container(
-                    color: kRed,
-                    child: TextButton(
-                        onPressed: () {
-                          print('Refresh Catalog page!');
-                          widget.refresh();
-                        },
-                        child: Text('REFRESH BITCH!',
-                            style: TextStyle(color: kBlack)))),
+                SizedBox(width: 249),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20.0, bottom: 5),
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                      onPressed: () {
+                        print('Refresh Catalog page!');
+                        widget.refresh();
+                      },
+                      icon: Icon(Icons.refresh, color: kWhite),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

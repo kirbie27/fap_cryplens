@@ -49,7 +49,7 @@ class ManualPageState extends State<ManualPage> {
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: kBlue,
+          color: kGray,
         ),
         child: Column(
           children: [

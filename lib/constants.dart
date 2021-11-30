@@ -71,7 +71,7 @@ const detectiveCryptoIcon =
     Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
 
 const detectiveCryptoResultText =
-TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);
+    TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);
 
 const Loading = SpinKitFadingFour(
   color: Colors.white,
@@ -82,4 +82,3 @@ const startupLoad = SpinKitFadingCube(
   color: kWhite,
   size: 50.0,
 );
-

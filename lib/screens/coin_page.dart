@@ -227,7 +227,7 @@ class CoinContentState extends State<CoinContent> {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            "\$" + coin['coinPrice'].toString(),
+                            "\$ " + coin['coinPrice'].toString(),
                             style: TextStyle(
                               color: kWhite,
                               fontFamily: 'Spartan MB',
@@ -272,7 +272,7 @@ class CoinContentState extends State<CoinContent> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "Total Volume: \$" +
+                      "Total Volume: \$ " +
                           numberFormat.format(coin['coinTotalVolume']),
                       style: TextStyle(
                         color: kWhite,
@@ -294,7 +294,7 @@ class CoinContentState extends State<CoinContent> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "Market Cap: \$" +
+                      "Market Cap: \$ " +
                           numberFormat.format(coin['coinMarketCap']),
                       style: TextStyle(
                         color: kWhite,
