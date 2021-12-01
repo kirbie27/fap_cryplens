@@ -46,7 +46,13 @@ const kGraySearch = Color(0xffD0D0D0);
 
 const kBlack = Color(0xff121212);
 
+const kDarkBlue = Color(0xff1C323F);
+
+const kYellow = Color(0xffFFC619);
+
 const kBlue = Color(0xffb102A43);
+
+const kBlueGreen = Color(0xff32AA92);
 
 const kGreen = Color(0xff2abfa4);
 

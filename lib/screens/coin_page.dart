@@ -92,6 +92,7 @@ class CoinContentState extends State<CoinContent> {
   Map coin;
   bool favorite = false;
   Search search = Search();
+  var coinPriceColor;
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
   bool loading = true;
@@ -136,6 +137,13 @@ class CoinContentState extends State<CoinContent> {
 
   @override
   Widget build(BuildContext context) {
+    if (coin['coinPriceChange'] > 0) {
+      coinPriceColor = kGreen;
+    } else if (coin['coinPriceChange'] < 0) {
+      coinPriceColor = kRed;
+    } else {
+      coinPriceColor = kWhite;
+    }
     return FutureBuilder(
         future: loader,
         builder: (BuildContext context, AsyncSnapshot snap) {
@@ -230,7 +238,7 @@ class CoinContentState extends State<CoinContent> {
                           child: Text(
                             "\$ " + coin['coinPrice'].toString(),
                             style: TextStyle(
-                              color: kWhite,
+                              color: coinPriceColor,
                               fontFamily: 'Spartan MB',
                               fontSize: 20.0,
                             ),
@@ -251,7 +259,7 @@ class CoinContentState extends State<CoinContent> {
                           child: Text(
                             coin['coinMarketCapRank'].toString(),
                             style: TextStyle(
-                              color: kWhite,
+                              color: kBlueGreen,
                               fontFamily: 'Spartan MB',
                               fontSize: 20.0,
                             ),
@@ -272,15 +280,30 @@ class CoinContentState extends State<CoinContent> {
                   flex: 2,
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text(
-                      "Total Volume: \$ " +
-                          numberFormat.format(coin['coinTotalVolume']),
-                      style: TextStyle(
-                        color: kWhite,
-                        fontFamily: 'Spartan MB',
-                        fontSize: 20.0,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Total Volume: ",
+                        style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 20),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '\$ ' +
+                                  numberFormat.format(coin['coinTotalVolume']),
+                              style: TextStyle(color: kYellow)),
+                        ],
                       ),
                     ),
+                    // child: Text(
+                    //   "Total Volume: \$ " +
+                    //       numberFormat.format(coin['coinTotalVolume']),
+                    //   style: TextStyle(
+                    //     color: kYellow,
+                    //     fontFamily: 'Spartan MB',
+                    //     fontSize: 20.0,
+                    //   ),
+                    // ),
                     decoration: BoxDecoration(
                       color: kGray,
                       borderRadius: BorderRadius.circular(20),
@@ -294,15 +317,30 @@ class CoinContentState extends State<CoinContent> {
                   flex: 2,
                   child: Container(
                     alignment: Alignment.center,
-                    child: Text(
-                      "Market Cap: \$ " +
-                          numberFormat.format(coin['coinMarketCap']),
-                      style: TextStyle(
-                        color: kWhite,
-                        fontFamily: 'Spartan MB',
-                        fontSize: 20.0,
+                    child: RichText(
+                      text: TextSpan(
+                        text: "Market Cap: ",
+                        style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 20),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: '\$ ' +
+                                  numberFormat.format(coin['coinMarketCap']),
+                              style: TextStyle(color: kYellow)),
+                        ],
                       ),
                     ),
+                    // child: Text(
+                    //   "Market Cap: \$ " +
+                    //       numberFormat.format(coin['coinMarketCap']),
+                    //   style: TextStyle(
+                    //     color: kWhite,
+                    //     fontFamily: 'Spartan MB',
+                    //     fontSize: 20.0,
+                    //   ),
+                    // ),
                     decoration: BoxDecoration(
                       color: kGray,
                       borderRadius: BorderRadius.circular(20),
