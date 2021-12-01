@@ -3,12 +3,11 @@ import 'package:cryplens/services/database/coinRecord.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:cryplens/services/database/favoritesRecord.dart';
 import 'package:cryplens/services/database/articleRecord.dart';
 import 'package:cryplens/services/news.dart';
 import 'package:cryplens/services/crypto.dart';
 
-//this class handles the functions related to the databas
+//this class handles the functions related to the database
 class DatabaseHelper {
   static var _database;
   static String _databaseName = 'cryptolens.db';
@@ -55,7 +54,6 @@ class DatabaseHelper {
     await createFavCoinsTable();
     await db
         .rawDelete('DELETE FROM favcoins WHERE favCoinID = ?', ['$favCoinID']);
-    print('nadelete si $favCoinID');
   }
 
   searchFavCoin(String favCoinID) async {
@@ -99,18 +97,15 @@ class DatabaseHelper {
 
   getNewsTableWithQuery(String query) async {
     final db = await getDatabase();
-    //print('anditoo!');
     //since this is a new query we would need to reload the table
     await db.execute("DROP TABLE IF EXISTS news");
     await createNewsTable();
     var newsTable = await db.query('news');
-    //print('wala pa lamana: $news');
 
     final newsClass = News();
 
     await newsClass.getNewsWithSearch(query);
     news = await db.query('news');
-    // print('dapat may laman na dito: $news');
     return await db.query('news');
   }
 
@@ -119,7 +114,7 @@ class DatabaseHelper {
     final db = await getDatabase();
     //try to create table if it doesn't exist
     await createNewsTable();
-    //insert the news object, by replacing the similar occurence.
+    //insert the news object, by replacing the similar occurrence.
     await db.insert(
       'news', //table name
       article.mapArticles(), //specific favcoin object
@@ -142,7 +137,6 @@ class DatabaseHelper {
         'coinMarketCapRank INTEGER , '
         'coinTotalVolume REAL, '
         'coinPriceChange REAL)');
-    //return await db.query();
   }
 
   getCoinsFromDatabase() async {
@@ -182,7 +176,7 @@ class DatabaseHelper {
     final db = await getDatabase();
     //try to create table if it doesn't exist
     await createCoinsTable();
-    //insert the news object, by replacing the similar occurence.
+    //insert the news object, by replacing the similar occurrence.
     await db.insert(
       'coins', //table name
       coin.mapCoins(), //specific
