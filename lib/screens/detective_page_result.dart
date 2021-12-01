@@ -18,7 +18,7 @@ class ResultsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detective Crypto', style: detectiveCryptoText),
+        title: Text(response.name.toUpperCase(), style: detectiveCryptoText),
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -74,60 +74,37 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
             child: Row(
               children: [
                 Expanded(
-                  flex: 3,
+                  flex: 1,
                   child: Container(
                     padding: EdgeInsets.all(15.0),
-                    child: Expanded(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              response.name,
-                              style: TextStyle(
-                                color: kWhite,
-                                fontFamily: 'Spartan MB',
-                                fontSize: 28.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image(
+                                image: NetworkImage(response.img),
+                                height: 40,
                               ),
-                            ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                response.symbol.toUpperCase(),
+                                style: TextStyle(
+                                  color: kWhite,
+                                  fontFamily: 'Spartan MB',
+                                  fontSize: 24.0,
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            flex: 1,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Image(
-                                    image: NetworkImage(response.img),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    response.symbol.toUpperCase(),
-                                    style: TextStyle(
-                                      color: kWhite,
-                                      fontFamily: 'Spartan MB',
-                                      fontSize: 24.0,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     decoration: BoxDecoration(
                       color: kGray,
@@ -139,10 +116,11 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                   width: 10,
                 ),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           flex: 1,
@@ -150,7 +128,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             child: Text(
                               response.coingeckoRank.toString(),
                               style: TextStyle(
-                                color: kWhite,
+                                color: kYellow,
                                 fontFamily: 'Spartan MB',
                                 fontSize: 25.0,
                               ),
@@ -158,7 +136,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Center(
                             child: Text(
                               "Coingecko Rank",
@@ -192,7 +170,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
                       children: [
                         Expanded(
@@ -201,7 +179,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             child: Text(
                               response.liquidityScore.toString(),
                               style: TextStyle(
-                                color: kWhite,
+                                color: kYellow,
                                 fontFamily: 'Spartan MB',
                                 fontSize: 25.0,
                               ),
@@ -209,7 +187,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Center(
                             child: Text(
                               "Liquidity Score",
@@ -236,7 +214,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
                       children: [
                         Expanded(
@@ -245,7 +223,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             child: Text(
                               response.developerScore.toString(),
                               style: TextStyle(
-                                color: kWhite,
+                                color: kYellow,
                                 fontFamily: 'Spartan MB',
                                 fontSize: 25.0,
                               ),
@@ -253,7 +231,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Center(
                             child: Text(
                               "Developer Score",
@@ -287,7 +265,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
                       children: [
                         Expanded(
@@ -296,7 +274,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             child: Text(
                               response.communityScore.toString(),
                               style: TextStyle(
-                                color: kWhite,
+                                color: kYellow,
                                 fontFamily: 'Spartan MB',
                                 fontSize: 25.0,
                               ),
@@ -304,7 +282,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Center(
                             child: Text(
                               "Community Score",
@@ -312,7 +290,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                               style: TextStyle(
                                 color: kWhite,
                                 fontFamily: 'Spartan MB',
-                                fontSize: 20.0,
+                                fontSize: 18.0,
                               ),
                             ),
                           ),
@@ -331,7 +309,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    padding: EdgeInsets.all(15.0),
                     child: Column(
                       children: [
                         Expanded(
@@ -340,7 +318,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             child: Text(
                               response.coingeckoScore.toString(),
                               style: TextStyle(
-                                color: kWhite,
+                                color: kYellow,
                                 fontFamily: 'Spartan MB',
                                 fontSize: 25.0,
                               ),
@@ -348,7 +326,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Center(
                             child: Text(
                               "Coingecko Score",
@@ -356,7 +334,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                               style: TextStyle(
                                 color: kWhite,
                                 fontFamily: 'Spartan MB',
-                                fontSize: 20.0,
+                                fontSize: 18.0,
                               ),
                             ),
                           ),
@@ -432,11 +410,13 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            WhitepaperView(whitepaperURL: whitepaper.url)));
+                if (whitepaper.name != "BLANK") {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              WhitepaperView(whitepaperURL: whitepaper.url)));
+                }
               },
               //This container contains the apis image network which serves as the background of the news tile
               child: Container(
@@ -446,9 +426,9 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                   color: kGray,
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                      image:
-                          AssetImage("asset/images/whitepaper_background.jpg"),
-                      fit: BoxFit.fill,
+                      image: NetworkImage(
+                          "https://images.unsplash.com/photo-1623276527153-fa38c1616b05?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"),
+                      fit: BoxFit.cover,
                       colorFilter: new ColorFilter.mode(
                           kGray.withOpacity(0.3), BlendMode.dstATop)),
                 ),
@@ -456,7 +436,9 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Whitepaper Available",
+                      whitepaper.name == "BLANK"
+                          ? "Whitepaper Unavailable"
+                          : "Whitepaper Available",
                       style: TextStyle(
                         color: kWhite,
                         fontFamily: 'Spartan MB',

@@ -18,7 +18,6 @@ class DataService {
       print('200');
     } else {
       uri = Uri.https('api.coingecko.com', '/api/v3/coins/$queryParameter2');
-      print(queryParameter2);
       response = await http.get(uri);
     }
 
@@ -32,7 +31,6 @@ class DataService {
       fromCoinGecko = null;
       coinWhitePaper = null;
     }
-    print('tae');
   }
 
   getWhitePaper(String symbol) async {

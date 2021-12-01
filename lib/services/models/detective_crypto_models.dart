@@ -32,7 +32,7 @@ class CoinResponse {
     //Factory is a custom constructor with codes to create that constructor
     final name = json['name'];
     final id = json['id'];
-    final img = json['image']['thumb'];
+    final img = json['image']['large'];
     final assetPlatformID = json['asset_platform_id'];
     final platforms = json['platforms'][assetPlatformID];
     final liquidityScore = json['liquidity_score'];
