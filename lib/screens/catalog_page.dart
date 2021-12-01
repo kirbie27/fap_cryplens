@@ -95,7 +95,6 @@ class CatalogPageState extends State<CatalogPage> {
   }
 
   searchCoin(String sort, String order, String search) {
-    print(order);
     setState(() {
       loading = true;
     });
@@ -112,7 +111,6 @@ class CatalogPageState extends State<CatalogPage> {
   }
 
   changeSort(String sort, String order) {
-    print(order);
     setState(() {
       loading = true;
     });
@@ -302,7 +300,6 @@ class _SortWidgetState extends State<SortWidget> {
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                       onPressed: () {
-                        print('Refresh Catalog page!');
                         widget.refresh();
                       },
                       icon: Icon(Icons.refresh, color: kWhite),
@@ -574,7 +571,7 @@ class _CoinContainerState extends State<CoinContainer> {
                       style: TextStyle(
                         color: coinPriceColor,
                         fontFamily: 'Spartan MB',
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                       ),
                     ),
                   ),

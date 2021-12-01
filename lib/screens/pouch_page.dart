@@ -84,7 +84,6 @@ class PouchPageState extends State<PouchPage> {
   //function that gets the data from the database.
   getData() async {
     final holder = await dbHelper.getFavCoinsTable();
-    print('hello pouch');
     setState(() {
       //initially sets the first item on the list.
       favcoins = [
@@ -98,7 +97,6 @@ class PouchPageState extends State<PouchPage> {
       //adds all the coins retrieved from the databae to the favcoins list so that it can be
       //generated later.
       favcoins.addAll(holder);
-      print(holder);
 
       //sets a dummy future value to the loader to make the futurebuilder work.
       loader = Future.value(holder);
@@ -177,7 +175,7 @@ class _CoinWidgetState extends State<CoinWidget> {
         alignment: Alignment.center,
         child: InkWell(
           onTap: () {
-            print('clicked');
+            print('clicked'); // debug click
           },
           child: Container(
             width: 500,

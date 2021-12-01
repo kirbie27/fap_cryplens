@@ -105,8 +105,6 @@ class CoinContentState extends State<CoinContent> {
   @override
   void initState() {
     super.initState();
-    print('nasa init state!');
-    print('test');
     loading = true;
     loader = getData();
   }
@@ -116,7 +114,6 @@ class CoinContentState extends State<CoinContent> {
     final crypto = Crypto();
     final holder = await dbHelper.searchFavCoin(coin['coinID']);
     await crypto.getCryptoChart(coin['coinID'], range.toString());
-    print(holder);
     await Future.delayed(Duration(seconds: 1));
     //Changes the button if the user adds the coin data to the pouch page
     setState(() {
@@ -126,11 +123,9 @@ class CoinContentState extends State<CoinContent> {
         favorite = false;
       }
       coinChart = crypto.chartOHLC;
-      print(coinChart);
       loader = Future.value(holder);
       loading = false;
     });
-    print(coinChart);
   }
 
   @override
@@ -158,7 +153,6 @@ class CoinContentState extends State<CoinContent> {
                         flex: 3,
                         child: GestureDetector(
                           onTap: () {
-                            print('Search: ${coin['coinName']}');
                             Search search = Search();
                             search.setSearch(coin['coinName']);
                             NavigatorPage.fromSearch = true;
@@ -191,7 +185,6 @@ class CoinContentState extends State<CoinContent> {
                         flex: 2,
                         child: GestureDetector(
                           onTap: () {
-                            print(favorite);
                             if (favorite) {
                               dbHelper.deleteFavCoin(coin['coinID']);
                             } else {
@@ -256,14 +249,30 @@ class CoinContentState extends State<CoinContent> {
                         flex: 1,
                         child: Container(
                           alignment: Alignment.center,
-                          child: Text(
-                            coin['coinMarketCapRank'].toString(),
-                            style: TextStyle(
-                              color: kBlueGreen,
-                              fontFamily: 'Spartan MB',
-                              fontSize: 20.0,
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: "Rank\n",
+                              style: TextStyle(
+                                  color: kWhite,
+                                  fontFamily: 'Spartan MB',
+                                  fontSize: 20),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: coin['coinMarketCapRank'].toString(),
+                                    style: TextStyle(color: kBlueGreen)),
+                              ],
                             ),
                           ),
+                          // child: Text(
+                          //   'Market Cap Rank\n' +
+                          //       coin['coinMarketCapRank'].toString(),
+                          //   style: TextStyle(
+                          //     color: kBlueGreen,
+                          //     fontFamily: 'Spartan MB',
+                          //     fontSize: 20.0,
+                          //   ),
+                          // ),
                           decoration: BoxDecoration(
                             color: kGray,
                             borderRadius: BorderRadius.circular(20),
@@ -353,13 +362,12 @@ class CoinContentState extends State<CoinContent> {
                           date = dateList[counter - 2];
                           counter = 0;
                         } else {
-                          print("tapped but no output");
+                          print("tapped but no output"); //debug print
                         }
                         setState(() {
                           loading = true;
                         });
                         getData();
-                        print("nice tap");
                       },
                       child: Container(
                         child: Graph(),

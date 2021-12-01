@@ -56,7 +56,7 @@ class NewsPageState extends State<NewsPage> {
               '1. The cryptopages shows the top 25 headlines about cryptocurrencies.'
               '\n\n2. You can search for news about a specific coin using the search bar. '
               '\n\n3. You can also tap on the specific news tile in order'
-              ' to see more details about the articles.'
+              ' to read the full article.'
               '\n\n4. Lastly, this is where you will be redirected when you tap the See Related News'
               ' of a specific coin page from the catalog.',
               textAlign: TextAlign.justify,
@@ -99,7 +99,6 @@ class NewsPageState extends State<NewsPage> {
 
   //retrieves the data from the api with a search query
   getDataWithQuery(String query) async {
-    print('magsesearch!');
     final holder = await dbHelper.getNewsTableWithQuery(query);
 
     setState(() {
