@@ -1,11 +1,6 @@
 import 'dart:async';
-import 'package:cryplens/user.dart';
-import 'package:cryplens/widgets/NavBar.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
-import 'dart:math' as math;
 import 'package:cryplens/screens/coin_page.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 
@@ -138,12 +133,9 @@ class CatalogPageState extends State<CatalogPage> {
       loading = true;
     });
     final holder = await dbHelper.getCoinsTableAtLoad();
-    print('whut');
     setState(() {
-      print('wew');
       coins = DatabaseHelper.coins;
       loading = false;
-      print('changed to loading');
     });
   }
 
@@ -159,7 +151,6 @@ class CatalogPageState extends State<CatalogPage> {
               child: SearchBarWidget(key: _searchkey, searchCrypto: searchCoin),
             ),
             // SizedBox(
-            //   height: 10,
             // ),
             Expanded(
               flex: 1,
@@ -205,7 +196,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //color: Colors.green,
       alignment: Alignment.center,
       child: Stack(
         children: [
@@ -226,7 +216,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               enabled: !loading,
               controller: _textEditingController,
               cursorWidth: 2.0,
-              cursorColor: Colors.lightGreenAccent,
+              cursorColor: kWhite,
               decoration: InputDecoration(
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 contentPadding: EdgeInsets.only(left: 55.0),
@@ -248,7 +238,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             color: kGray,
             borderRadius: BorderRadius.circular(30.0),
             child: IconButton(
-              // splashRadius: 19.0,
               icon: Icon(
                 Icons.search,
                 color: kWhite,
@@ -337,7 +326,6 @@ class _SortWidgetState extends State<SortWidget> {
                       });
                       widget.sorting(
                           SortByUrl[sortCount], OrderByUrl[orderCount]);
-                      print("Marketcap change");
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -389,7 +377,6 @@ class _SortWidgetState extends State<SortWidget> {
 
                       widget.sorting(
                           SortByUrl[sortCount], OrderByUrl[orderCount]);
-                      print("Order change");
                     },
                     child: Container(
                       // padding: const EdgeInsets.symmetric(
@@ -462,9 +449,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
       return Container(
         alignment: Alignment.topCenter,
         child: InkWell(
-          onTap: () {
-            print('clicked empty coins');
-          },
+          onTap: () {},
           child: Container(
             width: 500,
             height: 100,
@@ -583,7 +568,7 @@ class _CoinContainerState extends State<CoinContainer> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Text(
-                      "\$${coin['coinPrice']}",
+                      "\$ ${coin['coinPrice']}",
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       style: TextStyle(
