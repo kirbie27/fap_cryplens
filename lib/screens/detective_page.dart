@@ -218,31 +218,75 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     ));
   }
 
+  Future<void> invalidSearch() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'INVALID SEARCH!',
+            textAlign: TextAlign.center,
+          ),
+          content: Container(
+            child: Text(
+              'The coin/token you are looking for is missing sorry, try again.',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              },
+              child: Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: kRed,
+                child: Text('OK',
+                    style: TextStyle(
+                        color: kWhite,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _search(String search) async {
     //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
     await _dataService.getCoin(search);
     final response = _dataService.fromCoinGecko;
-    // print(_cityTextController.text);
-    print('Coin Name: ' + response.id);
-    print('Liquidity Score: ' + response.liquidityScore.toString());
-    print('Developer Score: ' + response.developerScore.toString());
-    print('Community Score: ' + response.communityScore.toString());
-    print('Coingecko Score: ' + response.coingeckoScore.toString());
-    print('Coingecko Rank: ' + response.coingeckoRank.toString());
-    print('Symbol: ' + response.symbol);
-    print(
-        'Vote Up Percentage: ' + response.sentimentVoteUpPercentage.toString());
-    print('Vote Down Percentage: ' +
-        response.sentimentVoteDownPercentage.toString());
+    if (response != null) {
+      // print(_cityTextController.text);
+      print('Coin Name: ' + response.id);
+      print('Liquidity Score: ' + response.liquidityScore.toString());
+      print('Developer Score: ' + response.developerScore.toString());
+      print('Community Score: ' + response.communityScore.toString());
+      print('Coingecko Score: ' + response.coingeckoScore.toString());
+      print('Coingecko Rank: ' + response.coingeckoRank.toString());
+      print('Symbol: ' + response.symbol);
+      print('Vote Up Percentage: ' +
+          response.sentimentVoteUpPercentage.toString());
+      print('Vote Down Percentage: ' +
+          response.sentimentVoteDownPercentage.toString());
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResultsPage(
-          response: response,
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultsPage(
+            response: response,
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      invalidSearch();
+    }
   }
 }

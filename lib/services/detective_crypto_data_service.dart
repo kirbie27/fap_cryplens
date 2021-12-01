@@ -3,7 +3,7 @@ import 'models/detective_crypto_models.dart';
 import 'package:http/http.dart' as http;
 
 class DataService {
-  late CoinResponse fromCoinGecko;
+  late dynamic fromCoinGecko;
 
   getCoin(String text) async {
     //Future means data will be available at some time in the future
@@ -29,7 +29,12 @@ class DataService {
       response = await http.get(uri);
     }
 
-    final json = jsonDecode(response.body);
-    fromCoinGecko = CoinResponse.fromJson(json);
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      fromCoinGecko = CoinResponse.fromJson(json);
+    } else {
+      fromCoinGecko = null;
+    }
+    print('tae');
   }
 }
