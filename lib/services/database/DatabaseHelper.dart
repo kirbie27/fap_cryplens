@@ -28,7 +28,6 @@ class DatabaseHelper {
       join(await getDatabasesPath(), _databaseName),
       version: dbversion,
     );
-    print('connected');
     return database;
   }
   //database connectoin methods end

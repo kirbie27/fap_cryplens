@@ -1,7 +1,7 @@
 import 'package:cryplens/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/widgets/ManualTable.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ManualPage extends StatefulWidget {
   ManualPage({required Key key}) : super(key: key);
@@ -58,7 +58,7 @@ class ManualPageState extends State<ManualPage> {
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: kGray,
+          color: kBlue,
         ),
         child: Column(
           children: [

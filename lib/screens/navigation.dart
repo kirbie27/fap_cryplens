@@ -64,7 +64,6 @@ class _NavigatorState extends State<NavigatorPage> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              print('hello!');
               //the conditions are used to inform the application which
               //informatoin popup should be used. The "GlobalKey" was used as the popups are
               //functions inside some child widgets of the Navigation page.
