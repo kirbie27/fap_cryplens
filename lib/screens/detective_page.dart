@@ -1,16 +1,10 @@
 import 'package:cryplens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:math';
-import 'package:cryplens/widgets/NavBar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:async';
-import 'package:cryplens/services/models/detective_crypto_models.dart';
 import 'package:cryplens/services/detective_crypto_data_service.dart';
 import 'detective_page_result.dart';
 import 'package:cryplens/user.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DetectiveCryptoPage1 extends StatefulWidget {
   DetectiveCryptoPage1({required Key key}) : super(key: key);
@@ -22,20 +16,11 @@ int toggle = 1;
 
 class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     with SingleTickerProviderStateMixin {
-  late AnimationController _con;
   TextEditingController _textEditingController = TextEditingController();
 
   final _dataService = DataService();
 
   @override
-  void initState() {
-    super.initState();
-    _con = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-  }
-
   Future<void> DetectiveInstructions() async {
     return showDialog<void>(
       context: context,
@@ -93,8 +78,8 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                 textAlign: TextAlign.center,
                 style: detectiveCryptoText),
           ),
+          //Search bar widget
           Container(
-            //color: Colors.green,
             padding: EdgeInsets.all(15.0),
             alignment: Alignment.center,
             child: Stack(
@@ -114,7 +99,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                     style: TextStyle(color: kWhite),
                     controller: _textEditingController,
                     cursorWidth: 2.0,
-                    cursorColor: Colors.lightGreenAccent,
+                    cursorColor: kWhite,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       contentPadding: EdgeInsets.only(left: 55.0),
@@ -260,7 +245,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
           ),
           content: Container(
             child: Text(
-              'The coin/token you are looking for is missing sorry, try again.',
+              'Sorry the coin that you are looking for is missing. Please try again.',
               textAlign: TextAlign.center,
             ),
           ),
