@@ -1,12 +1,15 @@
 import 'package:cryplens/constants.dart';
+import 'package:cryplens/services/models/whitepaper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/services/models/detective_crypto_models.dart';
-import 'package:cryplens/services/detective_crypto_data_service.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResultsPage extends StatelessWidget {
-  ResultsPage({required this.response});
+  ResultsPage({required this.response, required this.whitepaper});
+
+  //variables that contain the data from the api of the whitepaper and coingecko.
+  WhitePaper whitepaper;
   CoinResponse response;
 
   @override
@@ -15,22 +18,27 @@ class ResultsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Detective Crypto', style: detectiveCryptoText),
       ),
-      body: ResultsPageContent(response: response),
+      body: ResultsPageContent(
+        response: response,
+        whitepaper: whitepaper,
+      ),
     );
   }
 }
 
 class ResultsPageContent extends StatefulWidget {
-  ResultsPageContent({required this.response});
+  ResultsPageContent({required this.response, required this.whitepaper});
   final CoinResponse response;
+  WhitePaper whitepaper;
 
   @override
   _ResultsPageContentState createState() =>
-      _ResultsPageContentState(response: response);
+      _ResultsPageContentState(response: response, whitepaper: whitepaper);
 }
 
 class _ResultsPageContentState extends State<ResultsPageContent> {
-  _ResultsPageContentState({required this.response});
+  _ResultsPageContentState({required this.response, required this.whitepaper});
+  WhitePaper whitepaper;
   CoinResponse response;
   late List<VotingData> _chartData;
 

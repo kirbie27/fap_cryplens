@@ -1,8 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/screens/start_page.dart';
 
 class hello extends StatefulWidget {
   _helloState createState() => _helloState();
@@ -23,6 +20,8 @@ class _helloState extends State<hello> {
                 Navigator.pushReplacementNamed(context, '/getname');
             });
           },
+          //the indexed stack is used as a custom carousel to show the
+          //features of the application.
           child: IndexedStack(
             index: count,
             children: [Intro1(), Intro2(), Intro3(), Intro4()],

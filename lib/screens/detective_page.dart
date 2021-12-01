@@ -1,16 +1,10 @@
 import 'package:cryplens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:math';
-import 'package:cryplens/widgets/NavBar.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'dart:async';
-import 'package:cryplens/services/models/detective_crypto_models.dart';
 import 'package:cryplens/services/detective_crypto_data_service.dart';
 import 'detective_page_result.dart';
 import 'package:cryplens/user.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DetectiveCryptoPage1 extends StatefulWidget {
   DetectiveCryptoPage1({required Key key}) : super(key: key);
@@ -22,20 +16,11 @@ int toggle = 1;
 
 class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     with SingleTickerProviderStateMixin {
-  late AnimationController _con;
   TextEditingController _textEditingController = TextEditingController();
 
   final _dataService = DataService();
 
   @override
-  void initState() {
-    super.initState();
-    _con = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 300),
-    );
-  }
-
   Future<void> DetectiveInstructions() async {
     return showDialog<void>(
       context: context,
@@ -50,8 +35,8 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
             child: Text(
               '1. The Detective Luna retrieves a coin or token you want to check, and returns information about them that you can use '
               'for your checklist.'
-              '\n\n2. You can search for a specific coin using the search bar, and you can tap on the search'
-              'button or simply press search on the keypad, and to be redirected to another page if you'
+              '\n\n2. You can search for a specific coin using the search bar, and you can tap on the search '
+              'button or simply press search on the keypad, and to be redirected to another page if you '
               'searched a coin that is in the connected apis.',
               textAlign: TextAlign.justify,
             ),
@@ -93,8 +78,8 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                 textAlign: TextAlign.center,
                 style: detectiveCryptoText),
           ),
+          //Search bar widget
           Container(
-            //color: Colors.green,
             padding: EdgeInsets.all(15.0),
             alignment: Alignment.center,
             child: Stack(
@@ -114,7 +99,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                     style: TextStyle(color: kWhite),
                     controller: _textEditingController,
                     cursorWidth: 2.0,
-                    cursorColor: Colors.lightGreenAccent,
+                    cursorColor: kWhite,
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       contentPadding: EdgeInsets.only(left: 55.0),
@@ -162,8 +147,24 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Whitepaper',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Whitepaper',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Contains the technical information '
+                          'about a cryptocurrency project which you can check'
+                          ' to gain more knowledge about a certain token or coin.',
+                          style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -175,21 +176,24 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Liquidity',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
-                ),
-                detectiveCryptoIcon
-              ],
-            ),
-          ),
-          Padding(
-            padding: detectiveCryptoPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Text('Volume',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Coin Rating',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Checking the rating of crypto currencies can be a good assessment when looking'
+                          ' for a coin or token to invest in. Some websites such as Coin Gecko give ratings to coins or tokens '
+                          'which can be a good baseline for judgement.',
+                          style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -202,12 +206,23 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Social Media \nEngagement',
-                      maxLines: 3,
-                      softWrap: false,
-                      overflow: TextOverflow.fade,
-                      style: detectiveCryptoText,
-                      textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Smell Test',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Smell tests are provided by an api called Tokensniffer which checks how much a token '
+                          'can be trusted. The Test are scored from 1 - 100 with 100 being the highest trust rate.',
+                          style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -230,7 +245,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
           ),
           content: Container(
             child: Text(
-              'The coin/token you are looking for is missing sorry, try again.',
+              'Sorry the coin that you are looking for is missing. Please try again.',
               textAlign: TextAlign.center,
             ),
           ),
@@ -262,29 +277,18 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
     await _dataService.getCoin(search);
-    final response = _dataService.fromCoinGecko;
-    if (response != null) {
-      // print(_cityTextController.text);
-      print('Coin Name: ' + response.id);
-      print('Liquidity Score: ' + response.liquidityScore.toString());
-      print('Developer Score: ' + response.developerScore.toString());
-      print('Community Score: ' + response.communityScore.toString());
-      print('Coingecko Score: ' + response.coingeckoScore.toString());
-      print('Coingecko Rank: ' + response.coingeckoRank.toString());
-      print('Symbol: ' + response.symbol);
-      print('Vote Up Percentage: ' +
-          response.sentimentVoteUpPercentage.toString());
-      print('Vote Down Percentage: ' +
-          response.sentimentVoteDownPercentage.toString());
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultsPage(
-            response: response,
+    final coinData = _dataService.fromCoinGecko;
+    final whitePaper = _dataService.coinWhitePaper;
+    if (coinData != null) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultsPage(
+              response: coinData,
+              whitepaper: whitePaper,
+            ),
           ),
-        ),
-      );
+          (route) => false);
     } else {
       invalidSearch();
     }

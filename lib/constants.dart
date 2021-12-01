@@ -71,10 +71,9 @@ const detectiveCryptoText =
     TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);
 
 const detectiveCryptoPadding =
-    EdgeInsets.only(left: 30.0, top: 40.0, right: 30.0);
+    EdgeInsets.only(left: 30.0, top: 25.0, right: 30.0);
 
-const detectiveCryptoIcon =
-    Icon(Icons.collections_bookmark, color: Colors.white, size: 40.0);
+const detectiveCryptoIcon = Icon(Icons.check, color: Colors.white, size: 40.0);
 
 const detectiveCryptoResultText =
     TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);

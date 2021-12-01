@@ -1,15 +1,9 @@
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/screens/introduction.dart';
-import 'package:cryplens/screens/pouch_page.dart';
-import 'package:cryplens/screens/catalog_page.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:cryplens/screens/start_page.dart';
-import 'package:cryplens/screens/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cryplens/user.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Load extends StatefulWidget {
   _LoadState createState() => _LoadState();
@@ -20,16 +14,18 @@ class _LoadState extends State<Load> {
   bool gettingCrypto = false;
   late Future loader;
   bool firstTime = true;
+
+  //initializes the loading screen, and calls the function
+  //that gets the shared preferences data and the crypto data on load
   void initState() {
     super.initState();
     loading = true;
     gettingCrypto = false;
-    // for debugging only setPreferences();
     loader = getData();
   }
 
+  //clears the preferences for debugging purposes
   setPreferences() async {
-    //clear preferences for debugging.
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
@@ -38,15 +34,20 @@ class _LoadState extends State<Load> {
     User user = User();
     final prefs = await SharedPreferences.getInstance();
 
+    //checks if there is already an existing name in the preferences
+    //if there is then it means that it is not the first log in of the user
     bool nameExists = await prefs.containsKey('name');
     if (nameExists) {
       user.setName(await prefs.getString('name') ?? "Agent");
     }
+    //adds a short delay to ensure that data is retrieved
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       loading = false;
       gettingCrypto = true;
     });
+
+    //loads the initial crypto data
     DatabaseHelper dbHelper = DatabaseHelper();
     await dbHelper.getCoinsTableAtLoad();
     setState(() {

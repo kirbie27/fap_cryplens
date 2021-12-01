@@ -2,14 +2,10 @@ import 'package:cryplens/services/crypto.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/widgets/NavBar.dart';
-import 'dart:math' as math;
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:cryplens/search.dart';
 import 'package:cryplens/screens/navigation.dart';
-import 'package:cryplens/services/crypto.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 String title = "Hourly Chart";
 DateFormat date = DateFormat.Hm();
@@ -46,7 +42,7 @@ class _CoinPageState extends State<CoinPage> {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-              if (coin['favCoinID'] != null) //nasa pouch page nanggaling
+              if (coin['favCoinID'] != null) //From pouch page
               {
                 NavigatorPage.fromSearch = true;
                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -115,12 +111,14 @@ class CoinContentState extends State<CoinContent> {
     loader = getData();
   }
 
+  //Gets information from the api and stores it in a data
   getData() async {
     final crypto = Crypto();
     final holder = await dbHelper.searchFavCoin(coin['coinID']);
     await crypto.getCryptoChart(coin['coinID'], range.toString());
     print(holder);
     await Future.delayed(Duration(seconds: 1));
+    //Changes the button if the user adds the coin data to the pouch page
     setState(() {
       if (!holder.isEmpty) {
         favorite = true;
@@ -137,6 +135,7 @@ class CoinContentState extends State<CoinContent> {
 
   @override
   Widget build(BuildContext context) {
+    //Method to change the color of the price in case they increase or decrease
     if (coin['coinPriceChange'] > 0) {
       coinPriceColor = kGreen;
     } else if (coin['coinPriceChange'] < 0) {
@@ -144,6 +143,7 @@ class CoinContentState extends State<CoinContent> {
     } else {
       coinPriceColor = kWhite;
     }
+
     return FutureBuilder(
         future: loader,
         builder: (BuildContext context, AsyncSnapshot snap) {
@@ -295,15 +295,6 @@ class CoinContentState extends State<CoinContent> {
                         ],
                       ),
                     ),
-                    // child: Text(
-                    //   "Total Volume: \$ " +
-                    //       numberFormat.format(coin['coinTotalVolume']),
-                    //   style: TextStyle(
-                    //     color: kYellow,
-                    //     fontFamily: 'Spartan MB',
-                    //     fontSize: 20.0,
-                    //   ),
-                    // ),
                     decoration: BoxDecoration(
                       color: kGray,
                       borderRadius: BorderRadius.circular(20),
@@ -332,15 +323,6 @@ class CoinContentState extends State<CoinContent> {
                         ],
                       ),
                     ),
-                    // child: Text(
-                    //   "Market Cap: \$ " +
-                    //       numberFormat.format(coin['coinMarketCap']),
-                    //   style: TextStyle(
-                    //     color: kWhite,
-                    //     fontFamily: 'Spartan MB',
-                    //     fontSize: 20.0,
-                    //   ),
-                    // ),
                     decoration: BoxDecoration(
                       color: kGray,
                       borderRadius: BorderRadius.circular(20),

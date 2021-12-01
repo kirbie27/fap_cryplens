@@ -11,10 +11,12 @@ class welcomePage extends StatefulWidget {
 class _welcomeState extends State<welcomePage> {
   String message = 'Welcome to Cryplens, Agent!';
 
+  //constructor initializes the message with the name of the user.
   _welcomeState() {
     message = 'Welcome to Cryplens, Agent ${User.name}!';
   }
 
+  //gets the name of the user fromt the shared prefernces.
   Future<String> getName() async {
     final prefs = await SharedPreferences.getInstance();
     await Future.delayed(Duration(seconds: 1));
