@@ -3,13 +3,15 @@ import 'models/detective_crypto_models.dart';
 import 'package:http/http.dart' as http;
 
 class DataService {
-  Future<CoinResponse> getCoin(String text) async {
+  late CoinResponse fromCoinGecko;
+
+  getCoin(String text) async {
     //Future means data will be available at some time in the future
     //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
     //api.coingecko.com/api/v3/coins/bitcoin
 
-    final queryParameter = text.trim().replaceAll(' ', '');
-    final queryParameter2 = text.trim().replaceAll(' ', '-');
+    final queryParameter = text.trim().toLowerCase().replaceAll(' ', '');
+    final queryParameter2 = text.trim().toLowerCase().replaceAll(' ', '-');
 
     //make an if else for queryParameter = null then incase below statement
 
@@ -18,8 +20,8 @@ class DataService {
     var response = await http.get(uri);
     print('ok lang');
     if (response.statusCode == 200) {
-      print('gumana');
-      print(response.body);
+      print('200');
+      //print(response.body);
     } else {
       print('hindi 200 status code');
       uri = Uri.https('api.coingecko.com', '/api/v3/coins/$queryParameter2');
@@ -28,6 +30,6 @@ class DataService {
     }
 
     final json = jsonDecode(response.body);
-    return CoinResponse.fromJson(json);
+    fromCoinGecko = CoinResponse.fromJson(json);
   }
 }

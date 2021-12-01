@@ -51,11 +51,20 @@ class CoinResponse {
   final double sentimentVoteUpPercentage;
   final double sentimentVoteDownPercentage;
 
-  CoinResponse({required this.name, required this.id, required this.liquidityScore, required this.developerScore,
-  required this.communityScore, required this.coingeckoScore, required this.coingeckoRank, required this.symbol,
-  required this.sentimentVoteUpPercentage, required this.sentimentVoteDownPercentage});
+  CoinResponse(
+      {required this.name,
+      required this.id,
+      required this.liquidityScore,
+      required this.developerScore,
+      required this.communityScore,
+      required this.coingeckoScore,
+      required this.coingeckoRank,
+      required this.symbol,
+      required this.sentimentVoteUpPercentage,
+      required this.sentimentVoteDownPercentage});
 
-  factory CoinResponse.fromJson(Map<String, dynamic> json){ //Factory is a custom constructor with codes to create that constructor
+  factory CoinResponse.fromJson(dynamic json) {
+    //Factory is a custom constructor with codes to create that constructor
     final name = json['name'];
     final id = json['id'];
     final liquidityScore = json['liquidity_score'];
@@ -67,8 +76,16 @@ class CoinResponse {
     final sentimentVoteUpPercentage = json['sentiment_votes_up_percentage'];
     final sentimentVoteDownPercentage = json['sentiment_votes_down_percentage'];
 
-    return CoinResponse(name: name, id: id, liquidityScore : liquidityScore, developerScore : developerScore, communityScore : communityScore,
-    coingeckoScore : coingeckoScore, coingeckoRank : coingeckoRank, symbol : symbol, sentimentVoteUpPercentage: sentimentVoteUpPercentage,
-    sentimentVoteDownPercentage : sentimentVoteDownPercentage);
+    return CoinResponse(
+        name: name,
+        id: id,
+        liquidityScore: liquidityScore,
+        developerScore: developerScore,
+        communityScore: communityScore,
+        coingeckoScore: coingeckoScore,
+        coingeckoRank: coingeckoRank,
+        symbol: symbol,
+        sentimentVoteUpPercentage: sentimentVoteUpPercentage,
+        sentimentVoteDownPercentage: sentimentVoteDownPercentage);
   }
 }

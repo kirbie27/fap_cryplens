@@ -221,7 +221,8 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
   void _search(String search) async {
     //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
-    final response = await _dataService.getCoin(search);
+    await _dataService.getCoin(search);
+    final response = _dataService.fromCoinGecko;
     // print(_cityTextController.text);
     print('Coin Name: ' + response.id);
     print('Liquidity Score: ' + response.liquidityScore.toString());
@@ -239,16 +240,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
       context,
       MaterialPageRoute(
         builder: (context) => ResultsPage(
-          name: response.name,
-          id: response.id,
-          liquidityScore: response.liquidityScore,
-          developerScore: response.developerScore,
-          communityScore: response.communityScore,
-          coingeckoScore: response.coingeckoScore,
-          coingeckoRank: response.coingeckoRank,
-          symbol: response.symbol,
-          sentimentVoteUpPercentage: response.sentimentVoteUpPercentage,
-          sentimentVoteDownPercentage: response.sentimentVoteDownPercentage,
+          response: response,
         ),
       ),
     );
