@@ -69,7 +69,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                           Expanded(
                             flex: 1,
                             child: Align(
-                              alignment: Alignment.centerLeft,
+                              alignment: Alignment.center,
                               child: Text(
                                 response.name,
                                 style: TextStyle(
@@ -96,7 +96,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                                 Expanded(
                                   flex: 8,
                                   child: Align(
-                                    alignment: Alignment.centerLeft,
+                                    alignment: Alignment.center,
                                     child: Text(
                                       response.symbol.toUpperCase(),
                                       style: TextStyle(
