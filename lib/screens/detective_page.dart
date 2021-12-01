@@ -68,169 +68,142 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: detectiveCryptoPadding,
-            child: Text(
-                'Whisper the token to me, and I\'ll check if it\'s a credible crypto ${User.name}!',
-                textAlign: TextAlign.center,
-                style: detectiveCryptoText),
-          ),
-          //Search bar widget
-          Container(
-            padding: EdgeInsets.all(15.0),
-            alignment: Alignment.center,
-            child: Stack(
-              children: [
-                Container(
-                  height: 50,
-                  width: 500.0,
-                  alignment: Alignment.center,
-                  child: TextField(
-                    textInputAction: TextInputAction.search,
-                    onSubmitted: (value) {
-                      setState(() {
-                        _textEditingController.clear();
-                      });
-                      _search(value);
-                    },
-                    style: TextStyle(color: kWhite),
-                    controller: _textEditingController,
-                    cursorWidth: 2.0,
-                    cursorColor: kWhite,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      contentPadding: EdgeInsets.only(left: 55.0),
-                      labelText: 'Enter coin code...',
-                      labelStyle: TextStyle(
-                        color: Colors.white24,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              height: 100,
+              child: Text(
+                  'Whisper the token to me, and I\'ll check if it\'s a credible crypto ${User.name}!',
+                  textAlign: TextAlign.center,
+                  style: detectiveCryptoText),
+            ),
+            //Search bar widget
+            Container(
+              padding: EdgeInsets.all(15.0),
+              alignment: Alignment.center,
+              child: Stack(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 500.0,
+                    alignment: Alignment.center,
+                    child: TextField(
+                      textInputAction: TextInputAction.search,
+                      onSubmitted: (value) {
+                        setState(() {
+                          _textEditingController.clear();
+                        });
+                        _search(value);
+                      },
+                      style: TextStyle(color: kWhite),
+                      controller: _textEditingController,
+                      cursorWidth: 2.0,
+                      cursorColor: kWhite,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        contentPadding: EdgeInsets.only(left: 55.0),
+                        labelText: 'Enter coin code...',
+                        labelStyle: TextStyle(
+                          color: Colors.white24,
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: kGray),
                   ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0), color: kGray),
-                ),
-                Material(
-                  color: kGray,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: IconButton(
-                    // splashRadius: 19.0,
-                    icon: Icon(
-                      Icons.search,
-                      color: kWhite,
+                  Material(
+                    color: kGray,
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: IconButton(
+                      // splashRadius: 19.0,
+                      icon: Icon(
+                        Icons.search,
+                        color: kWhite,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _textEditingController.clear();
+                        });
+                        _search(_textEditingController.text);
+                      },
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _textEditingController.clear();
-                      });
-                      _search(_textEditingController.text);
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            child: Text('Things to consider:',
-                style: detectiveCryptoText, textAlign: TextAlign.left),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Whitepaper',
-                          style: detectiveCryptoText,
-                          textAlign: TextAlign.left),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
-                        child: Text(
-                          'Contains the technical information '
-                          'about a cryptocurrency project which you can check'
-                          ' to gain more knowledge about a certain token or coin.',
-                          style: TextStyle(color: kWhite),
-                          textAlign: TextAlign.justify,
-                        ),
-                      )
-                    ],
+            Container(
+              child: Text('Coin/Token Checklist',
+                  style: detectiveCryptoText, textAlign: TextAlign.left),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Whitepaper',
+                            style: detectiveCryptoText,
+                            textAlign: TextAlign.left),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                          child: Text(
+                            'Contains the technical information '
+                            'about a cryptocurrency project which you can check'
+                            ' to gain more knowledge about a certain token or coin.',
+                            style: TextStyle(color: kWhite),
+                            textAlign: TextAlign.justify,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                detectiveCryptoIcon
-              ],
+                  detectiveCryptoIcon
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: detectiveCryptoPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Coin Rating',
-                          style: detectiveCryptoText,
-                          textAlign: TextAlign.left),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
-                        child: Text(
-                          'Checking the rating of crypto currencies can be a good assessment when looking'
-                          ' for a coin or token to invest in. Some websites such as Coin Gecko give ratings to coins or tokens '
-                          'which can be a good baseline for judgement.',
-                          style: TextStyle(color: kWhite),
-                          textAlign: TextAlign.justify,
-                        ),
-                      )
-                    ],
+            Padding(
+              padding: detectiveCryptoPadding,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Coin Rating',
+                            style: detectiveCryptoText,
+                            textAlign: TextAlign.left),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                          child: Text(
+                            'Checking the rating of crypto currencies can be a good assessment when looking'
+                            ' for a coin or token to invest in. Some websites such as Coin Gecko give ratings to coins or tokens '
+                            'which can be a good baseline for judgement.',
+                            style: TextStyle(color: kWhite),
+                            textAlign: TextAlign.justify,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                detectiveCryptoIcon
-              ],
+                  detectiveCryptoIcon
+                ],
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: 30.0, top: 40.0, right: 30.0, bottom: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Smell Test',
-                          style: detectiveCryptoText,
-                          textAlign: TextAlign.left),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
-                        child: Text(
-                          'Smell tests are provided by an api called Tokensniffer which checks how much a token '
-                          'can be trusted. The Test are scored from 1 - 100 with 100 being the highest trust rate.',
-                          style: TextStyle(color: kWhite),
-                          textAlign: TextAlign.justify,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                detectiveCryptoIcon
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
+          ],
+        ));
   }
 
   Future<void> invalidSearch() async {
