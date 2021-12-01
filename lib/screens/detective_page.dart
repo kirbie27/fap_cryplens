@@ -171,8 +171,11 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0, right: 10.0),
                         child: Text(
-                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          'Contains the technical information '
+                          'about a cryptocurrency project which you can check'
+                          ' to gain more knowledge about a certain token or coin.',
                           style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
                         ),
                       )
                     ],
@@ -197,8 +200,11 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0, right: 10.0),
                         child: Text(
-                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          'Checking the rating of crypto currencies can be a good assessment when looking'
+                          ' for a coin or token to invest in. Some websites such as Coin Gecko give ratings to coins or tokens '
+                          'which can be a good baseline for judgement.',
                           style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
                         ),
                       )
                     ],
@@ -224,8 +230,10 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       Padding(
                         padding: const EdgeInsets.only(top: 5.0, right: 10.0),
                         child: Text(
-                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          'Smell tests are provided by an api called Tokensniffer which checks how much a token '
+                          'can be trusted. The Test are scored from 1 - 100 with 100 being the highest trust rate.',
                           style: TextStyle(color: kWhite),
+                          textAlign: TextAlign.justify,
                         ),
                       )
                     ],
