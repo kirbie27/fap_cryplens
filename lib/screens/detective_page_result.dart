@@ -65,47 +65,48 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                     child: Expanded(
                       flex: 2,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                response.name,
-                                style: TextStyle(
-                                  color: kWhite,
-                                  fontFamily: 'Spartan MB',
-                                  fontSize: 28.0,
-                                ),
+                            child: Text(
+                              response.name,
+                              style: TextStyle(
+                                color: kWhite,
+                                fontFamily: 'Spartan MB',
+                                fontSize: 28.0,
                               ),
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(),
+                                ),
                                 Expanded(
                                   flex: 1,
                                   child: Image(
                                     image: NetworkImage(response.img),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 10.0,
-                                ),
                                 Expanded(
-                                  flex: 8,
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      response.symbol.toUpperCase(),
-                                      style: TextStyle(
-                                        color: kWhite,
-                                        fontFamily: 'Spartan MB',
-                                        fontSize: 24.0,
-                                      ),
+                                  flex: 1,
+                                  child: Text(
+                                    response.symbol.toUpperCase(),
+                                    style: TextStyle(
+                                      color: kWhite,
+                                      fontFamily: 'Spartan MB',
+                                      fontSize: 24.0,
                                     ),
                                   ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(),
                                 ),
                               ],
                             ),
