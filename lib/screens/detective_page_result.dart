@@ -423,29 +423,32 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                             WhitepaperView(whitepaperURL: whitepaper.url)));
               },
               //This container contains the apis image network which serves as the background of the news tile
-              child: Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                    color: kGray,
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image:
-                            AssetImage("asset/images/whitepaper_background.jpg"),
-                        fit: BoxFit.fill,
-                        colorFilter: new ColorFilter.mode(
-                            kGray.withOpacity(0.3), BlendMode.dstATop)),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Whitepaper Available",
-                        style: kArticleTitleTextStyle,
-                        overflow: TextOverflow.ellipsis,
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: kGray,
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      image:
+                          AssetImage("asset/images/whitepaper_background.jpg"),
+                      fit: BoxFit.fill,
+                      colorFilter: new ColorFilter.mode(
+                          kGray.withOpacity(0.3), BlendMode.dstATop)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Whitepaper Available",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontFamily: 'Spartan MB',
+                        fontSize: 20.0,
                       ),
-                    ],
-                  ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
             ),
