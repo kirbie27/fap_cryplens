@@ -1,13 +1,10 @@
-//import 'package:cryplens/widgets/SearchBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/services/news.dart';
 import 'package:cryplens/widgets/NewsTile.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:flutter/rendering.dart';
 import 'package:cryplens/search.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewsPage extends StatefulWidget {
   NewsPage({required Key key}) : super(key: key);
@@ -16,6 +13,8 @@ class NewsPage extends StatefulWidget {
 }
 
 class NewsPageState extends State<NewsPage> {
+  //initializes variables important for the loading screen
+  //and the retrieval of data from the api
   Search search = Search();
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
@@ -24,11 +23,14 @@ class NewsPageState extends State<NewsPage> {
 
   void initState() {
     super.initState();
-    print('nasa init state!');
-    print('test');
     loading = true;
 
     String s = search.getSearch();
+    //checks if there is a search value, because if yes then that means
+    //that the user was from the coin page and they tapped the see related news button.
+
+    //if null then that means the news page will retrieve the default news category
+    //if not then the newspage will use the search value for an api call with a new search value.
     if (s == null)
       loader = getData();
     else {
@@ -38,6 +40,7 @@ class NewsPageState extends State<NewsPage> {
     //articles = getData();
   }
 
+  //popup for the instructions for the news page.
   Future<void> NewsInstructions() async {
     return showDialog<void>(
       context: context,
@@ -83,6 +86,7 @@ class NewsPageState extends State<NewsPage> {
     );
   }
 
+  //retrieves the data from the api
   getData() async {
     final holder = await dbHelper.getNewsTableAtLoad();
 
@@ -93,6 +97,7 @@ class NewsPageState extends State<NewsPage> {
     });
   }
 
+  //retrieves the data from the api with a search query
   getDataWithQuery(String query) async {
     print('magsesearch!');
     final holder = await dbHelper.getNewsTableWithQuery(query);
