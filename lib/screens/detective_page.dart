@@ -6,7 +6,7 @@ import 'package:cryplens/widgets/NavBar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:cryplens/screens/detective_crypto_models.dart';
+import 'package:cryplens/services/models/detective_crypto_models.dart';
 import 'package:cryplens/services/detective_crypto_data_service.dart';
 import 'detective_page_result.dart';
 import 'package:cryplens/user.dart';
@@ -25,7 +25,6 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
   late AnimationController _con;
   TextEditingController _textEditingController = TextEditingController();
 
-  final _cityTextController = TextEditingController();
   final _dataService = DataService();
 
   @override
@@ -110,7 +109,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       setState(() {
                         _textEditingController.clear();
                       });
-                      _search();
+                      _search(value);
                     },
                     style: TextStyle(color: kWhite),
                     controller: _textEditingController,
@@ -146,133 +145,13 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       setState(() {
                         _textEditingController.clear();
                       });
-                      _search();
+                      _search(_textEditingController.text);
                     },
                   ),
                 ),
               ],
             ),
           ),
-          // Container(
-          //   height: 100.0,
-          //   width: 250.0,
-          //   alignment: Alignment(-1.0, 0.0),
-          //   child: AnimatedContainer(
-          //     duration: Duration(milliseconds: 300),
-          //     height: 48.0,
-          //     width: (toggle == 0) ? 48.0 : 250.0,
-          //     curve: Curves.easeOut,
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.circular(30.0),
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.black26,
-          //           spreadRadius: -10.0,
-          //           blurRadius: 10.0,
-          //           offset: Offset(0.0, 10.0),
-          //         ),
-          //       ],
-          //     ),
-          //     child: Stack(
-          //       children: [
-          //         AnimatedPositioned(
-          //           duration: Duration(milliseconds: 300),
-          //           top: 6.0,
-          //           left: 7.0,
-          //           curve: Curves.easeOut,
-          //           child: AnimatedOpacity(
-          //             opacity: (toggle == 0) ? 0.0 : 1.0,
-          //             duration: Duration(milliseconds: 300),
-          //             child: Container(
-          //               padding: EdgeInsets.all(8.0),
-          //               decoration: BoxDecoration(
-          //                 color: Color(0xfff2f3f7),
-          //                 borderRadius: BorderRadius.circular(30.0),
-          //               ),
-          //               child: AnimatedBuilder(
-          //                 child: Icon(
-          //                   Icons.search,
-          //                   color: Colors.black,
-          //                   size: 20.0,
-          //                 ),
-          //                 builder: (context, widget) {
-          //                   return Transform.rotate(
-          //                     angle: _con.value * 2.0 * pi,
-          //                     child: widget,
-          //                   );
-          //                 },
-          //                 animation: _con,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //         AnimatedPositioned(
-          //           duration: Duration(milliseconds: 300),
-          //           left: (toggle == 0) ? 20.0 : 40.0,
-          //           curve: Curves.easeOut,
-          //           top: 11.0,
-          //           child: AnimatedOpacity(
-          //             opacity: (toggle == 0) ? 0.0 : 1.0,
-          //             duration: Duration(milliseconds: 200),
-          //             child: Container(
-          //               height: 23.0,
-          //               width: 180.0,
-          //               child: TextField(
-          //                 controller: _cityTextController,
-          //                 cursorRadius: Radius.circular(10.0),
-          //                 cursorWidth: 2.0,
-          //                 cursorColor: Colors.black,
-          //                 decoration: InputDecoration(
-          //                   floatingLabelBehavior: FloatingLabelBehavior.never,
-          //                   labelText: '',
-          //                   labelStyle: TextStyle(
-          //                     color: Color(0xff5B5B5B),
-          //                     fontSize: 17.0,
-          //                     fontWeight: FontWeight.w500,
-          //                   ),
-          //                   alignLabelWithHint: true,
-          //                   border: OutlineInputBorder(
-          //                     borderRadius: BorderRadius.circular(20.0),
-          //                     borderSide: BorderSide.none,
-          //                   ),
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //         Material(
-          //           color: Colors.white,
-          //           borderRadius: BorderRadius.circular(30.0),
-          //           child: IconButton(
-          //             splashRadius: 19.0,
-          //             icon: Icon(
-          //               Icons.search,
-          //               color: Colors.black,
-          //               size: 18.0,
-          //             ),
-          //             onPressed: () {
-          //               _search();
-          //
-          //               /*setState(
-          //                         () {
-          //                       if (toggle == 0) {
-          //                         toggle = 1;
-          //                         _con.forward();
-          //                       } else {
-          //                         toggle = 0;
-          //                         _textEditingController.clear();
-          //                         _con.reverse();
-          //                       }
-          //                     },
-          //                   ); */
-          //             },
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
           Container(
             child: Text('Things to consider:',
                 style: detectiveCryptoText, textAlign: TextAlign.left),
@@ -339,10 +218,10 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     ));
   }
 
-  void _search() async {
+  void _search(String search) async {
     //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
-    final response = await _dataService.getCoin(_cityTextController.text);
+    final response = await _dataService.getCoin(search);
     // print(_cityTextController.text);
     print('Coin Name: ' + response.id);
     print('Liquidity Score: ' + response.liquidityScore.toString());
