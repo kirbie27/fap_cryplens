@@ -55,7 +55,7 @@ class NavBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       backgroundColor: kGray,
       iconSize: 20,
-      showSelectedLabels: true,
+      showSelectedLabels: false,
       selectedFontSize: 12,
       showUnselectedLabels: false,
       selectedItemColor: kWhite,
