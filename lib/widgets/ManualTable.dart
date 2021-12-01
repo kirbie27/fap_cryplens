@@ -99,7 +99,7 @@ class ManualTable extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.all(5.0),
                     child: Text(
-                      'CryptoNews',
+                      'CryptoPages',
                       style: kArticleTitleTextStyle,
                     ))
               ],

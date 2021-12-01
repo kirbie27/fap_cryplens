@@ -46,7 +46,7 @@ class _NavigatorState extends State<NavigatorPage> {
   final titles = [
     'Coin Catalog',
     'Coin Pouch',
-    'Detective Crypto',
+    'Detective Luna',
     'CryptoPages',
     'Manual'
   ];

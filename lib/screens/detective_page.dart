@@ -50,8 +50,8 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
             child: Text(
               '1. The Detective Luna retrieves a coin or token you want to check, and returns information about them that you can use '
               'for your checklist.'
-              '\n\n2. You can search for a specific coin using the search bar, and you can tap on the search'
-              'button or simply press search on the keypad, and to be redirected to another page if you'
+              '\n\n2. You can search for a specific coin using the search bar, and you can tap on the search '
+              'button or simply press search on the keypad, and to be redirected to another page if you '
               'searched a coin that is in the connected apis.',
               textAlign: TextAlign.justify,
             ),
@@ -162,8 +162,21 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Whitepaper',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Whitepaper',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          style: TextStyle(color: kWhite),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -175,21 +188,21 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Liquidity',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
-                ),
-                detectiveCryptoIcon
-              ],
-            ),
-          ),
-          Padding(
-            padding: detectiveCryptoPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Expanded(
-                  child: Text('Volume',
-                      style: detectiveCryptoText, textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Coin Rating',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          style: TextStyle(color: kWhite),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -202,12 +215,21 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Expanded(
-                  child: Text('Social Media \nEngagement',
-                      maxLines: 3,
-                      softWrap: false,
-                      overflow: TextOverflow.fade,
-                      style: detectiveCryptoText,
-                      textAlign: TextAlign.left),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Smell Test',
+                          style: detectiveCryptoText,
+                          textAlign: TextAlign.left),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                        child: Text(
+                          'Description: ahdfjkasdhkdjahsjkdjkhdkahkdhajkdhjkahdjkahdjkahkdjahjkdahjkdhajda',
+                          style: TextStyle(color: kWhite),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 detectiveCryptoIcon
               ],
@@ -265,15 +287,15 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     final coinData = _dataService.fromCoinGecko;
     final whitePaper = _dataService.coinWhitePaper;
     if (coinData != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultsPage(
-            response: coinData,
-            whitepaper: whitePaper,
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultsPage(
+              response: coinData,
+              whitepaper: whitePaper,
+            ),
           ),
-        ),
-      );
+          (route) => false);
     } else {
       invalidSearch();
     }

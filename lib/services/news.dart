@@ -12,9 +12,9 @@ class News {
     //connects to the database;
     DatabaseHelper dbHelper = DatabaseHelper();
     String url =
-        "https://newsapi.org/v2/everything?q=$defaultKeyword&pageSize=25&apiKey=08827c58e5d341d98840478ad934fcd8";
-    //08827c58e5d341d98840478ad934fcd8 - Extra API
-    //
+        "https://newsapi.org/v2/everything?q=$defaultKeyword&pageSize=25&apiKey=8e7a13b484d749b0ae127a968356a967";
+    //08827c58e5d341d98840478ad934fcd8 - Extra Key
+    //8e7a13b484d749b0ae127a968356a967 - API Key
     var response = await http.get(Uri.parse(url));
     print('here?');
     var jsonData = jsonDecode(response.body);
@@ -52,7 +52,7 @@ class News {
     //connects to the database;
     DatabaseHelper dbHelper = DatabaseHelper();
     String url =
-        "https://newsapi.org/v2/everything?q=$query&pageSize=25&apiKey=08827c58e5d341d98840478ad934fcd8";
+        "https://newsapi.org/v2/everything?q=$query&pageSize=25&apiKey=8e7a13b484d749b0ae127a968356a967";
     print(url);
     //08827c58e5d341d98840478ad934fcd8 - Extra API
     //8e7a13b484d749b0ae127a968356a967
