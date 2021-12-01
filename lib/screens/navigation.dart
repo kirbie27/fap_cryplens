@@ -65,6 +65,9 @@ class _NavigatorState extends State<NavigatorPage> {
           TextButton(
             onPressed: () {
               print('hello!');
+              //the conditions are used to inform the application which
+              //informatoin popup should be used. The "GlobalKey" was used as the popups are
+              //functions inside some child widgets of the Navigation page.
               if (_currentIndex == 0 && catalogKey.currentState != null)
                 catalogKey.currentState!.CatalogInstructions();
               else if (_currentIndex == 1 && pouchKey.currentState != null) {
@@ -97,22 +100,6 @@ class _NavigatorState extends State<NavigatorPage> {
                       : ManualPage(key: manualKey),
       bottomNavigationBar:
           NavBar(selectedIndex: _currentIndex, onTap: onTabTapped),
-    );
-  }
-}
-
-class checker extends StatelessWidget {
-  checker({required this.label});
-  String label;
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Text(
-          label,
-          style: TextStyle(color: Colors.white, fontSize: 25),
-        ),
-      ),
     );
   }
 }
