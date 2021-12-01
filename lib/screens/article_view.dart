@@ -5,7 +5,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleView extends StatefulWidget {
   final String articleURL;
-  ArticleView({required this.articleURL});
+  ArticleView({required this.articleURL}); //Gets the url from the news page
 
   @override
   _ArticleViewState createState() => _ArticleViewState();
@@ -23,6 +23,7 @@ class _ArticleViewState extends State<ArticleView> {
           children: [Text('CryptoPaper')],
         ),
         actions: [
+          //Only used to adjust the spacing of the appbar title
           Opacity(
             opacity: 0,
             child: Container(
@@ -36,7 +37,8 @@ class _ArticleViewState extends State<ArticleView> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: WebView(
-          javascriptMode: JavascriptMode.unrestricted,
+          javascriptMode: JavascriptMode
+              .unrestricted, //To make sure that the webview of the url is loaded
           initialUrl: widget.articleURL,
           onWebViewCreated: (WebViewController webViewController) {
             _completer.complete(webViewController);
