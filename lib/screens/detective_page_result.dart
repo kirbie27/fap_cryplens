@@ -81,8 +81,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                                   Expanded(
                                     flex: 1,
                                     child: Image(
-                                      image: NetworkImage(
-                                          "https://www.anime-planet.com/images/characters/199343.jpg?t=1599351958"),
+                                      image: NetworkImage(response.img),
                                     ),
                                   ),
                                   SizedBox(
