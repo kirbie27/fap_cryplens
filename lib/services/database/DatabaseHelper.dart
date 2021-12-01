@@ -145,6 +145,11 @@ class DatabaseHelper {
     //return await db.query();
   }
 
+  getCoinsFromDatabase() async {
+    final db = await getDatabase();
+    coins = await db.query('coins');
+  }
+
   getCoinsTableAtLoad() async {
     final db = await getDatabase();
     await createCoinsTable();

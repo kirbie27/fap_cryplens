@@ -38,8 +38,8 @@ class CatalogPageState extends State<CatalogPage> {
   void initState() {
     super.initState();
 
-    loading = false;
-    coins = DatabaseHelper.coins;
+    loading = true;
+    final dbHelper = DatabaseHelper();
     loader = start();
   }
 
@@ -91,8 +91,11 @@ class CatalogPageState extends State<CatalogPage> {
   }
 
   start() async {
+    await dbHelper.getCoinsFromDatabase();
+    coins = DatabaseHelper.coins;
     setState(() {
       loader = Future.value('started');
+      loading = false;
     });
   }
 

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 class DataService {
   late dynamic fromCoinGecko;
 
+  final tokenSnifferKey = '';
   getCoin(String text) async {
     //Future means data will be available at some time in the future
     //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
