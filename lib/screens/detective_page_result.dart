@@ -3,12 +3,12 @@ import 'package:cryplens/services/models/whitepaper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/services/models/detective_crypto_models.dart';
-import 'package:cryplens/services/detective_crypto_data_service.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:cryplens/services/models/whitepaper.dart';
 
 class ResultsPage extends StatelessWidget {
   ResultsPage({required this.response, required this.whitepaper});
+
+  //variables that contain the data from the api of the whitepaper and coingecko.
   WhitePaper whitepaper;
   CoinResponse response;
 
