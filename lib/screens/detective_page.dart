@@ -262,26 +262,15 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
     //Asynchronous code lets us fetch data over a network
     //await provides a declarative way to define asynchronous functions and use their result
     await _dataService.getCoin(search);
-    final response = _dataService.fromCoinGecko;
-    if (response != null) {
-      // print(_cityTextController.text);
-      print('Coin Name: ' + response.id);
-      print('Liquidity Score: ' + response.liquidityScore.toString());
-      print('Developer Score: ' + response.developerScore.toString());
-      print('Community Score: ' + response.communityScore.toString());
-      print('Coingecko Score: ' + response.coingeckoScore.toString());
-      print('Coingecko Rank: ' + response.coingeckoRank.toString());
-      print('Symbol: ' + response.symbol);
-      print('Vote Up Percentage: ' +
-          response.sentimentVoteUpPercentage.toString());
-      print('Vote Down Percentage: ' +
-          response.sentimentVoteDownPercentage.toString());
-
+    final coinData = _dataService.fromCoinGecko;
+    final whitePaper = _dataService.coinWhitePaper;
+    if (coinData != null) {
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ResultsPage(
-            response: response,
+            response: coinData,
+            whitepaper: whitePaper,
           ),
         ),
       );

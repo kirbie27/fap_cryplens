@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'models/detective_crypto_models.dart';
+import 'models/whitepaper.dart';
 import 'package:http/http.dart' as http;
 
 class DataService {
   late dynamic fromCoinGecko;
-
+  late dynamic coinWhitePaper;
   final tokenSnifferKey = '';
   getCoin(String text) async {
     //Future means data will be available at some time in the future
@@ -33,9 +34,30 @@ class DataService {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       fromCoinGecko = CoinResponse.fromJson(json);
+      await getWhitePaper(fromCoinGecko.symbol.toUpperCase());
+      //check for whitepaper and tokensniffer
     } else {
       fromCoinGecko = null;
+      coinWhitePaper = null;
     }
     print('tae');
+  }
+
+  getWhitePaper(String symbol) async {
+    var url = 'https://api.whitepaper.io/lookup?code=${symbol}';
+    var response = await http.get(Uri.parse(url));
+    final json = jsonDecode(response.body);
+    //print(response.statusCode);
+    //print(json is List);
+    if (json is List) {
+      //if list that means that the json returned the whitepaper of the specefic coin.
+      print('nahanap naman pweed mo ilagay sa object');
+      coinWhitePaper = WhitePaper(json[0]['name'], json[0]['documentUrl']);
+    } else {
+      coinWhitePaper = WhitePaper('BLANK', 'BLANK');
+      print('wala so blank lang ilagay mo');
+    }
+    print(coinWhitePaper.toString());
+    //print(response.body);
   }
 }
