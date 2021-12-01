@@ -1,4 +1,5 @@
 import 'package:cryplens/constants.dart';
+import 'package:cryplens/screens/navigation.dart';
 import 'package:cryplens/services/models/whitepaper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,16 @@ class ResultsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detective Crypto', style: detectiveCryptoText),
+        actions: [
+          IconButton(
+              onPressed: () {
+                NavigatorPage.fromSearch = true;
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    NavigatorPage.routeName, (route) => false,
+                    arguments: {'index': 2});
+              },
+              icon: Icon(Icons.close))
+        ],
       ),
       body: ResultsPageContent(
         response: response,
