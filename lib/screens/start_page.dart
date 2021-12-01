@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cryplens/constants.dart';
@@ -17,9 +16,6 @@ class _introState extends State<introPage> {
     prefs.clear();
   }
 
-  _introState() {
-    print('Time to get the name!');
-  }
   late String input;
   void setName(String name) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,8 +27,8 @@ class _introState extends State<introPage> {
     });
   }
 
-  String answer = 'no';
-
+  //functions that confirms the name of the user, if yes then name is added to preferences, if not then the box
+  //is just popped so the user can edit the fields.
   Future<void> _confirmInput() async {
     return showDialog<void>(
       context: context,
@@ -54,7 +50,6 @@ class _introState extends State<introPage> {
               child: Icon(FontAwesomeIcons.smile),
               onPressed: () {
                 setState(() {
-                  answer = 'yes';
                   Navigator.of(context).pop();
                   setName(input);
                 });
@@ -64,7 +59,6 @@ class _introState extends State<introPage> {
               child: Icon(FontAwesomeIcons.sadCry),
               onPressed: () {
                 setState(() {
-                  answer = 'no';
                   Navigator.of(context).pop();
                 });
               },
@@ -75,6 +69,7 @@ class _introState extends State<introPage> {
     );
   }
 
+  //dialogue box popup to inform user that input should not be a blank
   Future<void> _blankInput() async {
     return showDialog<void>(
       context: context,
@@ -96,7 +91,6 @@ class _introState extends State<introPage> {
               child: Icon(FontAwesomeIcons.thumbsUp),
               onPressed: () {
                 setState(() {
-                  answer = 'no';
                   Navigator.of(context).pop();
                 });
               },
