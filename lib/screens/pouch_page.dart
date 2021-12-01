@@ -1,13 +1,14 @@
 import 'package:cryplens/screens/coin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cryplens/constants.dart';
-import 'package:cryplens/widgets/NavBar.dart';
 import 'package:cryplens/user.dart';
 import 'package:cryplens/services/database/DatabaseHelper.dart';
 import 'package:cryplens/screens/navigation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-//dummy list of coins before api, you may change the number of generated coins
+//initial content of the favcoins list, as the first
+//item in the favcoins list should not be from the api, but a widget that redirects the user to
+//the catalog page.
 late List<dynamic> favcoins = [
   {'id': 0, 'name': '+', 'title': '', 'image': 'assets/images/AddIcon.png'}
 ];
@@ -18,6 +19,8 @@ class PouchPage extends StatefulWidget {
   PouchPageState createState() => PouchPageState();
 }
 
+//flag variable used to inform the app if the spinkit for loading should be displayed,
+//to allow data to be retrieved from the database.
 bool loading = true;
 
 class PouchPageState extends State<PouchPage> {
@@ -25,12 +28,14 @@ class PouchPageState extends State<PouchPage> {
   DatabaseHelper dbHelper = DatabaseHelper();
   late Future loader;
 
+  //loads the data so that the futurebuilder can display the loading
   void initState() {
     super.initState();
     loading = true;
     loader = getData();
   }
 
+  //popup for the pouch to inform the user on how to use the application.
   Future<void> PouchInstructions() async {
     return showDialog<void>(
       context: context,
@@ -76,10 +81,12 @@ class PouchPageState extends State<PouchPage> {
     );
   }
 
+  //function that gets the data from the database.
   getData() async {
     final holder = await dbHelper.getFavCoinsTable();
     print('hello pouch');
     setState(() {
+      //initially sets the first item on the list.
       favcoins = [
         {
           'id': 0,
@@ -88,8 +95,12 @@ class PouchPageState extends State<PouchPage> {
           'image': 'assets/images/AddIcon.png'
         }
       ];
+      //adds all the coins retrieved from the databae to the favcoins list so that it can be
+      //generated later.
       favcoins.addAll(holder);
       print(holder);
+
+      //sets a dummy future value to the loader to make the futurebuilder work.
       loader = Future.value(holder);
       loading = false;
     });
