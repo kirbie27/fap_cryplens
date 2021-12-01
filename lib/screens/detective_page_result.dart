@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/services/models/detective_crypto_models.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:cryplens/screens/navigation.dart';
 
 class ResultsPage extends StatelessWidget {
   ResultsPage({required this.response, required this.whitepaper});
@@ -18,6 +19,20 @@ class ResultsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detective Crypto', style: detectiveCryptoText),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {
+              NavigatorPage.fromSearch = true;
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  NavigatorPage.routeName, (route) => false,
+                  arguments: {'index': 2});
+            },
+            icon: Icon(
+              Icons.close,
+              color: kWhite,
+            ),
+          ),
+        ],
       ),
       body: ResultsPageContent(
         response: response,

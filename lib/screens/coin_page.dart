@@ -40,7 +40,7 @@ class _CoinPageState extends State<CoinPage> {
           ],
         ),
         actions: <Widget>[
-          TextButton(
+          IconButton(
             onPressed: () {
               if (coin['favCoinID'] != null) //From pouch page
               {
@@ -55,7 +55,7 @@ class _CoinPageState extends State<CoinPage> {
                     arguments: {'index': 0});
               }
             },
-            child: Icon(
+            icon: Icon(
               Icons.close,
               color: kWhite,
             ),
