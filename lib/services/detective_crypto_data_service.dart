@@ -8,24 +8,15 @@ class DataService {
   late dynamic coinWhitePaper;
   final tokenSnifferKey = '';
   getCoin(String text) async {
-    //Future means data will be available at some time in the future
-    //api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-    //api.coingecko.com/api/v3/coins/bitcoin
-
     final queryParameter = text.trim().toLowerCase().replaceAll(' ', '');
     final queryParameter2 = text.trim().toLowerCase().replaceAll(' ', '-');
-
-    //make an if else for queryParameter = null then incase below statement
 
     var uri = Uri.https('api.coingecko.com', '/api/v3/coins/$queryParameter');
 
     var response = await http.get(uri);
-    print('ok lang');
     if (response.statusCode == 200) {
       print('200');
-      //print(response.body);
     } else {
-      print('hindi 200 status code');
       uri = Uri.https('api.coingecko.com', '/api/v3/coins/$queryParameter2');
       print(queryParameter2);
       response = await http.get(uri);
@@ -34,9 +25,10 @@ class DataService {
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       fromCoinGecko = CoinResponse.fromJson(json);
+      //retrieve data for whitepaper and tokensniffer
       await getWhitePaper(fromCoinGecko.symbol.toUpperCase());
-      //check for whitepaper and tokensniffer
     } else {
+      //sets the variables to null to tell the application that there was no data returned by the api.
       fromCoinGecko = null;
       coinWhitePaper = null;
     }
@@ -47,15 +39,13 @@ class DataService {
     var url = 'https://api.whitepaper.io/lookup?code=${symbol}';
     var response = await http.get(Uri.parse(url));
     final json = jsonDecode(response.body);
-    //print(response.statusCode);
-    //print(json is List);
+
+    //checks if the json is a list to know if there is data returned by the api for the white paper
     if (json is List) {
       //if list that means that the json returned the whitepaper of the specefic coin.
-      print('nahanap naman pweed mo ilagay sa object');
       coinWhitePaper = WhitePaper(json[0]['name'], json[0]['documentUrl']);
     } else {
       coinWhitePaper = WhitePaper('BLANK', 'BLANK');
-      print('wala so blank lang ilagay mo');
     }
     print(coinWhitePaper.toString());
     //print(response.body);
