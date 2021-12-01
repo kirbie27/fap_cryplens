@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cryplens/services/models/detective_crypto_models.dart';
 import 'package:cryplens/services/detective_crypto_data_service.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ResultsPage extends StatelessWidget {
-  CoinResponse response;
   ResultsPage({required this.response});
+  CoinResponse response;
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +15,478 @@ class ResultsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Detective Crypto', style: detectiveCryptoText),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(left: 30.0, top: 10.0, right: 30.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Column(
-              children: <Widget>[],
+      body: ResultsPageContent(response: response),
+    );
+  }
+}
+
+class ResultsPageContent extends StatefulWidget {
+  ResultsPageContent({required this.response});
+  final CoinResponse response;
+
+  @override
+  _ResultsPageContentState createState() =>
+      _ResultsPageContentState(response: response);
+}
+
+class _ResultsPageContentState extends State<ResultsPageContent> {
+  _ResultsPageContentState({required this.response});
+  CoinResponse response;
+  late List<VotingData> _chartData;
+
+  void initState() {
+    _chartData = getChartData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(15.0),
+                      child: Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Flexible(
+                                  child: Text(
+                                    response.name,
+                                    style: TextStyle(
+                                      color: kWhite,
+                                      fontFamily: 'Spartan MB',
+                                      fontSize: 28.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Image(
+                                      image: NetworkImage(
+                                          "https://www.anime-planet.com/images/characters/199343.jpg?t=1599351958"),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Expanded(
+                                    flex: 8,
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Flexible(
+                                        child: Text(
+                                          response.symbol.toUpperCase(),
+                                          style: TextStyle(
+                                            color: kWhite,
+                                            fontFamily: 'Spartan MB',
+                                            fontSize: 24.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  response.coingeckoRank.toString(),
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  "Coingecko Rank",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  response.liquidityScore.toString(),
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  "Liquidity Score",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  response.developerScore.toString(),
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  "Developer Score",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  response.communityScore.toString(),
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  "Community Score",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  response.coingeckoScore.toString(),
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 25.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Center(
+                              child: Flexible(
+                                child: Text(
+                                  "Coingecko Score",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: kWhite,
+                                    fontFamily: 'Spartan MB',
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                      child: Center(
+                        child: SfCartesianChart(
+                          title: ChartTitle(
+                            text: "Approval Rating",
+                            textStyle: TextStyle(
+                              color: kWhite,
+                              fontFamily: 'Spartan MB',
+                              fontSize: 15.0,
+                            ),
+                          ),
+                          plotAreaBorderColor: Colors.transparent,
+                          series: <ChartSeries>[
+                            StackedBar100Series<VotingData, String>(
+                              dataSource: _chartData,
+                              xValueMapper: (VotingData exp, _) =>
+                                  exp.voteString,
+                              yValueMapper: (VotingData exp, _) =>
+                                  exp.voteUpPercentage,
+                            ),
+                            StackedBar100Series<VotingData, String>(
+                              dataSource: _chartData,
+                              xValueMapper: (VotingData exp, _) =>
+                                  exp.voteString,
+                              yValueMapper: (VotingData exp, _) =>
+                                  exp.voteDownPercentage,
+                            ),
+                          ],
+                          primaryXAxis: CategoryAxis(
+                            isVisible: false,
+                          ),
+                          primaryYAxis: NumericAxis(),
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    child: Center(
+                      child: Flexible(
+                        child: Text(
+                          "1",
+                          style: TextStyle(
+                            color: kWhite,
+                            fontFamily: 'Spartan MB',
+                            fontSize: 30.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: kGray,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  List<VotingData> getChartData() {
+    final List<VotingData> chartData = [
+      VotingData("Approval Rating", response.sentimentVoteUpPercentage,
+          response.sentimentVoteDownPercentage),
+    ];
+    return chartData;
+  }
+}
+
+class VotingData {
+  VotingData(this.voteString, this.voteUpPercentage, this.voteDownPercentage);
+  final String voteString;
+  final num voteUpPercentage;
+  final num voteDownPercentage;
 }
