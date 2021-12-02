@@ -81,7 +81,7 @@ class _NavigatorState extends State<NavigatorPage> {
             ),
           ),
         ],
-        backgroundColor: kGray,
+        backgroundColor: kNavyBlue,
       ),
       body: _currentIndex == 0
           ? CatalogPage(key: catalogKey)

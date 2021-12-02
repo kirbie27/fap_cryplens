@@ -61,7 +61,7 @@ class _CoinPageState extends State<CoinPage> {
             ),
           ),
         ],
-        backgroundColor: kGray,
+        backgroundColor: kNavyBlue,
       ),
       body: SafeArea(
         child: Padding(
@@ -172,7 +172,7 @@ class CoinContentState extends State<CoinContent> {
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: kGray,
+                              color: kNavyBlue,
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
@@ -208,7 +208,7 @@ class CoinContentState extends State<CoinContent> {
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: !favorite ? kGray : kBlue,
+                              color: !favorite ? kNavyBlue : kBlueGreen,
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
@@ -237,7 +237,7 @@ class CoinContentState extends State<CoinContent> {
                             ),
                           ),
                           decoration: BoxDecoration(
-                            color: kGray,
+                            color: kNavyBlue,
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
@@ -274,7 +274,7 @@ class CoinContentState extends State<CoinContent> {
                           //   ),
                           // ),
                           decoration: BoxDecoration(
-                            color: kGray,
+                            color: kNavyBlue,
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
@@ -300,12 +300,12 @@ class CoinContentState extends State<CoinContent> {
                           TextSpan(
                               text: '\$ ' +
                                   numberFormat.format(coin['coinTotalVolume']),
-                              style: TextStyle(color: kYellow)),
+                              style: TextStyle(color: kBlueGreen)),
                         ],
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -328,12 +328,12 @@ class CoinContentState extends State<CoinContent> {
                           TextSpan(
                               text: '\$ ' +
                                   numberFormat.format(coin['coinMarketCap']),
-                              style: TextStyle(color: kYellow)),
+                              style: TextStyle(color: kBlueGreen)),
                         ],
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -372,7 +372,7 @@ class CoinContentState extends State<CoinContent> {
                       child: Container(
                         child: Graph(),
                         decoration: BoxDecoration(
-                          color: kGray,
+                          color: kNavyBlue,
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),

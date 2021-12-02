@@ -21,7 +21,7 @@ class CryptoLens extends StatelessWidget {
           backgroundColor: Colors.black,
           centerTitle: true,
         ),
-        scaffoldBackgroundColor: kBlack,
+        scaffoldBackgroundColor: kBlackBlue,
       ),
       initialRoute: '/loader',
       routes: {

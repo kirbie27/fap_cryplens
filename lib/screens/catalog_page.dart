@@ -230,10 +230,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               ),
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0), color: kGray),
+                borderRadius: BorderRadius.circular(30.0), color: kNavyBlue),
           ),
           Material(
-            color: kGray,
+            color: kNavyBlue,
             borderRadius: BorderRadius.circular(30.0),
             child: IconButton(
               icon: Icon(
@@ -355,7 +355,7 @@ class _SortWidgetState extends State<SortWidget> {
                         ],
                       ),
                       decoration: BoxDecoration(
-                        color: kGray,
+                        color: kNavyBlue,
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -404,7 +404,7 @@ class _SortWidgetState extends State<SortWidget> {
                         ],
                       ),
                       decoration: BoxDecoration(
-                        color: kGray,
+                        color: kNavyBlue,
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -461,7 +461,7 @@ class _CoinListWidgetState extends State<CoinListWidget> {
               ),
             ),
             decoration: BoxDecoration(
-              color: kGray,
+              color: kNavyBlue,
               borderRadius: BorderRadius.circular(20),
             ),
           ),
@@ -580,7 +580,7 @@ class _CoinContainerState extends State<CoinContainer> {
             ],
           ),
           decoration: BoxDecoration(
-            color: kGray,
+            color: kNavyBlue,
             borderRadius: BorderRadius.circular(20),
           ),
         ),

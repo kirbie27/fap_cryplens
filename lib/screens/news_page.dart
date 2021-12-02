@@ -164,10 +164,11 @@ class NewsPageState extends State<NewsPage> {
                     ),
                   ),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0), color: kGray),
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: kNavyBlue),
                 ),
                 Material(
-                  color: kGray,
+                  color: kNavyBlue,
                   borderRadius: BorderRadius.circular(30.0),
                   child: IconButton(
                     // splashRadius: 19.0,

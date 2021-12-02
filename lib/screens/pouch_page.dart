@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //item in the favcoins list should not be from the api, but a widget that redirects the user to
 //the catalog page.
 late List<dynamic> favcoins = [
-  {'id': 0, 'name': '+', 'title': '', 'image': 'assets/images/AddIcon.png'}
+  {'id': 0, 'name': '+', 'title': '', 'image': 'assets/images/AddIconGreen.png'}
 ];
 
 class PouchPage extends StatefulWidget {
@@ -91,7 +91,7 @@ class PouchPageState extends State<PouchPage> {
           'id': 0,
           'name': 'Add Coin',
           'title': '',
-          'image': 'assets/images/AddIcon.png'
+          'image': 'assets/images/AddIconGreen.png'
         }
       ];
       //adds all the coins retrieved from the databae to the favcoins list so that it can be
@@ -191,7 +191,7 @@ class _CoinWidgetState extends State<CoinWidget> {
               ),
             ),
             decoration: BoxDecoration(
-              color: kGray,
+              color: kNavyBlue,
               borderRadius: BorderRadius.circular(20),
             ),
           ),
@@ -297,7 +297,7 @@ class _CoinContainerState extends State<CoinContainer> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                        color: kBlack,
+                        color: kBlackBlue,
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -307,7 +307,7 @@ class _CoinContainerState extends State<CoinContainer> {
             ),
           ),
           decoration: BoxDecoration(
-            color: kGray,
+            color: kNavyBlue,
             borderRadius: BorderRadius.circular(20),
           ),
         ),

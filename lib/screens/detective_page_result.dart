@@ -107,7 +107,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -152,7 +152,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -203,7 +203,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -247,7 +247,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -298,7 +298,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -342,7 +342,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ],
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -395,7 +395,7 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: kGray,
+                      color: kNavyBlue,
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -423,14 +423,14 @@ class _ResultsPageContentState extends State<ResultsPageContent> {
                 width: double.infinity,
                 padding: EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
-                  color: kGray,
+                  color: kNavyBlue,
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                       image: NetworkImage(
                           "https://images.unsplash.com/photo-1623276527153-fa38c1616b05?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"),
                       fit: BoxFit.cover,
                       colorFilter: new ColorFilter.mode(
-                          kGray.withOpacity(0.3), BlendMode.dstATop)),
+                          kNavyBlue.withOpacity(0.3), BlendMode.dstATop)),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

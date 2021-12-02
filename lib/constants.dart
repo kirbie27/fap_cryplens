@@ -38,13 +38,13 @@ const kButtonTextStyle = TextStyle(
 
 const kWhite = Color(0xccffffff);
 
-const kGray = Color(0xff292929);
+const kNavyBlue = Color(0xff132D46);
 
 const kGraySelected = Color(0xff8C8C8C);
 
 const kGraySearch = Color(0xffD0D0D0);
 
-const kBlack = Color(0xff121212);
+const kBlackBlue = Color(0xff191E29);
 
 const kDarkBlue = Color(0xff1C323F);
 
@@ -52,7 +52,7 @@ const kYellow = Color(0xffFFC619);
 
 const kBlue = Color(0xffb102A43);
 
-const kBlueGreen = Color(0xff32AA92);
+const kBlueGreen = Color(0xff01C38D);
 
 const kGreen = Color(0xff2abfa4);
 
@@ -73,7 +73,7 @@ const detectiveCryptoText =
 const detectiveCryptoPadding =
     EdgeInsets.only(left: 30.0, top: 25.0, right: 30.0);
 
-const detectiveCryptoIcon = Icon(Icons.check, color: Colors.white, size: 40.0);
+const detectiveCryptoIcon = Icon(Icons.check, color: kBlueGreen, size: 40.0);
 
 const detectiveCryptoResultText =
     TextStyle(fontSize: 25.0, fontFamily: 'DMSans', color: Colors.white);

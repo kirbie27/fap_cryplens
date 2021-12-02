@@ -53,13 +53,13 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: kGray,
+      backgroundColor: kNavyBlue,
       iconSize: 20,
       showSelectedLabels: false,
       selectedFontSize: 12,
       showUnselectedLabels: false,
       selectedItemColor: kWhite,
-      unselectedItemColor: kGraySelected,
+      unselectedItemColor: kBlueGreen,
       currentIndex: selectedIndex,
       onTap: onTap,
       items: [
@@ -72,7 +72,7 @@ class NavBar extends StatelessWidget {
             label: "Pouch",
             activeIcon: FaIcon(FontAwesomeIcons.wallet, size: 30)),
         BottomNavigationBarItem(
-            icon: Image.asset('assets/images/cryplensLOGOGRAY.png',
+            icon: Image.asset('assets/images/cryplensLOGOGREEN.png',
                 width: 30, height: 30),
             label: "Luna",
             activeIcon: Image.asset('assets/images/cryplensLOGO80.png',
