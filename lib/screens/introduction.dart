@@ -42,7 +42,7 @@ class Intro4 extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Image.asset('assets/images/intro4.png'),
+          child: Image.asset('assets/images/info4.png'),
         ),
         Container(
           color: Colors.transparent,
@@ -93,7 +93,7 @@ class Intro3 extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Image.asset('assets/images/intro3.png'),
+          child: Image.asset('assets/images/info3.png'),
         ),
         Container(
           color: Colors.transparent,
@@ -144,7 +144,7 @@ class Intro2 extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Image.asset('assets/images/intro2.png'),
+          child: Image.asset('assets/images/info2.png'),
         ),
         Container(
           color: Colors.transparent,
@@ -195,7 +195,7 @@ class Intro1 extends StatelessWidget {
     return Stack(
       children: [
         Center(
-          child: Image.asset('assets/images/intro1.png'),
+          child: Image.asset('assets/images/info1.png'),
         ),
         Container(
           color: Colors.transparent,
