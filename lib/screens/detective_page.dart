@@ -105,7 +105,7 @@ class DetectiveCryptoPage1State extends State<DetectiveCryptoPage1>
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         contentPadding: EdgeInsets.only(left: 55.0),
-                        labelText: 'Enter coin code...',
+                        labelText: 'Enter coin name...',
                         labelStyle: TextStyle(
                           color: Colors.white24,
                           fontSize: 17.0,
