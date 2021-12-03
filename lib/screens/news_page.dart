@@ -122,74 +122,7 @@ class NewsPageState extends State<NewsPage> {
       child: Column(
         children: [
           //Search Bar
-          Container(
-            //color: Colors.green,
-            alignment: Alignment.center,
-            margin: EdgeInsets.all(15.0),
-            child: Stack(
-              children: [
-                Container(
-                  height: 50,
-                  width: 500.0,
-                  alignment: Alignment.center,
-                  child: TextField(
-                    textInputAction: TextInputAction.search,
-                    onSubmitted: (value) {
-                      setState(() {
-                        loading = true;
-                      });
-                      getDataWithQuery(searchController.text);
-                      setState(() {
-                        searchController.clear();
-                      });
-                    },
-                    style: TextStyle(color: kWhite),
-                    enabled: !loading,
-                    controller: searchController,
-                    cursorWidth: 2.0,
-                    cursorColor: Colors.lightGreenAccent,
-                    focusNode: fn,
-                    decoration: InputDecoration(
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      contentPadding: EdgeInsets.only(left: 55.0),
-                      labelText: 'Search about crypto here',
-                      labelStyle: TextStyle(
-                        color: Colors.white24,
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: kNavyBlue),
-                ),
-                Material(
-                  color: kNavyBlue,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: IconButton(
-                    // splashRadius: 19.0,
-                    icon: Icon(
-                      Icons.search,
-                      color: kWhite,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        loading = true;
-                      });
-                      getDataWithQuery(searchController.text);
-                      setState(() {
-                        searchController.clear();
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          SearchBar(searchController, fn),
 
           //ARTICLES
           FutureBuilder(
@@ -240,6 +173,76 @@ class NewsPageState extends State<NewsPage> {
                 );
               }
             },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container SearchBar(TextEditingController searchController, FocusNode fn) {
+    return Container(
+      //color: Colors.green,
+      alignment: Alignment.center,
+      margin: EdgeInsets.all(15.0),
+      child: Stack(
+        children: [
+          Container(
+            height: 50,
+            width: 500.0,
+            alignment: Alignment.center,
+            child: TextField(
+              textInputAction: TextInputAction.search,
+              onSubmitted: (value) {
+                setState(() {
+                  loading = true;
+                });
+                getDataWithQuery(searchController.text);
+                setState(() {
+                  searchController.clear();
+                });
+              },
+              style: TextStyle(color: kWhite),
+              enabled: !loading,
+              controller: searchController,
+              cursorWidth: 2.0,
+              cursorColor: Colors.lightGreenAccent,
+              focusNode: fn,
+              decoration: InputDecoration(
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                contentPadding: EdgeInsets.only(left: 55.0),
+                labelText: 'Search about crypto here',
+                labelStyle: TextStyle(
+                  color: Colors.white24,
+                  fontSize: 17.0,
+                  fontWeight: FontWeight.w500,
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0), color: kNavyBlue),
+          ),
+          Material(
+            color: kNavyBlue,
+            borderRadius: BorderRadius.circular(30.0),
+            child: IconButton(
+              // splashRadius: 19.0,
+              icon: Icon(
+                Icons.search,
+                color: kWhite,
+              ),
+              onPressed: () {
+                setState(() {
+                  loading = true;
+                });
+                getDataWithQuery(searchController.text);
+                setState(() {
+                  searchController.clear();
+                });
+              },
+            ),
           ),
         ],
       ),
