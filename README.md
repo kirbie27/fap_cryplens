@@ -1,4 +1,4 @@
-# cryplens
+# Cryplens
 
 Cryplens, your mobile crypto detective. 
 
